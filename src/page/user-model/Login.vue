@@ -1,6 +1,25 @@
 <template>
   <div class="page">
-    <div class="top-area"></div>
+    <div class="top-area">
+      <vue-particles
+        color="#fff"
+        :particleOpacity="0.7"
+        :particlesNumber="8"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#fff"
+        :linesWidth="2"
+        :lineLinked="true"
+        :lineOpacity="0.36"
+        :linesDistance="600"
+        :moveSpeed="1"
+        :hoverEffect="false"
+        hoverMode="grab"
+        :clickEffect="false"
+        clickMode="push"
+        class="lizi"
+      ></vue-particles>
+    </div>
     <div class="login-content">
       <div class="content-top">
         <div class="logo">
@@ -11,15 +30,36 @@
       <div class="content-bottom">
         <div class="login-input-content">
           <div class="login-icon-container">
-            <i class="el-icon-paperclip"></i>
+            <img class="login-icon" src="./../../assets/icons/username.png" />
           </div>
-          <input type="text" maxlength="20" placeholder="请输入用户昵称" class="login-input" />
+          <input
+            type="text"
+            maxlength="20"
+            placeholder="请输入用户昵称"
+            class="login-input"
+            v-model="userName"
+          />
+          <div class="delate-icon-container">
+            <i v-show="userName.length > 0" class="el-icon-error" @click="clearName()"></i>
+          </div>
         </div>
-
+        <!-- <span>{{userName}}</span> -->
         <div class="login-input-content">
-          <input type="password" maxlength="20" placeholder="请输入账号密码" class="login-input" />
+          <div class="login-icon-container">
+            <img class="login-icon" src="./../../assets/icons/password.png" />
+          </div>
+          <input
+            type="password"
+            maxlength="20"
+            placeholder="请输入账号密码"
+            class="login-input"
+            v-model="userPass"
+          />
+          <div class="delate-icon-container">
+            <i v-show="userPass.length > 0" class="el-icon-error" @click="clearPass()"></i>
+          </div>
         </div>
-        <button class="login-btn">登录</button>
+        <button class="login-btn" @click="login()">登录</button>
       </div>
     </div>
   </div>
@@ -27,7 +67,27 @@
 
 <script>
 export default {
-  name: "Login"
+  name: "Login",
+  data() {
+    return {
+      userName: "",
+      userPass: ""
+    };
+  },
+
+  methods: {
+    login() {
+      alert(this.userName);
+    },
+
+    clearName() {
+      this.userName = "";
+    },
+
+    clearPass() {
+      this.userPass = "";
+    }
+  }
 };
 </script>
 
@@ -96,6 +156,7 @@ export default {
 }
 
 .content-bottom {
+  margin-top: -60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,22 +201,23 @@ export default {
   border-radius: 4px;
   transition: all ease-in 0.25s;
   padding-left: 50px;
+  /* padding-right: 50px; */
   font-size: 15px;
   color: #333;
 }
 
 .login-input:-moz-placeholder {
-  color: rgb(175, 173, 173);
+  color: rgb(173, 173, 173);
 }
 
 .login-input:hover {
-  border: 1px solid blue;
+  border: 1px solid red;
 }
 
 .login-input:active,
 .login-input:focus {
   border: 1px solid red;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 7px rgba(255, 0, 0, 0.1);
 }
 
 .login-icon-container {
@@ -168,5 +230,24 @@ export default {
   justify-content: center;
   align-items: center;
   /* background-color: #333 */
+}
+
+.delate-icon-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 52px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-icon {
+  width: 25px;
+}
+
+.delate-icon {
+  width: 25px;
 }
 </style>

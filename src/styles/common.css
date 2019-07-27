@@ -32,4 +32,11 @@ p {
     bottom: 0;
     left: 0;
 }
+
+i {
+    color: #adadad;
+    font-size: 18px;
+    opacity: 0.9;
+    transition: all ease 0.25s;
+}
 /* 测试分支 */
