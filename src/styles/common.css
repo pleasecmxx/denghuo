@@ -1,42 +1,56 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-span, p, h1, h2, h3, h4, div, button {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #666666;
-    box-sizing: border-box; 
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+div,
+button {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #666666;
+  box-sizing: border-box;
 }
 
 p {
-    margin: 4px 0px;
-    font-size: 14px;
-    color: #666666;
+  margin: 4px 0px;
+  font-size: 14px;
+  color: #666666;
 }
-
 
 .test {
-    background-color: #666666
+  background-color: #666666;
 }
 
-
-.frame-content{
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+.frame-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 i {
-    color: #adadad;
-    font-size: 18px;
-    opacity: 0.9;
-    transition: all ease 0.25s;
+  color: #adadad;
+  font-size: 18px;
+  opacity: 0.9;
+  transition: all ease 0.25s;
 }
 /* 测试分支 */
+
+.flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}

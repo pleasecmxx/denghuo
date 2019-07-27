@@ -78,6 +78,7 @@ export default {
   methods: {
     login() {
       alert(this.userName);
+      this.$router.push("/home");
     },
 
     clearName() {
