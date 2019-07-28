@@ -5,7 +5,44 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import { RootView, Login, Register, Home, Acount } from './../page'
+import {
+    Home,
+    Login,
+    Register,
+    RootView,
+    OperationAcountManagement,
+    DenghuoContentManagement,
+    DenghuoUserManagement,
+    Organization,
+    WenMingUserManagement,
+    ActivitiesManagement,
+    AdvertisingManagement,
+    SystemMsgManagement,
+    OrganizationCheckin,
+    OrganizationList,
+    DenghuoUserListManagement,
+    OwnerApplication,
+    DenghuoContentList,
+    DenghuoUserList,
+    OperationAcount,
+    OrganizationEnter,
+    SystemIndex,
+    WenMingUserList,
+    CreateUserAcount,
+    FrozenUserList,
+    InvalidationUserList,
+    NormalUserList,
+    OptionLog,
+    BackCashCheck,
+    BorrowCheck,
+    BusinesstripCheck,
+    InstructionsCheck,
+    LeaveCheck,
+    OrderCheck,
+    RefundCheck,
+    ReimbursementCheck,
+    VisitCheck
+} from './../page'
 
 
 
@@ -23,9 +60,9 @@ const router = new VueRouter({
                     component: Home,
                 },
                 {
-                    path: '/acount',
+                    path: '/operation-acount-management',
                     name: '账户',
-                    component: Acount
+                    component: OperationAcountManagement
                 }
             ]
         }, {

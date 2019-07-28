@@ -120,6 +120,7 @@ export default {};
   font-size: 18px;
   font-weight: 600;
   color: #E4E4E4;
+  letter-spacing: 1px;
 }
 
 .header-right {
