@@ -1,15 +1,12 @@
 <template>
-    <div>
-        账户
-    </div>
+    <router-view></router-view>
 </template>
 
 <script>
 export default {
-
-}
+  name: "OperationAcountManagement"
+};
 </script>
 
 <style>
-
 </style>

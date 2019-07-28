@@ -1,41 +1,41 @@
 <template>
   <div class="page">
     <div class="header">
-        <div class="header-left">
-          <div class="logo">
-            <img class="main-logo" src="./../assets/main-logo.png">
-          </div>
-          <div class="header-title">
-            <p class="header-title-text">文明社区后台管理系统</p>
-          </div>
+      <div class="header-left">
+        <div class="logo">
+          <img class="main-logo" src="./../assets/main-logo.png" />
         </div>
+        <div class="header-title">
+          <p class="header-title-text">文明社区后台管理系统</p>
+        </div>
+      </div>
 
-        <div class="header-right">
-          <div class="header-search-content">
-            <input class="search-input" type="text" placeholder="请输入关键词">
-            <div class="img-search">
-              <i class="el-icon-search"></i>
-            </div>
-          </div>
-          <div class="header-info">
-            <div class="header-info-items" title="待办事项">
-              <i class="el-icon-tickets"></i>
-              <p class="header-info-items-p">待办事项</p>
-            </div>
-            <div class="header-info-items" title="系统消息">
-              <i class="el-icon-message"></i>
-              <p class="header-info-items-p">消息</p>
-            </div>
-            <div class="header-info-items" title="一键锁屏">
-              <i class="el-icon-view"></i>
-              <p class="header-info-items-p">锁屏</p>
-            </div>
-            <div class="header-info-items">
-              <i class="el-icon-view"></i>
-              <p class="header-info-items-p">admin</p>
-            </div>
+      <div class="header-right">
+        <div class="header-search-content">
+          <input class="search-input" type="text" placeholder="请输入关键词" />
+          <div class="img-search">
+            <i class="el-icon-search"></i>
           </div>
         </div>
+        <div class="header-info">
+          <div class="header-info-items" title="待办事项">
+            <i class="el-icon-tickets"></i>
+            <p class="header-info-items-p">待办事项</p>
+          </div>
+          <div class="header-info-items" title="系统消息">
+            <i class="el-icon-message"></i>
+            <p class="header-info-items-p">消息</p>
+          </div>
+          <div class="header-info-items" title="一键锁屏">
+            <i class="el-icon-view"></i>
+            <p class="header-info-items-p">锁屏</p>
+          </div>
+          <div class="header-info-items">
+            <i class="el-icon-view"></i>
+            <p class="header-info-items-p">admin</p>
+          </div>
+        </div>
+      </div>
 
       <!-- <router-link tag="div" to="/login">登录</router-link> -->
     </div>
@@ -67,7 +67,28 @@
     </div>
 
     <div class="second-menu">
-
+      <div class="s-menu-line s-menu-top">
+        <i class="el-icon-menu"></i>
+        <span class="m-t-text">快捷菜单</span>
+      </div>
+      <router-link class="s-menu-line" tag="div" to="/SystemMsgManagement">
+          <span class="s-menu-text">系统首页</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/ActivitiesManagement">
+          <span class="s-menu-text">平台运营账户</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/AdvertisingManagement">
+        <span class="s-menu-text">灯火端用户列表</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/">      
+        <span class="s-menu-text">组织入驻审核</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/AdvertisingManagement">      
+        <span class="s-menu-text">灯火端内容列表</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/SystemMsgManagement">      
+        <span class="s-menu-text">文明端用户列表</span>
+      </router-link>
     </div>
 
     <div class="page-content">
@@ -119,7 +140,7 @@ export default {};
   width: 215px;
   font-size: 18px;
   font-weight: 600;
-  color: #E4E4E4;
+  color: #e4e4e4;
   letter-spacing: 1px;
 }
 
@@ -155,7 +176,8 @@ export default {};
   line-height: 26px;
 }
 
-.search-input::-webkit-input-placeholder { /* WebKit browsers */
+.search-input::-webkit-input-placeholder {
+  /* WebKit browsers */
   color: #fff;
   opacity: 0.7;
   font-size: 12px;
@@ -187,7 +209,6 @@ export default {};
 .header-info {
   padding-left: 10px;
   display: flex;
-  
 }
 
 .header-info-items {
@@ -206,7 +227,7 @@ export default {};
 }
 
 .header-info-items:hover > i,
-.header-info-items:hover > .header-info-items-p{
+.header-info-items:hover > .header-info-items-p {
   color: #ffffff;
   /* text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6); */
 }
@@ -249,10 +270,10 @@ export default {};
 
 .menu-text {
   font-size: 14px;
-  color: #bbbbbb
+  color: #bbbbbb;
 }
 
-.slider-menu:hover{
+.slider-menu:hover {
   background-color: rgb(65, 69, 82);
 }
 
@@ -272,7 +293,40 @@ export default {};
   top: 52px;
   bottom: 0;
   width: 150px;
-  background-color: #bbbbbb;
+  background-color: #f2f2f2;
   z-index: 99;
+}
+
+.s-menu-line {
+  width: 100%;
+  float: left;
+  line-height: 50px;
+  border-bottom: 1px solid #dcdcdc;
+  background: #f2f2f2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.s-menu-line:hover .s-menu-text{
+  color: #0079FE
+}
+
+.s-menu-top {
+  background: #f2f4f7;
+  text-align: center;
+}
+
+.s-menu-top i {
+  color: #000000;
+}
+
+.m-t-text {
+  padding: 0 0 0 10px;
+  color: #000000;
+}
+
+.s-menu-text{
+  font-size: 14px;
+  padding: 0 0 0 20px;
 }
 </style>
