@@ -1,5 +1,5 @@
 <template>
-  <div>灯火端组织管理 -组织入住审核</div>
+  <div>灯火端组织管理 -组织列表</div>
 </template>
 
 <script>

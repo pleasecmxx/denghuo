@@ -1,5 +1,5 @@
 <template>
-  <div>失效用户列表</div>
+  <div>平台运营账号管理   失效用户列表</div>
 </template>
 
 <script>

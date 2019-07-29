@@ -44,52 +44,54 @@
         <i class="el-icon-menu"></i>
         <p class="menu-text">快捷菜单</p>
       </router-link>
-      <router-link class="slider-menu" tag="div" to="/home">
+      <router-link class="slider-menu" tag="div" to="/operation-acount-management">
         <i class="el-icon-edit-outline"></i>
         <p class="menu-text">平台运营账号管理</p>
       </router-link>
-      <router-link class="slider-menu" tag="div" to="/home">
+      <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
         <i class="el-icon-mobile-phone"></i>
         <p class="menu-text">灯火端用户管理</p>
       </router-link>
-      <router-link class="slider-menu" tag="div" to="/home">
+      <router-link class="slider-menu" tag="div" to="/denghuo-organization-management">
         <i class="el-icon-document"></i>
         <p class="menu-text">灯火端组织管理</p>
       </router-link>
-      <router-link class="slider-menu" tag="div" to="/home">
+      <router-link class="slider-menu" tag="div" to="/denghuo-content-management">
         <i class="el-icon-printer"></i>
         <p class="menu-text">灯火端内容管理</p>
       </router-link>
-      <router-link class="slider-menu" tag="div" to="/home">
+      <router-link class="slider-menu" tag="div" to="/wenming-user-management">
         <i class="el-icon-edit"></i>
         <p class="menu-text">文明端用户管理</p>
       </router-link>
     </div>
 
-    <div class="second-menu">
-      <div class="s-menu-line s-menu-top">
-        <i class="el-icon-menu"></i>
-        <span class="m-t-text">快捷菜单</span>
-      </div>
-      <router-link class="s-menu-line" tag="div" to="/SystemMsgManagement">
-          <span class="s-menu-text">系统首页</span>
+    <!-- <div class="second-menu">
+      <router-link class="s-menu-line" tag="div" to="/home">
+        <div class="s-menu-line s-menu-top">
+          <i class="el-icon-menu"></i>
+          <span class="m-t-text">快捷菜单</span>
+        </div>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/ActivitiesManagement">
-          <span class="s-menu-text">平台运营账户</span>
+      <router-link class="s-menu-line" tag="div" to="/SystemIndex">
+        <span class="s-menu-text">系统首页</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/AdvertisingManagement">
+      <router-link class="s-menu-line" tag="div" to="/OperationAcount">
+        <span class="s-menu-text">平台运营账户</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/DenghuoUserList">
         <span class="s-menu-text">灯火端用户列表</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/">      
+      <router-link class="s-menu-line" tag="div" to="/OrganizationEnter">
         <span class="s-menu-text">组织入驻审核</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/AdvertisingManagement">      
+      <router-link class="s-menu-line" tag="div" to="/DenghuoContentList">
         <span class="s-menu-text">灯火端内容列表</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/SystemMsgManagement">      
+      <router-link class="s-menu-line" tag="div" to="/WenMingUserList">
         <span class="s-menu-text">文明端用户列表</span>
       </router-link>
-    </div>
+    </div> -->
 
     <div class="page-content">
       <!-- <p style="text-align: left">adhakdhkj</p> -->
@@ -114,6 +116,7 @@ export default {};
   z-index: 9999;
   display: flex;
   justify-content: space-between;
+  min-width: 1080px!important;
 }
 
 .header-left {
@@ -255,6 +258,7 @@ export default {};
   background-color: rgba(51, 55, 68);
   z-index: 999;
   padding-top: 52px;
+  min-height: 800px;
 }
 
 .slider-menu {
@@ -283,11 +287,11 @@ export default {};
   text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
 }
 
-/* .slider-menu.router-link-exact-active.router-link-active {
+.slider-menu.router-link-exact-active.router-link-active {
   background-color: black
-} */
+}
 
-.second-menu {
+/* .second-menu {
   position: fixed;
   left: 80px;
   top: 52px;
@@ -301,14 +305,13 @@ export default {};
   width: 100%;
   float: left;
   line-height: 50px;
-  border-bottom: 1px solid #dcdcdc;
   background: #f2f2f2;
   text-align: left;
   cursor: pointer;
 }
 
-.s-menu-line:hover .s-menu-text{
-  color: #0079FE
+.s-menu-line:hover .s-menu-text {
+  color: #0079fe;
 }
 
 .s-menu-top {
@@ -325,8 +328,8 @@ export default {};
   color: #000000;
 }
 
-.s-menu-text{
+.s-menu-text {
   font-size: 14px;
   padding: 0 0 0 20px;
-}
+} */
 </style>

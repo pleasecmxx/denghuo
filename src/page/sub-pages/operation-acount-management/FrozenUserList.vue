@@ -1,5 +1,5 @@
 <template>
-  <div>冻结用户列表</div>
+  <div>平台运营账号管理   冻结用户列表</div>
 </template>
 
 <script>

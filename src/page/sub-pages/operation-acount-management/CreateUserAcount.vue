@@ -1,5 +1,5 @@
 <template>
-  <div>新建管理账户</div>
+  <div>平台运营账号管理  新建管理账户</div>
 </template>
 
 <script>

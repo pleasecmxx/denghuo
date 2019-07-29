@@ -1,5 +1,5 @@
 <template>
-    <div>系统首页</div>
+    <div>快捷菜单  系统首页</div>
 </template>
 
 <script>
