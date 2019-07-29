@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  min-width: 1080px!important;
+  min-width: 1700px!important;
   min-height: 800px!important;
   overflow-y:  auto;
 }
@@ -47,6 +47,7 @@ i {
   font-size: 18px;
   opacity: 0.9;
   transition: all ease 0.25s;
+  cursor: pointer;
 }
 /* 测试分支 */
 
@@ -65,7 +66,7 @@ i {
   left: 230px;
   width: 100%;
   height: 100%;
-  background-color: #999999
+  background-color: rgba(240, 242, 245)
 }
 
 .second-menu {
@@ -74,22 +75,25 @@ i {
   top: 52px;
   bottom: 0;
   width: 150px;
-  background-color: #f2f2f2;
+  background-color: rgba(234, 237, 241, 0.6);
   z-index: 99;
+  border-right: 1px solid #d9d9d9
 }
 
 .s-menu-line {
   width: 100%;
-  float: left;
   line-height: 50px;
   /* border-bottom: 1px solid #dcdcdc; */
   background: #f2f2f2;
   text-align: left;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .s-menu-line:hover .s-menu-text {
   color: #0079fe;
+  cursor: pointer;
 }
 
 .s-menu-top {
@@ -98,11 +102,10 @@ i {
 }
 
 .s-menu-top i {
-  color: #000000;
+  color: #666666
 }
 
 .m-t-text {
-  padding: 0 0 0 10px;
   color: #666666;
   font-size: 14px;
   font-weight: 700;
@@ -110,9 +113,13 @@ i {
 
 .s-menu-text {
   font-size: 14px;
-  padding: 0 0 0 20px;
+  transition: all ease 0.25s;
 }
 
 .s-menu-line.router-link-exact-active.router-link-active {
   background-color: #fff;
+}
+
+.router-link {
+  cursor: pointer;
 }

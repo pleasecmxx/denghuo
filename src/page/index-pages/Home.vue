@@ -1,7 +1,7 @@
 <template>
   <div class="my-content flex">
     <div class="second-menu">
-      <router-link class="s-menu-line" tag="div" to="/home">
+      <router-link class="s-menu-line" tag="div" to="/SystemIndex">
         <div class="s-menu-line s-menu-top">
           <i class="el-icon-menu"></i>
           <span class="m-t-text">快捷菜单</span>

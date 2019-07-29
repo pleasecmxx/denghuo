@@ -288,7 +288,7 @@ export default {};
 }
 
 .slider-menu.router-link-exact-active.router-link-active {
-  background-color: black
+  background-color: rgb(65, 69, 82)
 }
 
 /* .second-menu {
