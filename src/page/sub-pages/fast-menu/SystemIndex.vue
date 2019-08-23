@@ -60,13 +60,7 @@
         <div class="content-bottom-box">
           <div class="content-top-box-header flex">
             <p class="content-top-box-header-title">运营数据</p>
-            <el-select v-model="value" placeholder="请选择">
-              <!-- <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>-->
+            <el-select v-model="value" placeholder="请选择" size="small">
               <el-option>今天</el-option>
               <el-option>昨天</el-option>
               <el-option>本周</el-option>
@@ -125,35 +119,208 @@
         <div class="content-bottom-box">
           <div class="content-top-box-header flex">
             <p class="content-top-box-header-title">系统消息</p>
+            <div class="content-top-box-header-botton">
+              <button class="btn" @click="msgBoxShow = true">
+                <i class="el-icon-plus i-btn"></i>
+                <p class="btn-text">发布新消息</p>
+              </button>
+
+              <button class="btn">
+                <p class="btn-text">查看更多</p>
+                <i class="el-icon-arrow-right i-btn"></i>
+              </button>
+            </div>
           </div>
-          <div class="content-bottom-box-body flex">
-            <table>
-                <tr>
-                    <td>消息内容</td>
-                    <td>消息内容</td>
+          <div class="content-bottom-box-body flex padding">
+            <vuescroll style :ops="ops">
+              <table class="bottom-table">
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
                 </tr>
-                <tr>
-                    <td>消息内容</td>
-                    <td>消息内容</td>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
                 </tr>
-                <tr>
-                    <td>消息内容</td>
-                    <td>消息内容</td>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
                 </tr>
-                <tr>
-                    <td>消息内容</td>
-                    <td>消息内容</td>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
                 </tr>
-            </table>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
+                </tr>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
+                </tr>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
+                </tr>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
+                </tr>
+                <tr class="table-tr">
+                  <td class="news">
+                    <p class="p-news">消息内容</p>
+                  </td>
+                  <td class="time">
+                    <i class="el-icon-time"></i>
+                    <p class="p-time">2019-04-10 09:00</p>
+                  </td>
+                </tr>
+              </table>
+            </vuescroll>
+
+            <!-- <el-table show-header="false" class="bottom-table" :data="tableData" style="width: 100%">
+              <el-table-column prop="date" label="日期" width="180"></el-table-column>
+              <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+              <el-table-column prop="address" label="地址"></el-table-column>
+            </el-table>-->
           </div>
         </div>
       </div>
     </div>
+    <el-dialog
+      title="发布公告"
+      :visible.sync="msgBoxShow"
+      width="50%"
+      :before-close="handleClose"
+      :modal-append-to-body="false"
+    >
+      <div class="msgBox">
+        <div class="select">
+          <p>选择栏目：</p>
+          <el-select size="small" v-model="value" placeholder="请选择">
+            <el-option
+              v-for="sl in selectCategory"
+              :key="sl.value"
+              :label="sl.label"
+              :value="sl.value"
+            ></el-option>
+          </el-select>
+        </div>
+        <div class="select">
+          <p>公告标题：</p>
+          <el-input v-model="input" placeholder="请输入内容"></el-input>
+        </div>
+        <quill-editor></quill-editor>
+        <!-- <div class="select">
+          <quill-editor></quill-editor>
+        </div>-->
+      </div>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="msgBoxShow = false">取 消</el-button>
+        <el-button type="primary" @click="msgBoxShow = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-export default {};
+import vuescroll from "vuescroll";
+import { quillEditor } from "vue-quill-editor";
+export default {
+  components: {
+    vuescroll,
+    "quill-editor": quillEditor
+  },
+  data() {
+    return {
+      msgBoxShow: false,
+      selectCategory: [
+        { value: "", label: "企业动态" },
+        { value: "", label: "内部分享" },
+        { value: "", label: "热点新闻" }
+      ],
+      input: "",
+      ops: {
+        vuescroll: {},
+        scrollPanel: {},
+        rail: {},
+        bar: {
+          size: "4px",
+          opacity: 0.6,
+          background: "#999"
+        }
+      },
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1517 弄"
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1519 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
+        }
+      ]
+    };
+  },
+  methods: {
+    handleClose(done) {
+      done();
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -225,11 +392,12 @@ export default {};
   height: 100%;
 
   /* background-color: #fff; */
-  overflow-y: auto;
+  overflow-y: hidden;
+  /* overflow-x: hidden; */
 }
 
 .content-top {
-  width: 100%;
+  width: calc(100% - 5px);
   height: 200px;
   justify-content: space-between;
   align-items: center;
@@ -286,7 +454,7 @@ export default {};
 }
 
 .content-bottom {
-  width: 100%;
+  width: calc(100% - 5px);
   height: 400px;
   justify-content: space-between;
   align-items: center;
@@ -328,5 +496,128 @@ export default {};
   /* line-height: 48px; */
   font-size: 28px;
   margin-top: 20px;
+}
+
+.bottom-table {
+  /* show-header: false; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  align-self: flex-start;
+  margin: 0;
+  /* padding: 0 13px; */
+}
+
+.table-tr {
+  /* height: 45px; */
+  display: flex;
+  justify-content: space-between;
+  padding: 0 13px;
+  border-bottom: 1px solid #ececec;
+}
+
+.news {
+  height: 45px;
+  width: 428px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.news:hover > .p-news {
+  opacity: 0.6;
+}
+
+.time {
+  width: 156px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.el-icon-time {
+  margin-right: 5px;
+}
+
+.p-news {
+  font-weight: 700;
+  transition: all ease 0.25s;
+}
+
+.p-time {
+  font-size: 13px;
+  color: #999999;
+}
+
+.content-top-box-header-botton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: -24px;
+}
+
+.btn {
+  width: 90px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 13px;
+  background-color: #ffffff;
+  border: 1px solid #e7e7e7;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all ease 0.25s;
+}
+
+.btn:hover > i,
+.btn:hover > p {
+  color: #0079fe;
+}
+
+.btn:hover {
+  border: 1px solid #0079fe;
+  box-shadow: 0 0 2px #0079fe;
+}
+
+.btn-text {
+  font-size: 12px;
+  color: #666666;
+  margin: 1px;
+  transition: all ease 0.25s;
+}
+
+.i-btn {
+  font-size: 14px;
+  transition: all ease 0.25s;
+}
+
+.padding {
+  padding: 0;
+}
+
+.msgBox {
+  height: 400px;
+  /* background-color: #0079fe; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.select {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.el-input {
+  width: 400px;
 }
 </style>
