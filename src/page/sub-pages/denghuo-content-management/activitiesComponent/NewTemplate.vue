@@ -22,7 +22,7 @@
           <el-input v-model="ruleForm.personNum" style="width:350px;" placeholder="请输入人数"></el-input>
         </el-form-item>
         <el-form-item label="活动开始时间" prop="startTime" size="small">
-          <el-input v-model="ruleForm.startTime" style="width:350px;" placeholder="请输入活动开始时间"></el-input>
+          <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="选择日期时间" style="width:350px;"></el-date-picker>
         </el-form-item>
         <el-form-item label="活动时长" prop="actvityTime" size="small">
           <el-input v-model="ruleForm.actvityTime" style="width:350px;" placeholder="请输入活动时长"></el-input>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      value1:"",
       ruleForm: {
         title: "",
         personNum: "",
@@ -66,7 +67,6 @@ export default {
         ],
         startTime: [
           { required: true, message: "请输入活动开始时间", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         actvityTime: [
           { required: true, message: "请输入活动时长", trigger: "blur" },
@@ -82,6 +82,13 @@ export default {
   methods: {
     open(options) {
       this.dialogVisible = true;
+      this.ruleForm = {
+        title: "",
+        personNum: "",
+        startTime: "",
+        actvityTime: "",
+        status: ""
+      };
     },
     handleClose(done) {
       this.$confirm("确认关闭？")
@@ -93,6 +100,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          debugger;
           alert("submit!");
         } else {
           console.log("error submit!!");

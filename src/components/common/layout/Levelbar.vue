@@ -5,7 +5,8 @@
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
           <span v-if="!item.redirect||index==levelList.length-1">{{item.name}}</span>
-          <router-link v-else :to="item.redirect||item.path">{{item.name}}</router-link>
+          <i v-else-if ="(item.redirect||item.path)&&item.name=='主界面'" class="el-icon-s-home"></i>
+          <router-link v-else-if="item.redirect||item.path" :to="item.redirect||item.path">{{item.name}}</router-link>
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
