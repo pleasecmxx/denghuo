@@ -10,8 +10,11 @@
       <router-link class="s-menu-line" tag="div" to="/OwnerApplication">
         <span class="s-menu-text">业主申请审核</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/DenghuoUserListManagement">
+       <router-link class="s-menu-line" tag="div" to="/UsersList">
         <span class="s-menu-text">用户列表</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/DenghuoUserListManagement">
+        <span class="s-menu-text">用户详情</span>
       </router-link>
     </div>
     <router-view></router-view>

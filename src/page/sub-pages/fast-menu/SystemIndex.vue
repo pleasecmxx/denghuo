@@ -1,6 +1,6 @@
 <template>
   <div class="inner-content flex">
-    <div class="top-menu">
+    <!-- <div class="top-menu">
       <div class="top-left">
         <p class="top-text">首页</p>
         <i class="el-icon-arrow-right"></i>
@@ -12,7 +12,8 @@
         <i class="el-icon-arrow-left"></i>
         <i class="el-icon-refresh-left"></i>
       </div>
-    </div>
+    </div>-->
+    <Levelbar />
 
     <div class="content-area">
       <div class="content-top flex">
@@ -265,12 +266,14 @@
 </template>
 
 <script>
+import Levelbar from "./../../../components/common/layout/Levelbar";
 import vuescroll from "vuescroll";
 import { quillEditor } from "vue-quill-editor";
 export default {
   components: {
     vuescroll,
-    "quill-editor": quillEditor
+    "quill-editor": quillEditor,
+    Levelbar
   },
   data() {
     return {

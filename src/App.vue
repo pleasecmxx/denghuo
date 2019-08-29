@@ -8,7 +8,7 @@
 // import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: "app",
+  name: "app"
   // components: {
   //   HelloWorld
   // }
@@ -21,4 +21,7 @@ export default {
   padding: 0;
   background-color: #fff;
 }
+</style>
+<style>
+@import "./assets/styles/common.css";
 </style>

@@ -12,6 +12,8 @@ const AdvertisingManagement = () => import('./sub-pages/denghuo-content-manageme
 const SystemMsgManagement = () => import('./sub-pages/denghuo-content-management/SystemMsgManagement.vue')
 const OrganizationCheckin = () => import('./sub-pages/denghuo-organization-management/OrganizationCheckin.vue')
 const OrganizationList = () => import('./sub-pages/denghuo-organization-management/OrganizationList.vue')
+const OrganizationDetails =()=>import('./sub-pages/denghuo-organization-management/OrganizationDetails.vue')
+const UsersList = () => import('./sub-pages/denghuo-user-management/UsersList.vue')
 const DenghuoUserListManagement = () => import('./sub-pages/denghuo-user-management/DenghuoUserListManagement.vue')
 const OwnerApplication = () => import('./sub-pages/denghuo-user-management/OwnerApplication.vue')
 const DenghuoContentList = () => import('./sub-pages/fast-menu/DenghuoContentList.vue')
@@ -51,6 +53,8 @@ export {
     SystemMsgManagement,
     OrganizationCheckin,
     OrganizationList,
+    OrganizationDetails,
+    UsersList,
     DenghuoUserListManagement,
     OwnerApplication,
     DenghuoContentList,

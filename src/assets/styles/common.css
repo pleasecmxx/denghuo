@@ -42,13 +42,13 @@ p {
   left: 0;
 }
 
-i {
+/* i {
   color: #adadad;
   font-size: 18px;
   opacity: 0.9;
   transition: all ease 0.25s;
   cursor: pointer;
-}
+} */
 /* 测试分支 */
 
 .flex {
@@ -144,3 +144,27 @@ i {
 /* .el-input {
   width: 200px;
 } */
+
+.app-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-body {
+  position: absolute;
+  top: 68px;
+  bottom: 20px;
+  left: 20px;
+  right: 250px;
+  overflow: hidden;
+}
+
+.el-tabs__content{
+  height: 100%;
+}

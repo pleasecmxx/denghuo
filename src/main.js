@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router/router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import './styles/common.css';
+// import './styles/common.css';
 import VueParticles from 'vue-particles'  
 // import vuescroll from 'vuescroll';
 import VueQuillEditor from 'vue-quill-editor'

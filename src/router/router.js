@@ -20,6 +20,8 @@ import {
     SystemMsgManagement,
     OrganizationCheckin,
     OrganizationList,
+    OrganizationDetails,
+    UsersList,
     DenghuoUserListManagement,
     OwnerApplication,
     DenghuoContentList,
@@ -122,14 +124,20 @@ const router = new VueRouter({
                     path: '/denghuo-user-management',
                     name: '灯火端用户管理',
                     component: DenghuoUserManagement,
+                    redirect: '/OwnerApplication',
                     children: [
                         {
                             path: '/OwnerApplication',
                             name: '业主申请审核',
                             component: OwnerApplication,
+                        }
+                        , {
+                            path: '/UsersList',
+                            name: '用户列表',
+                            component: UsersList,
                         }, {
                             path: '/DenghuoUserListManagement',
-                            name: '用户列表',
+                            name: '用户详情',
                             component: DenghuoUserListManagement,
                         }
                     ]
@@ -137,21 +145,27 @@ const router = new VueRouter({
                     path: '/denghuo-organization-management',
                     name: '灯火端组织管理',
                     component: Organization,
+                    redirect: '/OrganizationCheckin',
                     children: [
                         {
                             path: '/OrganizationCheckin',
-                            name: '组织入住审核',
+                            name: '组织入驻审核',
                             component: OrganizationCheckin,
                         }, {
                             path: '/OrganizationList',
                             name: '组织列表',
                             component: OrganizationList,
+                        },{
+                            path:'/OrganizationDetails',
+                            name:'组织详情',
+                            component:OrganizationDetails
                         }
                     ]
                 }, {
                     path: '/denghuo-content-management',
                     name: '灯火端内容管理',
                     component: DenghuoContentManagement,
+                    redirect: '/AdvertisingManagement',
                     children: [
                         {
                             path: '/AdvertisingManagement',
