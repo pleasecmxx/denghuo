@@ -8,7 +8,7 @@
         </div>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/NormalUserList">
-        <span class="s-menu-text">在用账户列表</span>
+        <span class="s-menu-text">平台账户列表</span>
       </router-link>
       <!-- <router-link class="s-menu-line" tag="div" to="/FrozenUserList">
         <span class="s-menu-text">冻结账户列表</span>

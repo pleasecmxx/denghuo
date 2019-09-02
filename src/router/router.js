@@ -13,6 +13,8 @@ import {
     OperationAcountManagement,
     DenghuoContentManagement,
     DenghuoUserManagement,
+    CivilizationAcountManagement,
+    CivilizationContentManagement,
     Organization,
     WenMingUserManagement,
     ActivitiesManagement,
@@ -21,12 +23,19 @@ import {
     OrganizationCheckin,
     OrganizationList,
     OrganizationDetails,
+    AreaAcountManagement,
+    AreaNormalUserList,
+    IndustryCommittee,
+    SocialOrganization,
+    WorkbenchManagement,
+    TransactionManagement,
     UsersList,
     DenghuoUserListManagement,
     OwnerApplication,
     DenghuoContentList,
     DenghuoUserList,
     OperationAcount,
+    AreaAcount,
     OrganizationEnter,
     SystemIndex,
     WenMingUserList,
@@ -43,7 +52,7 @@ import {
     OrderCheck,
     RefundCheck,
     ReimbursementCheck,
-    VisitCheck
+    VisitCheck,
 } from './../page'
 
 
@@ -71,6 +80,11 @@ const router = new VueRouter({
                             path: '/OperationAcount',
                             name: "平台运营账户",
                             component: OperationAcount
+                        },
+                        {
+                            path: '/AreaAcount',
+                            name: "地区运营账户",
+                            component: AreaAcount
                         },
                         {
                             path: '/DenghuoUserList',
@@ -101,7 +115,7 @@ const router = new VueRouter({
                     children: [
                         {
                             path: '/NormalUserList',
-                            name: '在用账户列表',
+                            name: '账户列表',
                             component: NormalUserList,
                         }, {
                             path: '/FrozenUserList',
@@ -119,6 +133,18 @@ const router = new VueRouter({
                             path: '/OptionLog',
                             name: '操作日志',
                             component: OptionLog,
+                        },
+                    ]
+                }, {
+                    path: '/area-acount-management',
+                    name: '地区运营账号管理',
+                    component: AreaAcountManagement,
+                    redirect: '/AreaNormalUserList',
+                    children: [
+                        {
+                            path: '/AreaNormalUserList',
+                            name: '账户列表',
+                            component: AreaNormalUserList,
                         },
                     ]
                 }, {
@@ -156,10 +182,10 @@ const router = new VueRouter({
                             path: '/OrganizationList',
                             name: '组织列表',
                             component: OrganizationList,
-                        },{
-                            path:'/OrganizationDetails',
-                            name:'组织详情',
-                            component:OrganizationDetails
+                        }, {
+                            path: '/OrganizationDetails',
+                            name: '组织详情',
+                            component: OrganizationDetails
                         }
                     ]
                 }, {
@@ -225,7 +251,41 @@ const router = new VueRouter({
                             component: VisitCheck,
                         }
                     ]
-                }
+                },{
+                    path: '/civilization-acount-management',
+                    name: '文明端账户管理',
+                    component: CivilizationAcountManagement,
+                    redirect: '/IndustryCommittee',
+                    children: [
+                        {
+                            path: '/IndustryCommittee',
+                            name: '业委会工作台审核',
+                            component: IndustryCommittee,
+                        },
+                        {
+                            path: '/SocialOrganization',
+                            name: '社会组织工作台审核',
+                            component: SocialOrganization,
+                        },
+                        {
+                            path: '/WorkbenchManagement',
+                            name: '工作台管理',
+                            component: WorkbenchManagement,
+                        },
+                    ]
+                },{
+                    path: '/civilization-content-management',
+                    name: '文明端内容管理',
+                    component: CivilizationContentManagement,
+                    redirect: '/TransactionManagement',
+                    children: [
+                        {
+                            path: '/TransactionManagement',
+                            name: '事务管理',
+                            component: TransactionManagement,
+                        },
+                    ]
+                },
             ]
         }, {
             path: '/login',

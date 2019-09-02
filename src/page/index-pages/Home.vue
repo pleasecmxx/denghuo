@@ -13,6 +13,9 @@
       <router-link class="s-menu-line" tag="div" to="/OperationAcount">
         <span class="s-menu-text">平台运营账户</span>
       </router-link>
+      <router-link class="s-menu-line" tag="div" to="/AreaAcount">
+        <span class="s-menu-text">地区运营账户</span>
+      </router-link>
       <router-link class="s-menu-line" tag="div" to="/DenghuoUserList">
         <span class="s-menu-text">灯火端用户列表</span>
       </router-link>

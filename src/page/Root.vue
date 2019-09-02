@@ -48,6 +48,10 @@
         <i class="el-icon-edit-outline"></i>
         <p class="menu-text">平台运营账号管理</p>
       </router-link>
+      <router-link class="slider-menu" tag="div" to="/area-acount-management">
+        <i class="el-icon-edit-outline"></i>
+        <p class="menu-text">地区运营账号管理</p>
+      </router-link>
       <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
         <i class="el-icon-mobile-phone"></i>
         <p class="menu-text">灯火端用户管理</p>
@@ -60,7 +64,15 @@
         <i class="el-icon-printer"></i>
         <p class="menu-text">灯火端内容管理</p>
       </router-link>
-      <router-link class="slider-menu" tag="div" to="/wenming-user-management">
+      <!-- <router-link class="slider-menu" tag="div" to="/wenming-user-management">
+        <i class="el-icon-edit"></i>
+        <p class="menu-text">文明端用户管理</p>
+      </router-link>-->
+      <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
+        <i class="el-icon-edit"></i>
+        <p class="menu-text">文明端用户管理</p>
+      </router-link>
+      <router-link class="slider-menu" tag="div" to="/civilization-content-management">
         <i class="el-icon-edit"></i>
         <p class="menu-text">文明端用户管理</p>
       </router-link>

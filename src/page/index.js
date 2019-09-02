@@ -3,8 +3,11 @@ const Register = () => import('./user-model/Register.vue')
 const Home = () => import('./index-pages/Home.vue')
 const RootView = () => import('./Root.vue')
 const OperationAcountManagement = () => import('./index-pages/OperationAcountManagement.vue')
-const DenghuoContentManagement = () => import('./index-pages/DenghuoContentManagement.vue') 
+const DenghuoContentManagement = () => import('./index-pages/DenghuoContentManagement.vue')
 const DenghuoUserManagement = () => import('./index-pages/DenghuoUserManagement.vue')
+const AreaAcountManagement = () => import('./index-pages/AreaAcountManagement.vue')
+const CivilizationAcountManagement = () => import('./index-pages/CivilizationAcountManagement.vue')
+const CivilizationContentManagement = () => import('./index-pages/CivilizationContentManagement.vue')
 const Organization = () => import('./index-pages/Organization.vue')
 const WenMingUserManagement = () => import('./index-pages/WenMingUserManagement.vue')
 const ActivitiesManagement = () => import('./sub-pages/denghuo-content-management/ActivitiesManagement.vue')
@@ -12,13 +15,14 @@ const AdvertisingManagement = () => import('./sub-pages/denghuo-content-manageme
 const SystemMsgManagement = () => import('./sub-pages/denghuo-content-management/SystemMsgManagement.vue')
 const OrganizationCheckin = () => import('./sub-pages/denghuo-organization-management/OrganizationCheckin.vue')
 const OrganizationList = () => import('./sub-pages/denghuo-organization-management/OrganizationList.vue')
-const OrganizationDetails =()=>import('./sub-pages/denghuo-organization-management/OrganizationDetails.vue')
+const OrganizationDetails = () => import('./sub-pages/denghuo-organization-management/OrganizationDetails.vue')
 const UsersList = () => import('./sub-pages/denghuo-user-management/UsersList.vue')
 const DenghuoUserListManagement = () => import('./sub-pages/denghuo-user-management/DenghuoUserListManagement.vue')
 const OwnerApplication = () => import('./sub-pages/denghuo-user-management/OwnerApplication.vue')
 const DenghuoContentList = () => import('./sub-pages/fast-menu/DenghuoContentList.vue')
 const DenghuoUserList = () => import('./sub-pages/fast-menu/DenghuoUserList.vue')
 const OperationAcount = () => import('./sub-pages/fast-menu/OperationAcount.vue')
+const AreaAcount = () => import('./sub-pages/fast-menu/AreaAcount.vue')
 const OrganizationEnter = () => import('./sub-pages/fast-menu/OrganizationEnter.vue')
 const SystemIndex = () => import('./sub-pages/fast-menu/SystemIndex.vue')
 const WenMingUserList = () => import('./sub-pages/fast-menu/WenMingUserList.vue')
@@ -36,9 +40,13 @@ const OrderCheck = () => import('./sub-pages/wenming-user-management/OrderCheck.
 const RefundCheck = () => import('./sub-pages/wenming-user-management/RefundCheck.vue')
 const ReimbursementCheck = () => import('./sub-pages/wenming-user-management/ReimbursementCheck.vue')
 const VisitCheck = () => import('./sub-pages/wenming-user-management/VisitCheck.vue')
+const AreaNormalUserList = () => import('./sub-pages/area-acount-management/AreaNormalUserList.vue')
+const IndustryCommittee = () => import('./sub-pages/civilization-acount-management/IndustryCommittee.vue')
+const WorkbenchManagement = () => import('./sub-pages/civilization-acount-management/WorkbenchManagement.vue')
+const SocialOrganization = () => import('./sub-pages/civilization-acount-management/SocialOrganization.vue')
+const TransactionManagement = () => import('./sub-pages/civilization-content-management/TransactionManagement.vue')
 
-
-export {                                                                           
+export {
     Home,
     Login,
     Register,
@@ -46,6 +54,9 @@ export {
     OperationAcountManagement,
     DenghuoContentManagement,
     DenghuoUserManagement,
+    AreaAcountManagement,
+    CivilizationAcountManagement,
+    CivilizationContentManagement,
     Organization,
     WenMingUserManagement,
     ActivitiesManagement,
@@ -54,12 +65,18 @@ export {
     OrganizationCheckin,
     OrganizationList,
     OrganizationDetails,
+    AreaNormalUserList,
+    IndustryCommittee,
+    WorkbenchManagement,
+    SocialOrganization,
+    TransactionManagement,
     UsersList,
     DenghuoUserListManagement,
     OwnerApplication,
     DenghuoContentList,
     DenghuoUserList,
     OperationAcount,
+    AreaAcount,
     OrganizationEnter,
     SystemIndex,
     WenMingUserList,
@@ -76,5 +93,5 @@ export {
     OrderCheck,
     RefundCheck,
     ReimbursementCheck,
-    VisitCheck
+    VisitCheck,
 }
