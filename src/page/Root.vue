@@ -91,7 +91,7 @@
       <router-link class="s-menu-line" tag="div" to="/WenMingUserList">
         <span class="s-menu-text">文明端用户列表</span>
       </router-link>
-    </div> -->
+    </div>-->
 
     <div class="page-content">
       <!-- <p style="text-align: left">adhakdhkj</p> -->
@@ -101,7 +101,57 @@
 </template>
 
 <script>
-export default {};
+import { setInterval, setTimeout } from "timers";
+export default {
+  data() {
+    return {
+      timer: null,
+      messageList: [
+        {
+          message: "消息1"
+        },
+        {
+          message: "消息2"
+        },
+        {
+          message: "消息3"
+        },
+        {
+          message: "消息4"
+        },
+        {
+          message: "消息5"
+        },
+        {
+          message: "消息6"
+        }
+      ]
+    };
+  },
+  mounted() {
+    // this.message();
+  },
+  methods: {
+    message() {
+      let i = -1;
+      if (this.timer) return;
+      setInterval(() => {
+        if (i < this.messageList.length - 1) {
+          i++;
+          this.$notify({
+            title: "消息",
+            message: this.messageList[i].message,
+            position: "bottom-right",
+            type: "warning",
+            duration: 6000
+          });
+        } else {
+          i = -1;
+        }
+      }, 2000);
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -116,7 +166,7 @@ export default {};
   z-index: 9999;
   display: flex;
   justify-content: space-between;
-  min-width: 1080px!important;
+  min-width: 1080px !important;
 }
 
 .header-left {
@@ -288,7 +338,7 @@ export default {};
 }
 
 .slider-menu.router-link-exact-active.router-link-active {
-  background-color: rgb(65, 69, 82)
+  background-color: rgb(65, 69, 82);
 }
 
 /* .second-menu {

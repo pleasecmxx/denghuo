@@ -10,7 +10,7 @@
       <router-link class="s-menu-line" tag="div" to="/NormalUserList">
         <span class="s-menu-text">在用账户列表</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/FrozenUserList">
+      <!-- <router-link class="s-menu-line" tag="div" to="/FrozenUserList">
         <span class="s-menu-text">冻结账户列表</span>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/InvalidationUserList">
@@ -21,7 +21,7 @@
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/OptionLog">
         <span class="s-menu-text">操作日志</span>
-      </router-link>
+      </router-link> -->
     </div>
     <router-view></router-view>
   </div>

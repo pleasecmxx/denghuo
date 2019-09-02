@@ -1,4 +1,4 @@
-<!--活动模板管理-->
+<!--活动管理-->
 <template>
   <div class="tableStyle">
     <div class="searchBox">

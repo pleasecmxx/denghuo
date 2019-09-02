@@ -97,6 +97,7 @@ const router = new VueRouter({
                     path: '/operation-acount-management',
                     name: '平台运营账号管理',
                     component: OperationAcountManagement,
+                    redirect: '/NormalUserList',
                     children: [
                         {
                             path: '/NormalUserList',

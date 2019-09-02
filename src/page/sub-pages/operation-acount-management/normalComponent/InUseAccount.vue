@@ -1,9 +1,18 @@
-<!--业主大会组织-->
+<!--在用账户-->
+<!--游客列表-->
 <template>
   <div class="tableStyle">
     <div class="searchBox">
       <span>
         <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:500px;"></el-input>
+        <el-select v-model="search.status" placeholder="用户状态" style="margin-left:10px;">
+          <el-option
+            v-for="(item,index) in options"
+            :key="index"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
       </span>
       <span style="margin-left:50px;">
         <el-button type="primary" @click="searchWord">
@@ -17,15 +26,9 @@
       </span>
     </div>
     <div class="file">
-      <el-button type="primary">
-        <span style="color:#fff;">导出</span>
-      </el-button>
-      <el-button type="primary">
-        <span style="color:#fff;">导入</span>
-      </el-button>
-      <el-button type="primary">
+      <el-button type="primary" @click="add">
         <i class="el-icon-plus" style="color:#fff;"></i>
-        <span style="color:#fff;">新增</span>
+        <span style="color:#fff;">新建</span>
       </el-button>
     </div>
     <el-table
@@ -40,61 +43,66 @@
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="orgnzation" label="组织名称" show-overflow-tooltip>
+      <el-table-column label="账户名称">
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.orgnzation}}</span>
+          <span style="color:#0079fe;">{{scope.row.name}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="orgnzationPosition" label="组织位置" show-overflow-tooltip>
+      <el-table-column label="账号" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.orgnzationPosition}}</span>
+          <span style="color:#0079fe;">{{scope.row.account}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="组织备案文件" width="120">
+      <el-table-column label="管理区域" show-overflow-tooltip>
         <template slot-scope="scope">
-          <u>{{scope.row.filingDocument}}</u>
+          <span style="color:#0079fe;">{{scope.row.managmentArea}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="组织属性" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.attribute}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="组织状态" show-overflow-tooltip>
+      <el-table-column prop="accountStatus" label="账户状态" show-overflow-tooltip>
         <template slot-scope="scope">
           <span class="status">
             <span
-              :style="{backgroundColor:scope.row.status===1?'#4BD863':scope.row.status===2?'#FEC03D':'#FF3B31'}"
+              :style="{backgroundColor:scope.row.accountStatus===1?'#4BD863':scope.row.accountStatus===2?'#FEC03D':'#FF3B31'}"
               class="point"
             ></span>
             <span
               style="margin-left:10px;"
-            >{{scope.row.status===1?"有效":scope.row.status===2?"冻结":"失效"}}</span>
+            >{{scope.row.accountStatus===1?"有效":scope.row.accountStatus===2?"冻结":"失效"}}</span>
           </span>
         </template>
       </el-table-column>
-      <el-table-column prop="joinTime" label="组织入驻时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="timeTo" label="有效期至" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="operating" label="操作" show-overflow-tooltip width="400">
+      <el-table-column label="联系方式" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span @click="look(scope.$index, scope.row)" style="color:#0079fe;">
-            <i class="el-icon-chat-line-round" />
-            查看
+          <span style="color:#0079fe;">{{scope.row.phone}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="lastEdit" label="最后编辑人" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="timeTo" label="有效期至" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="operating" label="操作" show-overflow-tooltip width="500">
+        <template slot-scope="scope">
+          <span style="margin-left:10px;" @click="look(scope.$index, scope.row)">
+            <i class="el-icon-chat-line-round" style="color:#0079fe;"></i>
+            <span style="color:#0079fe;">查看</span>
           </span>
-          <span @click="operation(scope.$index, scope.row)" style="color:#0079fe;margin-left:10px;">
-            <i class="el-icon-chat-line-round" />
-            操作日志
+          <span style="margin-left:10px;" @click="openDary(scope.$index, scope.row)">
+            <i class="el-icon-chat-line-round" style="color:#0079fe;"></i>
+            <span style="color:#0079fe;">操作日志</span>
           </span>
-          <span @click="extend(scope.$index, scope.row)" style="color:#0079fe;margin-left:10px;">
-            <i class="el-icon-edit" />
-            延长有效期
+          <span style="margin-left:10px;" @click="extend(scope.$index, scope.row)">
+            <i class="el-icon-edit" style="color:#0079fe;"></i>
+            <span style="color:#0079fe;">延长有效期</span>
           </span>
-          <span @click="freeze(scope.$index, scope.row)" style="color:#0079fe;margin-left:10px;">
-            <i class="el-icon-edit" />
-            冻结
+          <span style="margin-left:10px;" @click="thaw(scope.$index, scope.row)">
+            <i class="el-icon-edit" style="color:#0079fe;"></i>
+            <span style="color:#0079fe;">解冻账户</span>
           </span>
-          <span @click="remove(scope.$index, scope.row)" style="color:#0079fe;margin-left:10px;">
-            <i class="el-icon-delete" />删除
+          <span style="margin-left:10px;" @click="edit(scope.$index, scope.row)">
+            <i class="el-icon-edit" style="color:#0079fe;"></i>
+            <span style="color:#0079fe;">编辑</span>
+          </span>
+          <span style="margin-left:10px;" @click="remove(scope.$index, scope.row)">
+            <i class="el-icon-delete" style="color:#0079fe;"></i>
+            <span style="color:#0079fe;">删除</span>
           </span>
         </template>
       </el-table-column>
@@ -109,7 +117,6 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu>
-            <!-- 存在疑问需求没清楚 -->
             <el-dropdown-item command="1">置顶记录</el-dropdown-item>
             <el-dropdown-item command="2">删除记录</el-dropdown-item>
           </el-dropdown-menu>
@@ -127,20 +134,29 @@
           :total="search.total"
         ></el-pagination>
       </div>
+      <editDialog ref="editDialog" />
+      <Operationlog ref="Operationlog" />
     </div>
   </div>
 </template>
 <script>
+import editDialog from "./../editDialog/editDialog";
+import Operationlog from "./../operationlog/Operationlog"; //操作日志
+
 export default {
-  name: "OwnersMeeting",
-  components: {},
+  name: "InUseAccount",
+  components: {
+    editDialog,
+    Operationlog
+  },
   data() {
     return {
       search: {
         pageNo: 1,
         pageSize: 10,
         total: 5,
-        keyWord: ""
+        keyWord: "",
+        status: ""
       },
       pagingState: true,
       value: "更多操作",
@@ -164,64 +180,44 @@ export default {
       ],
       tableData: [
         {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          attribute: "业主大会组织/民非组织/基层党支部",
-          status: 1,
-          joinTime: "2019-06-20",
-          timeTo: "2020-06-20",
-          id: 1
+          id: 1,
+          name: "某某",
+          account: "0001",
+          managmentArea: "长沙",
+          accountStatus: 1,
+          phone: "13657448974",
+          lastEdit: "某负责人",
+          timeTo: "2019-10-10"
         },
         {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          attribute: "业主大会组织/民非组织/基层党支部",
-          status: 2,
-          joinTime: "2019-06-20",
-          timeTo: "2020-06-20",
-          id: 2
+          id: 2,
+          name: "某某",
+          account: "0001",
+          managmentArea: "长沙",
+          accountStatus: 2,
+          phone: "13657448974",
+          lastEdit: "某负责人",
+          timeTo: "2019-10-10"
         },
         {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          attribute: "业主大会组织/民非组织/基层党支部",
-          status: 3,
-          joinTime: "2019-06-20",
-          timeTo: "2020-06-20",
-          id: 3
+          id: 3,
+          name: "某某",
+          account: "0001",
+          managmentArea: "长沙",
+          accountStatus: 2,
+          phone: "13657448974",
+          lastEdit: "某负责人",
+          timeTo: "2019-10-10"
         },
         {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          attribute: "业主大会组织/民非组织/基层党支部",
-          status: 4,
-          joinTime: "2019-06-20",
-          timeTo: "2020-06-20",
-          id: 4
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          attribute: "业主大会组织/民非组织/基层党支部",
-          status: 5,
-          joinTime: "2019-06-20",
-          timeTo: "2020-06-20",
-          id: 5
+          id: 4,
+          name: "某某",
+          account: "0001",
+          managmentArea: "长沙",
+          accountStatus: 3,
+          phone: "13657448974",
+          lastEdit: "某负责人",
+          timeTo: "2019-10-10"
         }
       ],
       multipleSelection: []
@@ -271,12 +267,17 @@ export default {
     },
     clear() {
       this.$set(this.search, "keyWord", "");
+      this.$set(this.search, "status", "");
       this.query();
     },
     query() {
       if (this.pagingState) {
         this.search.pageNo = 1;
       }
+    },
+    // 新建
+    add() {
+      this.$refs.editDialog.open();
     },
     // 删除当前项
     remove(index, row) {
@@ -287,10 +288,12 @@ export default {
         }
       });
     },
-    look(index, row){},
-    operation(index, row){},
-    extend(index, row){},
-    freeze(index, row){},
+    openDary(index, row) {
+      this.$refs.Operationlog.open();
+    },
+    extend(index, row) {},
+    thaw(index, row) {},
+    edit(index, row) {},
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
