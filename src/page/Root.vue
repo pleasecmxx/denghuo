@@ -70,11 +70,11 @@
       </router-link>-->
       <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
         <i class="el-icon-edit"></i>
-        <p class="menu-text">文明端用户管理</p>
+        <p class="menu-text">文明端账户管理</p>
       </router-link>
       <router-link class="slider-menu" tag="div" to="/civilization-content-management">
         <i class="el-icon-edit"></i>
-        <p class="menu-text">文明端用户管理</p>
+        <p class="menu-text">文明端内容管理</p>
       </router-link>
     </div>
 

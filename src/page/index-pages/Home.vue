@@ -10,7 +10,16 @@
       <router-link class="s-menu-line" tag="div" to="/SystemIndex">
         <span class="s-menu-text">系统首页</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/OperationAcount">
+      <router-link class="s-menu-line" tag="div" to="/ModifyData">
+        <span class="s-menu-text">修改资料</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/ModifyPassWord">
+        <span class="s-menu-text">修改密码</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/ModifyAvatar">
+        <span class="s-menu-text">修改头像</span>
+      </router-link>
+      <!-- <router-link class="s-menu-line" tag="div" to="/OperationAcount">
         <span class="s-menu-text">平台运营账户</span>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/AreaAcount">
@@ -27,7 +36,7 @@
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/WenMingUserList">
         <span class="s-menu-text">文明端用户列表</span>
-      </router-link>
+      </router-link>-->
     </div>
     <router-view></router-view>
   </div>

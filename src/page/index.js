@@ -22,6 +22,9 @@ const OwnerApplication = () => import('./sub-pages/denghuo-user-management/Owner
 const DenghuoContentList = () => import('./sub-pages/fast-menu/DenghuoContentList.vue')
 const DenghuoUserList = () => import('./sub-pages/fast-menu/DenghuoUserList.vue')
 const OperationAcount = () => import('./sub-pages/fast-menu/OperationAcount.vue')
+const ModifyData = () => import('./sub-pages/fast-menu/ModifyData.vue')
+const ModifyAvatar = () => import('./sub-pages/fast-menu/ModifyAvatar.vue')
+const ModifyPassWord = () => import('./sub-pages/fast-menu/ModifyPassWord.vue')
 const AreaAcount = () => import('./sub-pages/fast-menu/AreaAcount.vue')
 const OrganizationEnter = () => import('./sub-pages/fast-menu/OrganizationEnter.vue')
 const SystemIndex = () => import('./sub-pages/fast-menu/SystemIndex.vue')
@@ -76,6 +79,9 @@ export {
     DenghuoContentList,
     DenghuoUserList,
     OperationAcount,
+    ModifyData,
+    ModifyAvatar,
+    ModifyPassWord,
     AreaAcount,
     OrganizationEnter,
     SystemIndex,

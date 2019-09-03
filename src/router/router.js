@@ -35,6 +35,9 @@ import {
     DenghuoContentList,
     DenghuoUserList,
     OperationAcount,
+    ModifyData,
+    ModifyPassWord,
+    ModifyAvatar,
     AreaAcount,
     OrganizationEnter,
     SystemIndex,
@@ -75,6 +78,21 @@ const router = new VueRouter({
                             path: '/SystemIndex',
                             name: "系统首页",
                             component: SystemIndex
+                        },
+                        {
+                            path: '/ModifyData',
+                            name: '修改资料',
+                            component: ModifyData,
+                        },
+                        {
+                            path: '/ModifyPassWord',
+                            name: '修改密码',
+                            component: ModifyPassWord,
+                        },
+                        {
+                            path: '/ModifyAvatar',
+                            name: '修改头像',
+                            component: ModifyAvatar
                         },
                         {
                             path: '/OperationAcount',
@@ -251,7 +269,7 @@ const router = new VueRouter({
                             component: VisitCheck,
                         }
                     ]
-                },{
+                }, {
                     path: '/civilization-acount-management',
                     name: '文明端账户管理',
                     component: CivilizationAcountManagement,
@@ -273,7 +291,7 @@ const router = new VueRouter({
                             component: WorkbenchManagement,
                         },
                     ]
-                },{
+                }, {
                     path: '/civilization-content-management',
                     name: '文明端内容管理',
                     component: CivilizationContentManagement,
