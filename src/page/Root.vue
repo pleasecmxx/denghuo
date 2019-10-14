@@ -40,7 +40,7 @@
               <router-link to="/ModifyData">
                 <el-dropdown-item command="4">修改资料</el-dropdown-item>
               </router-link>
-              <router-link to="/ModifyPassWord">
+              <router-link to="/ModifyAvatar">
                 <el-dropdown-item command="3">修改头像</el-dropdown-item>
               </router-link>
               <router-link to="/ModifyPassWord">
@@ -196,24 +196,7 @@ export default {
       }, 2000);
     },
     handleCommand(command) {
-      switch (command) {
-        case "1":
-          // 修改资料
-          this.$router.push({ name: "/home/ModifyData", params: {} }); // -> /user/123
-          break;
-        case "2":
-          // 修改头像
 
-          break;
-        case "3":
-          // 修改密码
-
-          break;
-        case "4":
-          // 退出登录
-
-          break;
-      }
     }
   }
 };

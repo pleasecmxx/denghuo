@@ -101,6 +101,8 @@
   </div>
 </template>
 <script>
+import { getReviewOrganizations } from "./../../../../utils/api";
+
 export default {
   name: "Auditrecord",
   components: {},
@@ -205,6 +207,13 @@ export default {
     };
   },
   watch: {},
+  mounted:function() {
+    getReviewOrganizations().then(e=>{
+      console.log("+++",e);
+      
+    })
+    
+  },
   methods: {
     toggleSelection(rows) {
       if (rows) {

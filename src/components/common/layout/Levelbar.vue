@@ -28,11 +28,8 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      console.log( this.$route);
-      
       let matched = this.$route.matched.filter(item => item.name);
-      console.log(matched);
-      
+
       const first = matched[0];
       this.levelList = matched;
     }
