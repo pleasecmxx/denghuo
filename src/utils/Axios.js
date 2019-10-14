@@ -15,7 +15,10 @@ const Axios = {
 
 const request = async (url, data = {}, method) => {
   console.log(data);
-
+  let params = {}
+  if (method == 'GET') {
+    params = data
+  }
 
   // 开始请求
   try {
@@ -26,6 +29,7 @@ const request = async (url, data = {}, method) => {
         "Content-Type": "application/json"
       },
       url,
+      params: params,
       data: data,
       baseURL: BaseUrl,
       timeout: 3000,
