@@ -30,10 +30,25 @@
             <i class="el-icon-view"></i>
             <p class="header-info-items-p">锁屏</p>
           </div>
-          <div class="header-info-items">
-            <i class="el-icon-view"></i>
-            <p class="header-info-items-p">admin</p>
-          </div>
+
+          <el-dropdown class="header_right" @command="handleCommand">
+            <div class="header-info-items el-dropdown-link header_right">
+              <i class="el-icon-view"></i>
+              <p class="header-info-items-p">admin</p>
+            </div>
+            <el-dropdown-menu slot="dropdown" style="header_right el-dropdown-menu">
+              <router-link to="/ModifyData">
+                <el-dropdown-item command="4">修改资料</el-dropdown-item>
+              </router-link>
+              <router-link to="/ModifyPassWord">
+                <el-dropdown-item command="3">修改头像</el-dropdown-item>
+              </router-link>
+              <router-link to="/ModifyPassWord">
+                <el-dropdown-item command="2">修改密码</el-dropdown-item>
+              </router-link>
+              <el-dropdown-item command="1">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
 
@@ -104,7 +119,6 @@
         <span class="s-menu-text">文明端用户列表</span>
       </router-link>
     </div>-->
-
     <div class="page-content">
       <!-- <p style="text-align: left">adhakdhkj</p> -->
       <router-view></router-view>
@@ -137,7 +151,26 @@ export default {
         {
           message: "消息6"
         }
-      ]
+      ],
+      options: [
+        {
+          value: "选项1",
+          label: "修改资料"
+        },
+        {
+          value: "选项2",
+          label: "修改头像"
+        },
+        {
+          value: "选项3",
+          label: "修改密码"
+        },
+        {
+          value: "选项4",
+          label: "退出登录"
+        }
+      ],
+      value: ""
     };
   },
   mounted() {
@@ -161,12 +194,37 @@ export default {
           i = -1;
         }
       }, 2000);
+    },
+    handleCommand(command) {
+      switch (command) {
+        case "1":
+          // 修改资料
+          this.$router.push({ name: "/home/ModifyData", params: {} }); // -> /user/123
+          break;
+        case "2":
+          // 修改头像
+
+          break;
+        case "3":
+          // 修改密码
+
+          break;
+        case "4":
+          // 退出登录
+
+          break;
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+
+a {
+  text-decoration: none;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -283,6 +341,10 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.header_right {
+  width: 120px;
 }
 
 .header-info-items-p {
