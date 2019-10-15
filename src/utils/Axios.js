@@ -1,58 +1,66 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BaseUrl = "http://120.77.178.7:3000"
+let defaultConfig = {
+  baseUrl: 'http://120.77.178.7:3000/mock/47',
+  timeout: 50000,
+  headers: {
+    "Content-Type": "application/json"
+  }
+};
 
-/**
- */
-const Axios = {
-  post: async (url, data) => {
-    return request(url, data, 'POST');
-  },
-  get: async (url, data) => {
-    return request(url, data, 'GET');
-  },
-}
+let instance = axios;
+let baseUrl = defaultConfig.baseUrl;
+class Axios {
 
-const request = async (url, data = {}, method) => {
-  console.log(data);
-  let params = {}
-  if (method == 'GET') {
-    params = data
+  constructor(props) {
+    instance = axios.create(defaultConfig);
   }
 
-  // 开始请求
-  try {
-    return axios({
-      method,
-      headers: {
-        token: "",
-        "Content-Type": "application/json"
-      },
-      url,
-      params: params,
-      data: data,
-      baseURL: BaseUrl,
-      timeout: 3000,
-    }).then(response => {
-      console.log(response);
-
-      return response.data;
-
-    }).catch(error => {
-      console.log('axios-error1:', error);
-
-    });
-  } catch (error) {
-    console.log('axios-error2:', error);
+  async get(url) {
+    return this.get(url, null)
   }
+
+  async get(url, params = {}) {
+    try {
+      let response = null;
+      console.log(baseUrl + url)
+      console.log(params);
+      response = await instance.get(baseUrl + url, { params });
+      if (response.data.success) {
+
+      }
+      if (response.data.result) {
+        return response.data.result
+      } else {
+        alert("网络错误，请重试")
+      }
+    } catch (e) {
+      console.log(e);
+      return null
+    }
+  }
+
+  async post(url) {
+    return this.post(url, null, true, true)
+  }
+
+  async post(url, params) {
+    try {
+      console.log(baseUrl + url)
+      console.log(params);
+      let response = await instance.post(baseUrl + url, params);
+      if (response.data.result) {
+        return response.data.result
+      } else {
+        alert("网络错误，请重试")
+      }
+    } catch (e) {
+
+      console.log(e);
+      return null
+    }
+  }
+
 }
 
-const obj2formdata = (data) => {
-  let result = new FormData();
-  for (let prop in data) {
-    result.append(prop, data[prop]);
-  }
-  return result;
-}
-
-export default Axios;
+export default new Axios();

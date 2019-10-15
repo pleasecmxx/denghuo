@@ -28,14 +28,14 @@
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="orgnzation" label="组织名称" show-overflow-tooltip>
+      <el-table-column prop="name" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.orgnzation}}</span>
+          <span style="color:#0079fe;">{{scope.row.name}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="orgnzationPosition" label="组织位置" show-overflow-tooltip>
+      <el-table-column prop="latitude" label="组织位置" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.orgnzationPosition}}</span>
+          <span style="color:#0079fe;">{{scope.row.latitude}},{{scope.row.longitude}}</span>
         </template>
       </el-table-column>
       <el-table-column label="组织备案文件" width="120">
@@ -45,7 +45,7 @@
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.applicant}}</span>
+          <span style="color:#0079fe;">{{scope.row.applyUserName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人证明文件" show-overflow-tooltip>
@@ -53,11 +53,11 @@
           <u>{{scope.row.certifiedDocuments}}</u>
         </template>
       </el-table-column>
-      <el-table-column prop="applyTime" label="申请时间" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
       <el-table-column prop="dealTime" label="处理时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="result" label="处理结果" show-overflow-tooltip>
+      <el-table-column prop="state" label="处理结果" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.result===1?"同意":"驳回"}}</span>
+          <span>{{scope.row.state===1?"同意":"驳回"}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="operator" label="操作人员" show-overflow-tooltip></el-table-column>
@@ -73,7 +73,7 @@
       <div>
         <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
         <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-dropdown style="margin-left:10px;" @command="handleCommand">
+        <!-- <el-dropdown style="margin-left:10px;" @command="handleCommand">
           <el-button style="width:105px;">
             更多操作
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -83,7 +83,7 @@
             <el-dropdown-item command="2">驳回</el-dropdown-item>
             <el-dropdown-item command="3">删除</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown> -->
       </div>
       <div>
         <el-pagination
@@ -101,6 +101,8 @@
   </div>
 </template>
 <script>
+import { getReviewOrganizations } from "./../../../../utils/api";
+
 export default {
   name: "AuditHistory",
   components: {},
@@ -127,85 +129,30 @@ export default {
           result: 0,
           operator: "老叶",
           id: 1
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 1,
-          operator: "老叶",
-          id: 2
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 0,
-          operator: "老叶",
-          id: 3
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 1,
-          operator: "老叶",
-          id: 4
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 0,
-          operator: "老叶",
-          id: 5
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 1,
-          operator: "老叶",
-          id: 6
-        },
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 2,
-          operator: "老叶",
-          id: 7
         }
       ],
-      multipleSelection: []
+      multipleSelection: [],
+      params: {
+        page: 0, // 1 页数
+        limit: 10, // 个数
+        order: 2, // 排序方式，0：无，1：状态，2：创建日期
+        sort: "asc", // 排序类型，desc：降序，asc：升序
+        state: 2, // 0：无，1：待审核，2：已审核
+        keyword: "" // 关键字
+      }
     };
   },
   watch: {},
+  mounted: function() {
+    this._getReviewOrganizations();
+  },
   methods: {
+    _getReviewOrganizations() {
+      getReviewOrganizations(this.params).then(res => {
+        console.log(res.data);
+        this.tableData = res.data;
+      });
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
