@@ -47,7 +47,7 @@
             </div>
             <div class="top-item flex">
               <i class="el-icon-receiving top-item-img"></i>
-              <p>组织入住审核</p>
+              <p>组织入驻审核</p>
             </div>
             <div class="top-item flex">
               <i class="el-icon-notebook-2 top-item-img"></i>

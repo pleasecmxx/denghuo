@@ -25,9 +25,10 @@
       height="600"
       border
       stripe
+      v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column align="center" type="selection" width="55"></el-table-column>
       <el-table-column prop="name" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
           <span style="color:#0079fe;">{{scope.row.name}}</span>
@@ -61,9 +62,9 @@
         </template>
       </el-table-column>
       <el-table-column prop="operator" label="操作人员" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="operating" label="操作" show-overflow-tooltip>
+      <el-table-column align="center" prop="operating" label="操作" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span @click="remove(scope.$index, scope.row)" style="color:#0079fe;">
+          <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除
           </span>
         </template>
@@ -71,8 +72,8 @@
     </el-table>
     <div class="underTable">
       <div>
-        <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
-        <el-button @click="toggleSelection()">取消选择</el-button>
+        <!-- <el-button @click="toggleSelection(tableData)">全选&反选</el-button> -->
+        <!-- <el-button @click="toggleSelection()">取消选择</el-button> -->
         <!-- <el-dropdown style="margin-left:10px;" @command="handleCommand">
           <el-button style="width:105px;">
             更多操作
@@ -83,7 +84,7 @@
             <el-dropdown-item command="2">驳回</el-dropdown-item>
             <el-dropdown-item command="3">删除</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown> -->
+        </el-dropdown>-->
       </div>
       <div>
         <el-pagination
@@ -101,39 +102,25 @@
   </div>
 </template>
 <script>
-import { getReviewOrganizations } from "./../../../../utils/api";
+import {
+  getReviewOrganizations,
+  deleteReviewOrganization
+} from "./../../../../utils/api";
 
 export default {
   name: "AuditHistory",
-  components: {},
   data() {
     return {
       search: {
         pageNo: 1,
-        pageSize: 30,
-        total: 30,
+        pageSize: 10,
+        total: 0,
         keyWord: ""
       },
-      value: "更多操作",
-      pagingState: true,
-      isAgree: true,
-      tableData: [
-        {
-          orgnzation: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 0,
-          operator: "老叶",
-          id: 1
-        }
-      ],
+      tableData: [],
       multipleSelection: [],
       params: {
-        page: 0, // 1 页数
+        page: 1, // 1 页数
         limit: 10, // 个数
         order: 2, // 排序方式，0：无，1：状态，2：创建日期
         sort: "asc", // 排序类型，desc：降序，asc：升序
@@ -147,10 +134,14 @@ export default {
     this._getReviewOrganizations();
   },
   methods: {
-    _getReviewOrganizations() {
-      getReviewOrganizations(this.params).then(res => {
-        console.log(res.data);
+    _getReviewOrganizations(params = this.params) {
+      this.loading = true;
+      getReviewOrganizations(params).then(res => {
+        console.log("+", res);
         this.tableData = res.data;
+        this.search.total =
+          Math.abs(res.total) / this.search.pageSize / 100000000;
+        this.loading = false;
       });
     },
     toggleSelection(rows) {
@@ -195,19 +186,41 @@ export default {
         this.tableData = last;
       }
     },
-    remove(index, row) {
-      let orgin = this.tableData;
-      orgin.forEach((item, index) => {
-        if (item.id == row.id) {
-          this.tableData.splice(index, 1);
-        }
+    // 删除
+    get_remove(uid) {
+      this.$confirm("请确认,是否删除审核申请？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "error"
+      }).then(() => {
+        deleteReviewOrganization({
+          uid
+        }).then(res => {
+          console.log("success", res);
+          if (res.success) {
+            this.$message({
+              type: "success",
+              message: "删除审核申请成功!"
+            });
+            this._getReviewOrganizations();
+          } else {
+            this.$message({
+              type: "error",
+              message: "删除审核申请失败!"
+            });
+          }
+        });
       });
     },
-    query() {},
-    searchWord() {},
+    // 搜索关键词
+    searchWord() {
+      this.params.keyword = this.search.keyWord;
+      this._getReviewOrganizations();
+    },
+    // 重置
     clear() {
-      this.$set(this.search, keyWord, "");
-      this.query();
+      this.params.keyword = "";
+      this._getReviewOrganizations();
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -215,12 +228,14 @@ export default {
     // 分页条件改变
     handleSizeChange(pageSize) {
       this.search.pageSize = pageSize;
-      this.query();
+      this.params.limit = pageSize;
+      this._getReviewOrganizations();
     },
+    // 切换页数
     handleCurrentChange(pageNo) {
-      this.pagingState = false;
       this.search.pageNo = pageNo;
-      this.query();
+      this.params.page = pageNo;
+      this._getReviewOrganizations();
     }
   }
 };

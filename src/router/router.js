@@ -111,7 +111,7 @@ const router = new VueRouter({
                         },
                         {
                             path: '/OrganizationEnter',
-                            name: '组织入住审核',
+                            name: '组织入驻审核',
                             component: OrganizationEnter
                         },
                         {

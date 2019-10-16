@@ -8,7 +8,7 @@
         </div>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/OrganizationCheckin">
-        <span class="s-menu-text">组织入住审核</span>
+        <span class="s-menu-text">组织入驻审核</span>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/OrganizationList">
         <span class="s-menu-text">组织列表</span>

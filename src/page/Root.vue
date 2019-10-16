@@ -220,7 +220,7 @@ i{
   height: 52px;
   background-color: rgba(55, 61, 65);
   overflow: hidden;
-  z-index: 9999;
+  z-index: 99;
   display: flex;
   justify-content: space-between;
   min-width: 1080px !important;
@@ -367,7 +367,7 @@ i{
   bottom: 0;
   width: 80px;
   background-color: rgba(51, 55, 68);
-  z-index: 999;
+  z-index: 98;
   padding-top: 52px;
   min-height: 800px;
 }

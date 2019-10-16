@@ -14,7 +14,7 @@ export const  getReviewOrganizations = async (params)=>{
  * @param {*} params 
  */
 export const  reviewOrganization = async (params)=>{
-  return await Axios.get("/api/system/apply/reviewOrganization",params)
+  return await Axios.post("/api/system/apply/reviewOrganization",params)
 }
 
 /**
@@ -22,5 +22,5 @@ export const  reviewOrganization = async (params)=>{
  * @param {*} params 
  */
 export const  deleteReviewOrganization = async (params)=>{
-  return await Axios.get("/api/system/apply/deleteReviewOrganization",params)
+  return await Axios.post("/api/system/apply/deleteReviewOrganization",params)
 }

@@ -6,7 +6,7 @@
         <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:500px;"></el-input>
       </span>
       <span style="margin-left:50px;">
-        <el-button type="primary" @click="searchWord">
+        <el-button type="primary" @click="searchWord()">
           <i style="color:#fff;" class="el-icon-search" />
           <span style="color:#fff;">查询</span>
         </el-button>
@@ -25,6 +25,7 @@
       height="600"
       border
       stripe
+      v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
       <el-table-column type="selection" width="55"></el-table-column>
@@ -68,7 +69,7 @@
           <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />同意
           </span>
-          <span @click="dialogVisible = true" style="color:#0079fe;">
+          <span @click="set_dialog(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />驳回
           </span>
           <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
@@ -106,13 +107,8 @@
         ></el-pagination>
       </div>
     </div>
-    <el-dialog title="提示" :visible.sync="dialogVisible" modal-append-to-body="false" modal="false">
-      <el-input type="textarea" :rows="2" placeholder="请输入驳回原因" v-model="textarea"></el-input>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="confirm_remove()">确 定</el-button>
-      </span>
-    </el-dialog>
+
+    <Model ref="model" @truecolne="truecolne"></Model>
   </div>
 </template>
 <script>
@@ -121,58 +117,33 @@ import {
   reviewOrganization,
   deleteReviewOrganization
 } from "./../../../../utils/api";
+import Model from "../../../../components/common/model/Model";
 
 export default {
   name: "Auditrecord",
-  components: {},
+  components: {
+    Model
+  },
   data() {
     return {
       search: {
         pageNo: 1,
-        pageSize: 30,
-        total: 30,
+        pageSize: 10,
+        total: 0,
         keyWord: ""
       },
-      value: "更多操作",
-      pagingState: true,
-      isAgree: true,
-      tableData: [
-        {
-          name: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 0,
-          operator: "老叶",
-          id: 1
-        },
-        {
-          name: "金币文化业主大会组织",
-          orgnzationPosition: "位置坐标",
-          filingDocument: "文件编号",
-          applicant: "奉海明",
-          certifiedDocuments: "文件编号",
-          applyTime: "2019-06-20",
-          dealTime: "2019-06-20",
-          result: 1,
-          operator: "老叶",
-          id: 2
-        }
-      ],
-      multipleSelection: [],
+      tableData: [], 
+      multipleSelection: [], // 全选多选数据
       params: {
-        page: 0, // 1 页数
+        page: 1, // 1 页数
         limit: 10, // 个数
         order: 2, // 排序方式，0：无，1：状态，2：创建日期
         sort: "asc", // 排序类型，desc：降序，asc：升序
         state: 1, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
       },
-      dialogVisible: false,
-      textarea: "" // 驳回原因
+      dialogVisible: false, // 显示驳回弹窗
+      loading: false // 请求loding
     };
   },
   watch: {},
@@ -180,11 +151,22 @@ export default {
     this._getReviewOrganizations();
   },
   methods: {
-    _getReviewOrganizations() {
-      getReviewOrganizations(this.params).then(res => {
-        console.log(res.data);
+    _getReviewOrganizations(params = this.params) {
+      this.loading = true;
+      getReviewOrganizations(params).then(res => {
+        console.log("+", res);
         this.tableData = res.data;
+        this.search.total = Math.abs(res.total) / this.search.pageSize / 100000000;
+        this.loading = false;
       });
+    },
+    // 显示 model
+    set_dialog(uid) {
+      this.$refs.model.shows(uid);
+    },
+    // model 输入回调  驳回原因 uid
+    truecolne(text, uid) {
+      this.get_reject(text, uid);
     },
     toggleSelection(rows) {
       if (rows) {
@@ -228,123 +210,109 @@ export default {
         this.tableData = last;
       }
     },
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
-    },
     // 同意u
     get_consent(uid) {
       this.$confirm("请确认,是否同意审核申请?", "提示", {
         confirmButtonText: "确定",
-        cancelButtonText: "取消"
-        // type: "warning"
-      })
-        .then(() => {
-          // reviewOrganization({
-          //   uid,
-          //   result: 1 // 通过
-          //   // reason: this.textarea, // 原因
-          //   // name: "",
-          //   // longitude: "",
-          //   // latitude: ""
-          // }).then(res => {
-          //   console.log(res);
-          //   // this.$message({
-          //   //   type: 'success',
-          //   //   message: '删除成功!'
-          //   // });
-          // });
-        })
-        .catch(() => {
-          // this.$message({
-          //   type: 'info',
-          //   message: '已取消删除'
-          // });
+        cancelButtonText: "取消",
+        type: "success"
+      }).then(() => {
+        reviewOrganization({
+          uid,
+          result: 1 // 通过
+        }).then(res => {
+          console.log("通过", res);
+          if (res.success) {
+            this.$message({
+              type: "success",
+              message: "同意审核申请成功!"
+            });
+            this._getReviewOrganizations();
+          } else {
+            this.$message({
+              type: "error",
+              message: "同意审核申请失败!"
+            });
+          }
         });
+      });
     },
-    handleClose(done) {
-      // this.$confirm("确认关闭？")
-      //   .then(_ => {
-      //     done();
-      //   })
-      //   .catch(_ => {});
-    },
-
-    confirm_remove() {},
     // 驳回
-    get_reject(uid) {
-      this.dialogVisible = true;
-
-      return;
-      this.$confirm("请确认,是否驳回审核申请?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消"
-        // type: "warning"
-      })
-        .then(_ => {
-          reviewOrganization({
-            uid,
-            result: 2, // 不通过
-            reason: "" // 原因
-            // name: "",
-            // longitude: "",
-            // latitude: ""
-          }).then(res => {
-            console.log(res);
+    get_reject(reason, uid) {
+      reviewOrganization({
+        uid,
+        result: 2, // 不通过
+        reason // 原因
+        // name: "",
+        // longitude: "",
+        // latitude: ""
+      }).then(res => {
+        if (res.success) {
+          this.$message({
+            type: "success",
+            message: "驳回审核申请成功!"
           });
-        })
-        .catch(_ => {});
+          this._getReviewOrganizations();
+        } else {
+          this.$message({
+            type: "error",
+            message: "驳回审核申请失败!"
+          });
+        }
+      });
     },
     // 删除
     get_remove(uid) {
       this.$confirm("请确认,是否删除审核申请？", "提示", {
         confirmButtonText: "确定",
-        cancelButtonText: "取消"
-        // type: "warning"
+        cancelButtonText: "取消",
+        type: "error"
       })
         .then(() => {
           deleteReviewOrganization({
             uid
           }).then(res => {
-            console.log(res);
+            console.log("success", res);
+            if (res.success) {
+              this.$message({
+                type: "success",
+                message: "删除审核申请成功!"
+              });
+              this._getReviewOrganizations();
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除审核申请失败!"
+              });
+            }
           });
         })
-        .catch(() => {
-          // this.$message({
-          //   type: 'info',
-          //   message: '已取消删除'
-          // });
-        });
-
-      // let orgin = this.tableData;
-
-      // orgin.forEach((item, index) => {
-      //   if (item.id == row.id) {
-      //     this.tableData.splice(index, 1);
-      //   }
-      // });
     },
-    query() {},
-    searchWord() {},
+    // 搜索关键词
+    searchWord() {
+      this.params.keyword = this.search.keyWord;
+      this._getReviewOrganizations();
+    },
+    // 重置
     clear() {
-      this.$set(this.search, keyWord, "");
-      this.query();
+      this.params.keyword = "";
+      this._getReviewOrganizations();
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      console.log(val);
     },
     // 分页条件改变
     handleSizeChange(pageSize) {
       this.search.pageSize = pageSize;
-      this.query();
+      this.params.limit = pageSize;
+      this._getReviewOrganizations();
     },
+    // 切换页数
     handleCurrentChange(pageNo) {
-      this.pagingState = false;
       this.search.pageNo = pageNo;
-      this.query();
+      this.params.page = pageNo;
+      this._getReviewOrganizations();
     }
   }
 };

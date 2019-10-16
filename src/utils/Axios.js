@@ -23,13 +23,15 @@ class Axios {
   async get(url, params = {}) {
     try {
       let response = null;
-      console.log(baseUrl + url)
-      console.log(params);
+      // console.log(baseUrl + url)
+      console.log(JSON.stringify(params));
       response = await instance.get(baseUrl + url, { params });
       if (response.data.success) {
 
       }
-      if (response.data.result) {
+      // console.log(response);
+
+      if (response.data) {
         return response.data.result
       } else {
         alert("网络错误，请重试")
@@ -47,10 +49,11 @@ class Axios {
   async post(url, params) {
     try {
       console.log(baseUrl + url)
-      console.log(params);
+      console.log(JSON.stringify(params));
       let response = await instance.post(baseUrl + url, params);
-      if (response.data.result) {
-        return response.data.result
+      console.log(response);
+      if (response.data) {
+        return response.data
       } else {
         alert("网络错误，请重试")
       }
