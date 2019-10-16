@@ -208,6 +208,10 @@ a {
   text-decoration: none;
 }
 
+i{
+  color: #666666;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -377,6 +381,7 @@ a {
   justify-content: center;
   cursor: pointer;
   margin-bottom: 6px;
+  text-align: center;
 }
 
 .menu-text {
