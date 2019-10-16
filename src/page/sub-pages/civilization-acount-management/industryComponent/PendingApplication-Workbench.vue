@@ -25,42 +25,49 @@
       height="600"
       border
       stripe
+      v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="applicant" label="申请人" show-overflow-tooltip>
+      <el-table-column align="center" type="selection" width="55"></el-table-column>
+      <el-table-column prop="applyUserUid" label="申请人" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.applicant}}</span>
+          <span style="color:#0079fe;">{{scope.row.applyUserUid}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="applicantID" label="申请人身份" show-overflow-tooltip>
+      <el-table-column prop="uid" label="申请人身份" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.applicantID}}</span>
+          <span style="color:#0079fe;">{{scope.row.uid}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="applicantPhone" label="申请人联系电话" width="120"></el-table-column>
       <el-table-column label="所属组织" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.belongTo}}</span>
+          <span style="color:#0079fe;">{{scope.row.type}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="level" label="届数/筹备阶段" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="preparationTime" label="任期时间/筹备组成立时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="preparationNum" label="备案人数/筹备组人数" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="teemTopName" label="主任姓名/组长姓名" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="directorPhone" label="联系电话" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="filingletter" label="备案公函" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="Authorizedletter" label="账户授权公函" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="stage" label="届数/筹备阶段" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="startDate" label="任期时间/筹备组成立时间" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="peopleCount" label="备案人数/筹备组人数" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="name" label="主任姓名/组长姓名" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="phone" label="联系电话" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="letterFile" label="备案公函" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="letterFile" label="账户授权公函" show-overflow-tooltip></el-table-column>
       <el-table-column prop="ReviewMan" label="审核人员" show-overflow-tooltip></el-table-column>
       <el-table-column prop="ReviewTime" label="审核时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="AuditResults" label="审核结果" show-overflow-tooltip>
+      <el-table-column prop="state" label="审核结果" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{scope.row.AuditResults==1?"同意":"驳回"}}</span>
+          <span>{{scope.row.state==1?"申请中" :scope.row.state==2 ?"申请通过":"申请未通过"}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="operating" label="操作" show-overflow-tooltip>
+      <el-table-column align="center" prop="operating"  width="180" label="操作" >
         <template slot-scope="scope">
-          <span @click="remove(scope.$index, scope.row)" style="color:#0079fe;">
+          <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">
+            <i class="el-icon-success" />同意
+          </span>
+          <span @click="set_dialog(scope.row.uid)" style="color:#0079fe;">
+            <i class="el-icon-edit" />驳回
+          </span>
+          <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除
           </span>
         </template>
@@ -95,98 +102,167 @@
         ></el-pagination>
       </div>
     </div>
+    <Model ref="model" @truecolne="truecolne"></Model>
   </div>
 </template>
 <script>
+import Model from "../../../../components/common/model/Model";
+import {
+  getReviewCommitteeWorks,
+  reviewCommitteeWork,
+  deleteReviewCommitteeWork
+} from "../../../../utils/api";
 export default {
   name: "PendingApplicationWorkbench",
-  components: {},
+  components: {
+    Model
+  },
   data() {
     return {
       search: {
         pageNo: 1,
-        pageSize: 30,
-        total: 30,
+        pageSize: 10,
+        total: 0,
         keyWord: ""
       },
-      value: "更多操作",
-      pagingState: true,
-      isAgree: true,
-      tableData: [
-        {
-          id: 1,
-          applicant:'卞涛',
-          applicantID:'业主会成员',
-          applicantPhone:18673638655,
-          level: "第一届",
-          preparationTime: "2019-10-12",
-          preparationNum:100,
-          teemTopName:'卞涛',
-          directorPhone:18673638655,
-          filingletter:'文件编号',
-          Authorizedletter:'文件编号',
-          ReviewMan:'卞涛',
-          ReviewTime:'2019-10-12',
-          belongTo:'业主会',
-          AuditResults:1,
-        },
-        {
-          id: 2,
-          applicant:'卞涛',
-          applicantID:'业主会成员',
-          applicantPhone:18673638655,
-          level: "第一届",
-          preparationTime: "2019-10-12",
-          preparationNum:100,
-          teemTopName:'卞涛',
-          directorPhone:18673638655,
-          filingletter:'文件编号',
-          Authorizedletter:'文件编号',
-          ReviewMan:'卞涛',
-          belongTo:'业主会',
-          ReviewTime:'2019-10-12',
-          AuditResults:0,
-        },
-        {
-          id: 3,
-          applicant:'卞涛',
-          applicantID:'业主会成员',
-          applicantPhone:18673638655,
-          level: "第一届",
-          preparationTime: "2019-10-12",
-          preparationNum:100,
-          teemTopName:'卞涛',
-          directorPhone:18673638655,
-          filingletter:'文件编号',
-          Authorizedletter:'文件编号',
-          ReviewMan:'卞涛',
-          ReviewTime:'2019-10-12',
-          belongTo:'业主会',
-          AuditResults:0,
-        },
-        {
-          id: 4,
-          applicant:'卞涛',
-          applicantID:'业主会成员',
-          applicantPhone:18673638655,
-          level: "第一届",
-          preparationTime: "2019-10-12",
-          preparationNum:100,
-          teemTopName:'卞涛',
-          directorPhone:18673638655,
-          filingletter:'文件编号',
-          Authorizedletter:'文件编号',
-          ReviewMan:'卞涛',
-          belongTo:'业主会',
-          ReviewTime:'2019-10-12',
-          AuditResults:1,
-        },
-      ],
-      multipleSelection: []
+      tableData: [],
+      multipleSelection: [],
+      params: {
+        page: 1, // 1 页数
+        limit: 10, // 个数
+        order: 2, // 排序方式，0：无，1：状态，2：创建日期
+        sort: "asc", // 排序类型，desc：降序，asc：升序
+        state: 1, // 0：无，1：待审核，2：已审核
+        keyword: "" // 关键字
+      },
+      loading: false // 请求loding
     };
   },
-  watch: {},
+  mounted: function() {
+    this._getReviewCommitteeWorks();
+  },
   methods: {
+    _getReviewCommitteeWorks(params = this.params) {
+      this.loading = true;
+      getReviewCommitteeWorks(params).then(res => {
+        console.log("+", res);
+        this.tableData = res.data;
+        this.search.total =
+          Math.abs(res.total) / this.search.pageSize / 100000000;
+        this.loading = false;
+      });
+    },
+    // 显示 model
+    set_dialog(uid) {
+      this.$refs.model.shows(uid);
+    },
+    // model 输入回调  驳回原因 uid
+    truecolne(text, uid) {
+      this.get_reject(text, uid);
+    },
+    // 同意u
+    get_consent(uid) {
+      this.$confirm("请确认,是否同意审核申请?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "success"
+      }).then(() => {
+        reviewCommitteeWork({
+          uid,
+          result: 1 // 通过
+        }).then(res => {
+          console.log("通过", res);
+          if (res.success) {
+            this.$message({
+              type: "success",
+              message: "同意审核申请成功!"
+            });
+            this._getReviewCommitteeWorks();
+          } else {
+            this.$message({
+              type: "error",
+              message: "同意审核申请失败!"
+            });
+          }
+        });
+      });
+    },
+    // 驳回
+    get_reject(reason, uid) {
+      reviewOrganization({
+        uid,
+        result: 2, // 不通过
+        reason // 原因
+        // name: "",
+        // longitude: "",
+        // latitude: ""
+      }).then(res => {
+        if (res.success) {
+          this.$message({
+            type: "success",
+            message: "驳回审核申请成功!"
+          });
+          this._getReviewCommitteeWorks();
+        } else {
+          this.$message({
+            type: "error",
+            message: "驳回审核申请失败!"
+          });
+        }
+      });
+    },
+    // 删除
+    get_remove(uid) {
+      this.$confirm("请确认,是否删除审核申请？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "error"
+      }).then(() => {
+        deleteReviewCommitteeWork({
+          uid
+        }).then(res => {
+          console.log("success", res);
+          if (res.success) {
+            this.$message({
+              type: "success",
+              message: "删除审核申请成功!"
+            });
+            this._getReviewCommitteeWorks();
+          } else {
+            this.$message({
+              type: "error",
+              message: "删除审核申请失败!"
+            });
+          }
+        });
+      });
+    },
+    // 搜索关键词
+    searchWord() {
+      this.params.keyword = this.search.keyWord;
+      this._getReviewCommitteeWorks();
+    },
+    // 重置
+    clear() {
+      this.params.keyword = "";
+      this._getReviewCommitteeWorks();
+    },
+    // 分页条件改变
+    handleSizeChange(pageSize) {
+      this.search.pageSize = pageSize;
+      this.params.limit = pageSize;
+      this._getReviewCommitteeWorks();
+    },
+    // 切换页数
+    handleCurrentChange(pageNo) {
+      this.search.pageNo = pageNo;
+      this.params.page = pageNo;
+      this._getReviewCommitteeWorks();
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+      console.log(val);
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -228,33 +304,6 @@ export default {
         });
         this.tableData = last;
       }
-    },
-    remove(index, row) {
-      let orgin = this.tableData;
-      orgin.forEach((item, index) => {
-        if (item.id == row.id) {
-          this.tableData.splice(index, 1);
-        }
-      });
-    },
-    query() {},
-    searchWord() {},
-    clear() {
-      this.$set(this.search, keyWord, "");
-      this.query();
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    // 分页条件改变
-    handleSizeChange(pageSize) {
-      this.search.pageSize = pageSize;
-      this.query();
-    },
-    handleCurrentChange(pageNo) {
-      this.pagingState = false;
-      this.search.pageNo = pageNo;
-      this.query();
     }
   }
 };

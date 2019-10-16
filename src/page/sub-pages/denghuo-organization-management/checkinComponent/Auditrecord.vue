@@ -28,7 +28,7 @@
       v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column align="center" type="selection" width="55"></el-table-column>
       <el-table-column prop="name" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
           <span style="color:#0079fe;">{{scope.row.name}}</span>
@@ -67,10 +67,10 @@
       <el-table-column prop="operating" label="操作" show-overflow-tooltip>
         <template slot-scope="scope">
           <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">
-            <i class="el-icon-delete" />同意
+            <i class="el-icon-success" />同意
           </span>
           <span @click="set_dialog(scope.row.uid)" style="color:#0079fe;">
-            <i class="el-icon-delete" />驳回
+            <i class="el-icon-edit" />驳回
           </span>
           <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除
@@ -142,11 +142,9 @@ export default {
         state: 1, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
       },
-      dialogVisible: false, // 显示驳回弹窗
       loading: false // 请求loding
     };
   },
-  watch: {},
   mounted: function() {
     this._getReviewOrganizations();
   },
