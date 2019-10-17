@@ -1,5 +1,16 @@
 import Axios from "./Axios";
 
+/**************** 登录  ******************/
+
+/**
+ * 登录
+ * @param {*} params 
+ */
+export const  phoneLogin = async (params)=>{
+  return await Axios.post("/api/user/phoneLogin",params)
+}
+
+
 /**************** 灯火端组织管理  ******************/
 
 /**

@@ -42,7 +42,7 @@
       <el-table-column prop="applicantPhone" label="申请人联系电话" width="120"></el-table-column>
       <el-table-column label="所属组织" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.type}}</span>
+          <span style="color:#0079fe;">{{scope.row.type == 1 ? "会议筹备组" : "业主委员会"}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="stage" label="届数/筹备阶段" show-overflow-tooltip></el-table-column>
@@ -59,7 +59,7 @@
           <span>{{scope.row.state==1?"申请中" :scope.row.state==2 ?"申请通过":"申请未通过"}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="operating"  width="180" label="操作" >
+      <el-table-column align="center" prop="operating" width="180" label="操作">
         <template slot-scope="scope">
           <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-success" />同意
@@ -166,30 +166,32 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "success"
-      }).then(() => {
-        reviewCommitteeWork({
-          uid,
-          result: 1 // 通过
-        }).then(res => {
-          console.log("通过", res);
-          if (res.success) {
-            this.$message({
-              type: "success",
-              message: "同意审核申请成功!"
-            });
-            this._getReviewCommitteeWorks();
-          } else {
-            this.$message({
-              type: "error",
-              message: "同意审核申请失败!"
-            });
-          }
-        });
-      });
+      })
+        .then(() => {
+          reviewCommitteeWork({
+            uid,
+            result: 1 // 通过
+          }).then(res => {
+            console.log("通过", res);
+            if (res.success) {
+              this.$message({
+                type: "success",
+                message: "同意审核申请成功!"
+              });
+              this._getReviewCommitteeWorks();
+            } else {
+              this.$message({
+                type: "error",
+                message: "同意审核申请失败!"
+              });
+            }
+          });
+        })
+        .catch(() => {});
     },
     // 驳回
     get_reject(reason, uid) {
-      reviewOrganization({
+      reviewCommitteeWork({
         uid,
         result: 2, // 不通过
         reason // 原因
@@ -217,25 +219,27 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "error"
-      }).then(() => {
-        deleteReviewCommitteeWork({
-          uid
-        }).then(res => {
-          console.log("success", res);
-          if (res.success) {
-            this.$message({
-              type: "success",
-              message: "删除审核申请成功!"
-            });
-            this._getReviewCommitteeWorks();
-          } else {
-            this.$message({
-              type: "error",
-              message: "删除审核申请失败!"
-            });
-          }
-        });
-      });
+      })
+        .then(() => {
+          deleteReviewCommitteeWork({
+            uid
+          }).then(res => {
+            console.log("success", res);
+            if (res.success) {
+              this.$message({
+                type: "success",
+                message: "删除审核申请成功!"
+              });
+              this._getReviewCommitteeWorks();
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除审核申请失败!"
+              });
+            }
+          });
+        })
+        .catch(() => {});
     },
     // 搜索关键词
     searchWord() {
@@ -244,6 +248,7 @@ export default {
     },
     // 重置
     clear() {
+      this.search.keyWord = "";
       this.params.keyword = "";
       this._getReviewCommitteeWorks();
     },

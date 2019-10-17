@@ -1,15 +1,22 @@
 import axios from 'axios';
 
 let defaultConfig = {
-  baseUrl: 'http://120.77.178.7:3000/mock/47',
+  // baseUrl: 'http://120.77.178.7:3000/mock/47',
+  // baseUrl: '',
+  // baseUrl: 'http://192.168.1.110:7001',
+  baseUrl: 'http://127.0.0.1:8070',
   timeout: 50000,
   headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "appType": 3,
+    "token": "",
   }
 };
 
 let instance = axios;
 let baseUrl = defaultConfig.baseUrl;
+// axios.defaults.withCredentials = true
+
 class Axios {
 
   constructor(props) {
@@ -29,7 +36,7 @@ class Axios {
       if (response.data.success) {
 
       }
-      // console.log(response);
+      console.log(response);
 
       if (response.data) {
         return response.data.result

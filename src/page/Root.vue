@@ -46,7 +46,9 @@
               <router-link to="/ModifyPassWord">
                 <el-dropdown-item command="2">修改密码</el-dropdown-item>
               </router-link>
+              <router-link to="/login">
               <el-dropdown-item command="1">退出登录</el-dropdown-item>
+              </router-link>
             </el-dropdown-menu>
           </el-dropdown>
         </div>

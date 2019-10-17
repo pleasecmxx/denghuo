@@ -132,7 +132,7 @@ export default {
         total: 0,
         keyWord: ""
       },
-      tableData: [], 
+      tableData: [],
       multipleSelection: [], // 全选多选数据
       params: {
         page: 1, // 1 页数
@@ -154,7 +154,8 @@ export default {
       getReviewOrganizations(params).then(res => {
         console.log("+", res);
         this.tableData = res.data;
-        this.search.total = Math.abs(res.total) / this.search.pageSize / 100000000;
+        this.search.total =
+          Math.abs(res.total) / this.search.pageSize / 100000000;
         this.loading = false;
       });
     },
@@ -214,26 +215,28 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "success"
-      }).then(() => {
-        reviewOrganization({
-          uid,
-          result: 1 // 通过
-        }).then(res => {
-          console.log("通过", res);
-          if (res.success) {
-            this.$message({
-              type: "success",
-              message: "同意审核申请成功!"
-            });
-            this._getReviewOrganizations();
-          } else {
-            this.$message({
-              type: "error",
-              message: "同意审核申请失败!"
-            });
-          }
-        });
-      });
+      })
+        .then(() => {
+          reviewOrganization({
+            uid,
+            result: 1 // 通过
+          }).then(res => {
+            console.log("通过", res);
+            if (res.success) {
+              this.$message({
+                type: "success",
+                message: "同意审核申请成功!"
+              });
+              this._getReviewOrganizations();
+            } else {
+              this.$message({
+                type: "error",
+                message: "同意审核申请失败!"
+              });
+            }
+          });
+        })
+        .catch(() => {});
     },
     // 驳回
     get_reject(reason, uid) {
@@ -285,6 +288,7 @@ export default {
             }
           });
         })
+        .catch(() => {});
     },
     // 搜索关键词
     searchWord() {
@@ -293,6 +297,7 @@ export default {
     },
     // 重置
     clear() {
+      this.search.keyWord = "";
       this.params.keyword = "";
       this._getReviewOrganizations();
     },

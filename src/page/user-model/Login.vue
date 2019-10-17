@@ -66,19 +66,28 @@
 </template>
 
 <script>
+import { phoneLogin } from '../../utils/api';
+
 export default {
   name: "Login",
   data() {
     return {
-      userName: "",
-      userPass: ""
+      userName: "15774063795",
+      userPass: "123456"
     };
   },
 
   methods: {
     login() {
-      alert(this.userName);
-      this.$router.push("/home");
+      
+      phoneLogin({
+        phone : this.userName,
+        code  : this.userPass,
+        appType : "3",
+      }).then(res=>{
+        console.log(res);
+        
+      })
     },
 
     clearName() {

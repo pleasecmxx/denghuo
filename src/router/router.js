@@ -111,7 +111,7 @@ const router = new VueRouter({
                         },
                         {
                             path: '/OrganizationEnter',
-                            name: '组织入驻审核',
+                            name: 'kj组织入驻审核',
                             component: OrganizationEnter
                         },
                         {
@@ -133,7 +133,7 @@ const router = new VueRouter({
                     children: [
                         {
                             path: '/NormalUserList',
-                            name: '账户列表',
+                            name: 'pt账户列表',
                             component: NormalUserList,
                         }, {
                             path: '/FrozenUserList',
@@ -161,7 +161,7 @@ const router = new VueRouter({
                     children: [
                         {
                             path: '/AreaNormalUserList',
-                            name: '账户列表',
+                            name: 'dq账户列表',
                             component: AreaNormalUserList,
                         },
                     ]
@@ -194,7 +194,7 @@ const router = new VueRouter({
                     children: [
                         {
                             path: '/OrganizationCheckin',
-                            name: '组织入驻审核',
+                            name: 'dh组织入驻审核',
                             component: OrganizationCheckin,
                         }, {
                             path: '/OrganizationList',

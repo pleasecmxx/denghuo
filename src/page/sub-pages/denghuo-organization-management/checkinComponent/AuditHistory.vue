@@ -72,9 +72,9 @@
     </el-table>
     <div class="underTable">
       <div>
-        <!-- <el-button @click="toggleSelection(tableData)">全选&反选</el-button> -->
-        <!-- <el-button @click="toggleSelection()">取消选择</el-button> -->
-        <!-- <el-dropdown style="margin-left:10px;" @command="handleCommand">
+        <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
+        <el-button @click="toggleSelection()">取消选择</el-button>
+        <el-dropdown style="margin-left:10px;" @command="handleCommand">
           <el-button style="width:105px;">
             更多操作
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -84,7 +84,7 @@
             <el-dropdown-item command="2">驳回</el-dropdown-item>
             <el-dropdown-item command="3">删除</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>-->
+        </el-dropdown>
       </div>
       <div>
         <el-pagination
@@ -126,10 +126,10 @@ export default {
         sort: "asc", // 排序类型，desc：降序，asc：升序
         state: 2, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
-      }
+      },
+      loading:false 
     };
   },
-  watch: {},
   mounted: function() {
     this._getReviewOrganizations();
   },
