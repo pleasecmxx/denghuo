@@ -51,22 +51,22 @@
           <input
             type="password"
             maxlength="20"
-            placeholder="请输入账号密码"
+            placeholder="请输入短信验证码"
             class="login-input"
-            v-model="userPass"
+            v-model="userCode"
           />
           <div class="delate-icon-container">
-            <i v-show="userPass.length > 0" class="el-icon-error" @click="clearPass()"></i>
+            <i v-show="userCode.length > 0" class="el-icon-error" @click="clearPass()"></i>
           </div>
         </div>
-        <button class="login-btn" @click="login()">登录</button>
+        <button class="login-btn" @click="getcode()">登录</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { phoneLogin } from "../../utils/api";
+import { phoneLogin, sendPhoneCode } from "../../utils/api";
 
 import store from "../../vuex/store";
 
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       userName: "15774063795",
-      userPass: "123456"
+      userCode: ""
     };
   },
 
@@ -83,8 +83,8 @@ export default {
     login() {
       phoneLogin({
         phone: this.userName,
-        code: this.userPass,
-        appType: "3"
+        code: this.userCode,
+        appType: 3
       }).then(res => {
         console.log(res);
         if (res.success) {
@@ -100,12 +100,29 @@ export default {
       });
     },
 
+    getcode() {
+      sendPhoneCode({
+        mobile: "15774063795",
+        key: "key---"
+      }).then(res => {
+        console.log(res.error);
+        sendPhoneCode({
+          mobile: "15774063795",
+          key: res.error.message
+        }).then(ref => {
+          console.log(ref);
+          this.userCode = ref.result;
+          this.login();
+        });
+      });
+    },
+
     clearName() {
       this.userName = "";
     },
 
     clearPass() {
-      this.userPass = "";
+      this.userCode = "";
     }
   }
 };

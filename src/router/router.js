@@ -56,6 +56,7 @@ import {
     RefundCheck,
     ReimbursementCheck,
     VisitCheck,
+    QrCode,
 } from './../page'
 
 
@@ -313,6 +314,10 @@ const router = new VueRouter({
             path: '/register',
             name: '注册账号',
             component: Register,
+        },{
+            path: '/QrCode',
+            name: '二维码上传',
+            component: QrCode,
         },
     ]
 })

@@ -62,15 +62,11 @@
           <div class="content-top-box-header flex">
             <p class="content-top-box-header-title">运营数据</p>
             <el-select v-model="value" placeholder="请选择" size="small">
-              <el-option>今天</el-option>
-              <el-option>昨天</el-option>
-              <el-option>本周</el-option>
-              <el-option>上周</el-option>
-              <el-option>本月</el-option>
-              <el-option>本季度</el-option>
-              <el-option>上季度</el-option>
-              <el-option>今年</el-option>
-              <el-option>去年</el-option>
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value" />
             </el-select>
           </div>
           <div class="content-bottom-box-body flex">
@@ -277,6 +273,45 @@ export default {
   },
   data() {
     return {
+      options: [
+        {
+          value: "1",
+          label: "今天"
+        },
+        {
+          value: "2",
+          label: "昨天"
+        },
+        {
+          value: "3",
+          label: "本周"
+        },
+        {
+          value: "4",
+          label: "上周"
+        },
+        {
+          value: "5",
+          label: "本月"
+        },
+        {
+          value: "6",
+          label: "本季度"
+        },
+        {
+          value: "7",
+          label: "上季度"
+        },
+        {
+          value: "8",
+          label: "今年"
+        },
+        {
+          value: "9",
+          label: "去年"
+        }
+      ],
+      value: "",
       msgBoxShow: false,
       selectCategory: [
         { value: "", label: "企业动态" },
