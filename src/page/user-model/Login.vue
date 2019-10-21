@@ -66,7 +66,9 @@
 </template>
 
 <script>
-import { phoneLogin } from '../../utils/api';
+import { phoneLogin } from "../../utils/api";
+
+import store from "../../vuex/store";
 
 export default {
   name: "Login",
@@ -79,15 +81,23 @@ export default {
 
   methods: {
     login() {
-      
       phoneLogin({
-        phone : this.userName,
-        code  : this.userPass,
-        appType : "3",
-      }).then(res=>{
+        phone: this.userName,
+        code: this.userPass,
+        appType: "3"
+      }).then(res => {
         console.log(res);
-        
-      })
+        if (res.success) {
+          store.commit("saveInfo", res.result);
+          store.commit("saveToken", res.result.token);
+          this.$router.push('/')
+        } else {
+          this.$notify.error({
+            title: "登录失败",
+            message: res.error.message
+          });
+        }
+      });
     },
 
     clearName() {

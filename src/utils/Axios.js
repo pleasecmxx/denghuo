@@ -1,10 +1,11 @@
 import axios from 'axios';
+import store from "./../vuex/store";
+
 
 let defaultConfig = {
-  // baseUrl: 'http://120.77.178.7:3000/mock/47',
-  // baseUrl: '',
+  baseUrl: 'http://120.77.178.7:3000/mock/47/api',
   // baseUrl: 'http://192.168.1.110:7001',
-  baseUrl: 'http://127.0.0.1:8070',
+  // baseUrl: '/api',
   timeout: 50000,
   headers: {
     "Content-Type": "application/json",
@@ -15,12 +16,12 @@ let defaultConfig = {
 
 let instance = axios;
 let baseUrl = defaultConfig.baseUrl;
-// axios.defaults.withCredentials = true
 
 class Axios {
-
+  
   constructor(props) {
     instance = axios.create(defaultConfig);
+    instance.defaults.withCredentials = true
   }
 
   async get(url) {
@@ -31,6 +32,7 @@ class Axios {
     try {
       let response = null;
       // console.log(baseUrl + url)
+      params.token = store.state.token;
       console.log(JSON.stringify(params));
       response = await instance.get(baseUrl + url, { params });
       if (response.data.success) {
@@ -56,6 +58,7 @@ class Axios {
   async post(url, params) {
     try {
       console.log(baseUrl + url)
+      params.token = store.state.token;
       console.log(JSON.stringify(params));
       let response = await instance.post(baseUrl + url, params);
       console.log(response);

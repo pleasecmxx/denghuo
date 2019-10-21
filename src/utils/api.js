@@ -7,7 +7,7 @@ import Axios from "./Axios";
  * @param {*} params 
  */
 export const  phoneLogin = async (params)=>{
-  return await Axios.post("/api/user/phoneLogin",params)
+  return await Axios.post("/user/phoneLogin",params)
 }
 
 
