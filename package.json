@@ -17,6 +17,7 @@
     "less-loader": "^5.0.0",
     "qiniu-js": "^2.5.4",
     "qrcode": "^1.4.2",
+    "uuidjs": "^4.2.4",
     "vue": "^2.5.2",
     "vue-particles": "^1.0.9",
     "vue-quill-editor": "^3.0.6",
