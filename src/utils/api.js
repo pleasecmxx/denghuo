@@ -11,6 +11,29 @@ export const  phoneLogin = async (params)=>{
 }
 
 /**
+ * tokenLogin
+ * @param {*} params 
+ */
+export const  tokenLogin = async (params)=>{
+  return await Axios.post("/file/tokenLogin",params)
+}
+
+/**
+ * tokenLogin
+ * @param {*} params 
+ */
+export const  getConfigs = async (params)=>{
+  return await Axios.post("/common/getConfigs",params)
+}
+/**
+ * uploadFile
+ * @param {*} params 
+ */
+export const  uploadFile = async (params)=>{
+  return await Axios.post("/file/uploadFile",params)
+}
+
+/**
  * 发送短信验证码
  * @param {*} params 
  */
