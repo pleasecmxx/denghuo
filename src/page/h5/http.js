@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from "./../vuex/store";
+import store from "./store";
 
 
 let defaultConfig = {
@@ -10,8 +10,8 @@ let defaultConfig = {
   timeout: 50000,
   headers: {
     "Content-Type": "application/json",
-    "appType": 3,
-    "token": store.state.token,
+    "appType": 4,
+    "token": "",
   }
 };
 
@@ -23,20 +23,21 @@ class Axios {
   constructor(props) {
     instance = axios.create(defaultConfig);
     instance.defaults.withCredentials = true
+    instance.interceptors.request.use((config)=>{
+      const token = store.state.h5token;
+      config.headers.token = token;
+      return config;
+    })
   }
 
   async get(url, params = {}) {
     try {
       let response = null;
-      // console.log(baseUrl + url)
-      params.token = store.state.token;
       console.log(JSON.stringify(params));
       response = await instance.get(baseUrl + url, { params });
       if (response.data.success) {
 
       }
-      console.log(response);
-
       if (response.data) {
         return response.data.result
       } else {
@@ -48,15 +49,11 @@ class Axios {
     }
   }
 
+
   async post(url, params) {
     try {
-      console.log(baseUrl + url)
-      if (!params.token) {
-        params.token = store.state.token;
-      }
       console.log(JSON.stringify(params));
       let response = await instance.post(baseUrl + url, params);
-      console.log(response);
       if (response.data) {
         return response.data
       } else {
