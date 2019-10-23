@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from "./../vuex/store";
-
+import router from './../router/router';
 
 let defaultConfig = {
   // baseUrl: 'http://120.77.178.7:3000/mock/47/api',
@@ -19,7 +19,7 @@ let instance = axios;
 let baseUrl = defaultConfig.baseUrl;
 
 class Axios {
-  
+
   constructor(props) {
     instance = axios.create(defaultConfig);
     instance.defaults.withCredentials = true
@@ -27,15 +27,10 @@ class Axios {
 
   async get(url, params = {}) {
     try {
-      let response = null;
       // console.log(baseUrl + url)
       params.token = store.state.token;
       console.log(JSON.stringify(params));
-      response = await instance.get(baseUrl + url, { params });
-      if (response.data.success) {
-
-      }
-      console.log(response);
+      const response = await instance.get(baseUrl + url, { params });
 
       if (response.data) {
         return response.data.result
@@ -43,7 +38,7 @@ class Axios {
         alert("网络错误，请重试")
       }
     } catch (e) {
-      console.log(e);
+      console.log("get+erro",e);
       return null
     }
   }
@@ -51,12 +46,10 @@ class Axios {
   async post(url, params) {
     try {
       console.log(baseUrl + url)
-      if (!params.token) {
-        params.token = store.state.token;
-      }
+
+      params.token = store.state.token;
       console.log(JSON.stringify(params));
-      let response = await instance.post(baseUrl + url, params);
-      console.log(response);
+      const response = await instance.post(baseUrl + url, params);
       if (response.data) {
         return response.data
       } else {
@@ -64,7 +57,7 @@ class Axios {
       }
     } catch (e) {
 
-      console.log(e);
+      console.log("post+err",e);
       return null
     }
   }

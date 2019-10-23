@@ -64,7 +64,7 @@ import {
 const router = new VueRouter({
     routes: [
         {
-            path: '/',
+            path: '/main',
             name: '主界面',
             component: RootView,
             redirect: '/home',
@@ -307,7 +307,7 @@ const router = new VueRouter({
                 },
             ]
         }, {
-            path: '/login',
+            path: '/',
             name: '登录',
             component: Login,
         }, {

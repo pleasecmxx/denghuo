@@ -34,8 +34,8 @@
           </div>
           <input
             type="text"
-            maxlength="20"
-            placeholder="请输入用户昵称"
+            maxlength="11"
+            placeholder="请输入用户帐号"
             class="login-input"
             v-model="userName"
           />
@@ -49,17 +49,26 @@
             <img class="login-icon" src="./../../assets/icons/password.png" />
           </div>
           <input
-            type="password"
-            maxlength="20"
+            type="text"
+            maxlength="4"
             placeholder="请输入短信验证码"
             class="login-input"
+            style="width:280px;margin:0 20px 0 0"
             v-model="userCode"
+            :clearable="false"
           />
-          <div class="delate-icon-container">
+          <el-button
+            style="height:50px;z-index: 999;"
+            plain
+            @click="getcode()"
+          >{{ time == 0 ? "发送验证码" : this.time+"s" }}</el-button>
+          <div class="delate-icon-container" style>
             <i v-show="userCode.length > 0" class="el-icon-error" @click="clearPass()"></i>
           </div>
         </div>
-        <button class="login-btn" @click="getcode()">登录</button>
+        <el-button type="danger" @click="login()" style="width:360px;height:52px">
+          <span style="font-size:20px">登录</span>
+        </el-button>
       </div>
     </div>
   </div>
@@ -75,12 +84,25 @@ export default {
   data() {
     return {
       userName: "15774063795",
-      userCode: ""
+      userCode: "",
+      time: 0
     };
   },
 
   methods: {
     login() {
+      console.log("++");
+
+      if (this.userName.length != 11) {
+        this.$message.error("请输入正确的手机号");
+        return;
+      }
+
+      if (this.userCode.length != 4) {
+        this.$message.error("请输入4位验证码");
+        return;
+      }
+
       phoneLogin({
         phone: this.userName,
         code: this.userCode,
@@ -90,7 +112,7 @@ export default {
         if (res.success) {
           store.commit("saveInfo", res.result);
           store.commit("saveToken", res.result.token);
-          this.$router.push('/')
+          this.$router.push("/main");
         } else {
           this.$notify.error({
             title: "登录失败",
@@ -101,19 +123,45 @@ export default {
     },
 
     getcode() {
+      if (this.userName.length != 11) {
+        this.$message.error("请输入正确的手机号");
+        return;
+      }
+      this.time = 60;
+      if (this.time == 0) {
+        return;
+      }
+      setInterval(() => {
+        if (this.time == 0) {
+          clearInterval();
+          return;
+        }
+        --this.time;
+      }, 1000);
       sendPhoneCode({
-        mobile: "15774063795",
-        key: "key---"
+        mobile: this.userName,
+        key: "0000"
       }).then(res => {
-        console.log(res.error);
-        sendPhoneCode({
-          mobile: "15774063795",
-          key: res.error.message
-        }).then(ref => {
-          console.log(ref);
-          this.userCode = ref.result;
-          this.login();
-        });
+        console.log(res);
+        if (res) {
+          sendPhoneCode({
+            mobile: this.userName,
+            key: res.error.message
+          }).then(ref => {
+            console.log(ref);
+            if (ref.result) {
+              this.userCode = ref.result;
+              this.$message({
+                message: "恭喜你，发送短信验证码成功",
+                type: "success"
+              });
+            } else {
+              this.$message.error("发送短信失败，请重试");
+            }
+          });
+        } else {
+          this.$message.error("发送短信失败，请重试");
+        }
       });
     },
 
@@ -248,12 +296,12 @@ export default {
 }
 
 .login-input:hover {
-  border: 1px solid red;
+  border: 1px solid rgb(47, 179, 255);
 }
 
 .login-input:active,
 .login-input:focus {
-  border: 1px solid red;
+  border: 1px solid rgb(47, 179, 255);
   box-shadow: 0 0 7px rgba(255, 0, 0, 0.1);
 }
 
