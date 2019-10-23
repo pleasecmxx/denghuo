@@ -97,6 +97,7 @@ export default {
         this.$message.error("请输入正确的手机号");
         return;
       }
+      console.log(this.userCode);
 
       if (this.userCode.length != 4) {
         this.$message.error("请输入4位验证码");
@@ -150,7 +151,7 @@ export default {
           }).then(ref => {
             console.log(ref);
             if (ref.result) {
-              this.userCode = ref.result;
+              this.userCode = ref.result + "";
               this.$message({
                 message: "恭喜你，发送短信验证码成功",
                 type: "success"

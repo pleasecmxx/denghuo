@@ -4,14 +4,12 @@ import router from './../router/router';
 
 let defaultConfig = {
   // baseUrl: 'http://120.77.178.7:3000/mock/47/api',
-  // baseUrl: 'http://location:9999/api',
-  // baseUrl: 'http://192.168.1.110:7001/api',
   baseUrl: '/api',
   timeout: 50000,
   headers: {
     "Content-Type": "application/json",
     "appType": 3,
-    "token": store.state.token,
+    "token": "",
   }
 };
 
@@ -23,22 +21,30 @@ class Axios {
   constructor(props) {
     instance = axios.create(defaultConfig);
     instance.defaults.withCredentials = true
+
+    instance.interceptors.request.use((config) => {
+      const token = store.state.token;
+      config.headers.token = token;
+      return config;
+    })
   }
 
   async get(url, params = {}) {
     try {
       // console.log(baseUrl + url)
-      params.token = store.state.token;
       console.log(JSON.stringify(params));
       const response = await instance.get(baseUrl + url, { params });
-
+      if (response.data.status) {
+        this.status(response.data.error)
+        return;
+      }
       if (response.data) {
         return response.data.result
       } else {
         alert("网络错误，请重试")
       }
     } catch (e) {
-      console.log("get+erro",e);
+      console.log("get+erro", e);
       return null
     }
   }
@@ -46,20 +52,37 @@ class Axios {
   async post(url, params) {
     try {
       console.log(baseUrl + url)
-
-      params.token = store.state.token;
       console.log(JSON.stringify(params));
       const response = await instance.post(baseUrl + url, params);
+      if (response.data.status) {
+        this.status(response.data.error)
+        return;
+      }
       if (response.data) {
-        return response.data
+        return response.data;
       } else {
         alert("网络错误，请重试")
       }
     } catch (e) {
 
-      console.log("post+err",e);
+      console.log("post+err", e);
       return null
     }
+  }
+
+  status(error) {
+    switch (error.code) {
+      /// "非法请求，请重新登录。"
+      case 5001:
+        store.commit("saveInfo", "");
+        store.commit("saveToken", "");
+        router.push("/");
+        break;
+
+      default:
+        break;
+    }
+    alert(error.message)
   }
 
 }

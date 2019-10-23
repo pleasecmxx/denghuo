@@ -46,9 +46,8 @@
               <router-link to="/ModifyPassWord">
                 <el-dropdown-item command="2">修改密码</el-dropdown-item>
               </router-link>
-              <router-link to="/">
-              <el-dropdown-item command="1">退出登录</el-dropdown-item>
-              </router-link>
+
+              <el-dropdown-item @click="outlogin()" command="1">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -130,6 +129,9 @@
 
 <script>
 import { setInterval, setTimeout } from "timers";
+
+import store from "@/vuex/store";
+
 export default {
   data() {
     return {
@@ -197,20 +199,22 @@ export default {
         }
       }, 2000);
     },
-    handleCommand(command) {
-
+    handleCommand(command) {},
+    outlogin() {
+      store.commit("saveInfo", "");
+      store.commit("saveToken", "");
+      this.$router.push("/");
     }
   }
 };
 </script>
 
 <style scoped>
-
 a {
   text-decoration: none;
 }
 
-i{
+i {
   color: #666666;
 }
 

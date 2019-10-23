@@ -31,37 +31,45 @@
       <el-table-column align="center" type="selection" width="55"></el-table-column>
       <el-table-column prop="name" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.name}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="latitude" label="组织位置" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.latitude}},{{scope.row.longitude}}</span>
+          <span>{{scope.row.latitude}},{{scope.row.longitude}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="组织备案文件" width="120">
+      <el-table-column label="组织备案文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <u>{{scope.row.filingDocument}}</u>
+          <span style="color:#0079fe;" v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.applyUserName}}</span>
+          <span>{{scope.row.applyUserName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人证明文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <u>{{scope.row.certifiedDocuments}}</u>
+          <span
+            style="color:#0079fe;"
+            v-for="(item,index) in scope.row.identityFiles"
+            :key="index"
+          >{{item}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="dealTime" label="处理时间" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="updatedAt" label="处理时间" show-overflow-tooltip></el-table-column>
       <el-table-column prop="state" label="处理结果" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{scope.row.state===1?"同意":"驳回"}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="operator" label="操作人员" show-overflow-tooltip></el-table-column>
+      <el-table-column label="操作人员" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span>{{scope.row.identity===1?"监管机构":"组织成员"}}</span>
+        </template>
+      </el-table-column>
       <el-table-column align="center" prop="operating" label="操作" show-overflow-tooltip>
         <template slot-scope="scope">
           <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
@@ -127,7 +135,7 @@ export default {
         state: 2, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
       },
-      loading:false 
+      loading: false
     };
   },
   mounted: function() {
@@ -138,9 +146,10 @@ export default {
       this.loading = true;
       getReviewOrganizations(params).then(res => {
         console.log("+", res);
-        this.tableData = res.data;
-        this.search.total =
-          Math.abs(res.total) / this.search.pageSize / 100000000;
+        if (res) {
+          this.tableData = res.data;
+          this.search.total = Math.abs(res.total) / this.search.pageSize;
+        }
         this.loading = false;
       });
     },
@@ -192,25 +201,27 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "error"
-      }).then(() => {
-        deleteReviewOrganization({
-          uid
-        }).then(res => {
-          console.log("success", res);
-          if (res.success) {
-            this.$message({
-              type: "success",
-              message: "删除审核申请成功!"
-            });
-            this._getReviewOrganizations();
-          } else {
-            this.$message({
-              type: "error",
-              message: "删除审核申请失败!"
-            });
-          }
-        });
-      });
+      })
+        .then(() => {
+          deleteReviewOrganization({
+            uid
+          }).then(res => {
+            console.log("success", res);
+            if (res.success) {
+              this.$message({
+                type: "success",
+                message: "删除审核申请成功!"
+              });
+              this._getReviewOrganizations();
+            } else {
+              this.$message({
+                type: "error",
+                message: "删除审核申请失败!"
+              });
+            }
+          });
+        })
+        .catch(() => {});
     },
     // 搜索关键词
     searchWord() {
@@ -219,6 +230,7 @@ export default {
     },
     // 重置
     clear() {
+      this.search.keyWord = "";
       this.params.keyword = "";
       this._getReviewOrganizations();
     },
