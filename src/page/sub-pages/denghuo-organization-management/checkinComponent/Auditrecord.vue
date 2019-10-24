@@ -21,52 +21,37 @@
       :data="tableData"
       tooltip-effect="dark"
       style="width: 100%;margin-top:10px;"
-      @selection-change="handleSelectionChange"
       border
       stripe
       v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column align="center" type="selection" width="55"></el-table-column>
       <el-table-column prop="name" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.name}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="orgnzationPosition" label="组织位置" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.latitude}},{{scope.row.longitude}}</span>
+          <span>{{scope.row.latitude}},{{scope.row.longitude}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="组织备案文件">
+      <el-table-column label="组织备案文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;" v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
+          <span v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.applyUserName}}</span>
+          <span>{{scope.row.applyUserName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人证明文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span
-            style="color:#0079fe;"
-            v-for="(item,index) in scope.row.certifiedDocuments"
-            :key="index"
-          >{{item}}</span>
+          <span v-for="(item,index) in scope.row.certifiedDocuments" :key="index">{{item}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
-      <!-- 
-      <el-table-column prop="dealTime" label="处理时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="result" label="处理结果" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span>{{scope.row.result===1?"同意":"驳回"}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="operator" label="操作人员" show-overflow-tooltip></el-table-column>
-      -->
       <el-table-column prop="operating" label="操作" show-overflow-tooltip>
         <template slot-scope="scope">
           <span @click="get_consent_lodaing(scope.row)" style="color:#0079fe;">
@@ -82,21 +67,7 @@
       </el-table-column>
     </el-table>
     <div class="underTable">
-      <div>
-        <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
-        <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-dropdown style="margin-left:10px;" @command="handleCommand">
-          <el-button style="width:105px;">
-            更多操作
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu>
-            <el-dropdown-item command="1">同意</el-dropdown-item>
-            <el-dropdown-item command="2">驳回</el-dropdown-item>
-            <el-dropdown-item command="3">删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
+      <div></div>
       <div>
         <el-pagination
           @size-change="handleSizeChange"
@@ -110,15 +81,55 @@
         ></el-pagination>
       </div>
     </div>
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-
+    <el-dialog title="申请详情" :visible.sync="dialogFormVisible">
+      <el-form ref="form" label-width="120px" size="mini">
+        <el-form-item label="组织名称">
+          <span>{{form.name}}</span>
+        </el-form-item>
+        <el-form-item label="组织位置">
+          <input v-model="form.latitude" class="my_input_class" placeholder="经度" type="text" />
+          <input v-model="form.longitude" class="my_input_class" placeholder="纬度" type="text" />
+        </el-form-item>
+        <el-form-item label="组织备案文件">
+          <span style="color:#0079fe;" v-for="(item,index) in form.files" :key="index">{{item}}</span>
+        </el-form-item>
+        <el-form-item label="申请人">
+          <span>{{form.applyUserName}}</span>
+        </el-form-item>
+        <el-form-item label="申请人证明文件">
+          <span
+            style="color:#0079fe;"
+            v-for="(item,index) in form.certifiedDocuments"
+            :key="index"
+          >{{item}}</span>
+        </el-form-item>
+        <el-form-item label="申请时间">
+          <span>{{form.createdAt}}</span>
+        </el-form-item>
+        <el-form-item label="名称首字母">
+          <input
+            v-model="form.initials"
+            class="my_input_class"
+            placeholder="例如，芙蓉小区则为 FRXQ"
+            type="text"
+          />
+        </el-form-item>
+        <el-form-item label="行政编码">
+          <input v-model="form.areaCode" class="my_input_class" placeholder="行政编码" type="text" />
+        </el-form-item>
+      </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="get_consent(form)">确 定</el-button>
+        <el-button @click="formclone()">取 消</el-button>
+        <el-button type="primary" @click="get_consent(form)">同 意</el-button>
       </div>
     </el-dialog>
-
-    <Model ref="model" @truecolne="truecolne"></Model>
+    <el-dialog title="驳回原因" :visible.sync="rejecteddialog">
+      <el-input type="textarea" :rows="2" placeholder="请输入驳回原因" v-model="textarea"></el-input>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="rejectedclone()">取 消</el-button>
+        <el-button type="primary" @click="get_reject()">驳 回</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -127,7 +138,6 @@ import {
   reviewOrganization,
   deleteReviewOrganization
 } from "./../../../../utils/api";
-import Model from "../../../../components/common/model/Model";
 import axios from "axios";
 
 export default {
@@ -145,7 +155,6 @@ export default {
       },
       tableData: [],
       form: {},
-      multipleSelection: [], // 全选多选数据
       params: {
         page: 1, // 1 页数
         limit: 10, // 个数
@@ -155,7 +164,10 @@ export default {
         keyword: "" // 关键字
       },
       loading: false, // 请求loding
-      dialogFormVisible: false
+      dialogFormVisible: false, // 同意框
+      rejecteddialog: false, // 驳回框
+      rejecte_uid: "", // 驳回 uid
+      textarea: "" // 驳回原因
     };
   },
   mounted: function() {
@@ -173,132 +185,107 @@ export default {
         this.loading = false;
       });
     },
-    toggleSelection() {
-      this.dialogFormVisible = true;
-    },
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
-    },
-    // 显示 model
+    // 显示 驳回对话 model
     set_dialog(uid) {
-      this.$refs.model.shows(uid);
+      this.rejecte_uid = uid;
+      this.rejecteddialog = true;
     },
-    // model 输入回调  驳回原因 uid
-    truecolne(text, uid) {
-      this.get_reject(text, uid);
+    // 取消 驳回对话
+    rejectedclone() {
+      this.rejecte_uid = "";
+      this.textarea = "";
+      this.rejecteddialog = false;
     },
-    // toggleSelection(rows) {
-    //   if (rows) {
-    //     rows.forEach(row => {
-    //       this.$refs.multipleTable.toggleRowSelection(row);
-    //     });
-    //   } else {
-    //     this.$refs.multipleTable.clearSelection();
-    //   }
-    // },
-    handleCommand(options) {
-      let selected = this.$refs.multipleTable.selection;
-      let orgin = this.tableData;
-      let last = [];
-
-      if (options == 1) {
-        orgin.forEach((item, index) => {
-          selected.forEach((selectedItem, selectedIndex) => {
-            selectedItem.result = 1;
-          });
-        });
-      } else if (options == 2) {
-        orgin.forEach((item, index) => {
-          selected.forEach((selectedItem, selectedIndex) => {
-            selectedItem.result = 2;
-          });
-        });
-      } else if (options == 3) {
-        orgin.forEach((item, index) => {
-          selected.forEach((selectedItem, selectedIndex) => {
-            if (item.id == selectedItem.id) {
-              orgin[index] = "";
-            }
-          });
-        });
-        orgin.forEach((item, index) => {
-          if (item != "") {
-            last[last.length] = item;
-          }
-        });
-        this.tableData = last;
-      }
+    // 取消同意对话框
+    formclone() {
+      this.dialogFormVisible = false;
+      this.form = {};
     },
+    rejected_consent() {},
     // 同意u
     get_consent_lodaing(data) {
-      this.form = data;
+      data.initials = "";
+      data.areaCode = "";
+      Object.assign(this.form, data);
+      console.log(this.form);
       this.dialogFormVisible = true;
-      return;
+      this.getaroder(data);
+    },
+    /// 获取逆地理编码
+    getaroder(data) {
+      axios
+        .get("https://restapi.amap.com/v3/geocode/regeo", {
+          params: {
+            key: "93dfb6497d286e77a3b98e6aca2e7341",
+            location: data.longitude + "," + data.latitude
+          }
+        })
+        .then(res => {
+          console.log(res);
+          if (res.data.infocode != "10000") {
+            return;
+          }
+          this.form.areaCode = res.data.regeocode.addressComponent.adcode;
+        })
+        .catch(err => {});
     },
     // 同意u
     get_consent(data) {
+      console.log(this.form);
+      if (data.initials == "") {
+        this.$message.error("请输入组织名称首字母");
+        return;
+      }
+      if (data.areaCode == "") {
+        this.$message.error("请输入行政编码");
+        return;
+      }
       this.$confirm("请确认,是否同意审核申请?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "success"
       })
         .then(() => {
-          const url = "https://restapi.amap.com/v3/geocode/regeo";
-          axios
-            .get("https://restapi.amap.com/v3/geocode/regeo", {
-              params: {
-                key: "93dfb6497d286e77a3b98e6aca2e7341",
-                location: data.longitude + "," + data.latitude
-              }
-            })
-            .then(res => {
-              console.log(res);
-              if (res.data.infocode != "10000") {
-                this.$message({
-                  type: "error",
-                  message: "同意审核申请失败!,请重试-1"
-                });
-                return;
-              }
-              reviewOrganization({
-                uid: data.uid,
-                result: 1, // 通过
-                reason: "", // 原因
-                name: data.name,
-                areaCode: res.data.regeocode.addressComponent.adcode,
-                initials: "w",
-                longitude: data.longitude,
-                latitude: data.latitude
-              }).then(res => {
-                console.log("通过", res);
-                if (res.success) {
-                  this.$message({
-                    type: "success",
-                    message: "同意审核申请成功!"
-                  });
-                  this._getReviewOrganizations();
-                } else {
-                  this.$message({
-                    type: "error",
-                    message: "同意审核申请失败!"
-                  });
-                }
+          reviewOrganization({
+            uid: data.uid,
+            result: 1, // 通过
+            reason: "", // 原因
+            name: data.name,
+            areaCode: data.adcode,
+            initials: data.initials,
+            longitude: data.longitude,
+            latitude: data.latitude
+          }).then(res => {
+            console.log("通过", res);
+            this.form = {};
+            if (res.success) {
+              this.$message({
+                type: "success",
+                message: "同意审核申请成功!"
               });
-            })
-            .catch(err => {});
+              this._getReviewOrganizations();
+            } else {
+              this.$message({
+                type: "error",
+                message: "同意审核申请失败!"
+              });
+            }
+          });
         })
-        .catch(() => {});
+        .catch(() => {
+          this.form = {};
+        });
     },
     // 驳回
-    get_reject(reason, uid) {
+    get_reject() {
+      if (this.textarea == "") {
+        this.$message.error("请输入驳回原因");
+        return;
+      }
       reviewOrganization({
-        uid,
+        uid: this.rejecte_uid,
         result: 2, // 不通过
-        reason // 原因
+        reason: this.textarea // 原因
         // name: "",
         // longitude: "",
         // latitude: ""
@@ -320,7 +307,7 @@ export default {
     // 删除
     get_remove(uid) {
       this.$confirm("请确认,是否删除审核申请？", "提示", {
-        confirmButtonText: "确定",
+        confirmButtonText: "删除",
         cancelButtonText: "取消",
         type: "error"
       })
@@ -356,10 +343,6 @@ export default {
       this.params.keyword = "";
       this._getReviewOrganizations();
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-      console.log(val);
-    },
     // 分页条件改变
     handleSizeChange(pageSize) {
       this.search.pageSize = pageSize;
@@ -376,7 +359,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .searchBox {
   display: flex;
   justify-content: flex-start;
@@ -402,5 +384,25 @@ export default {
 }
 .blue {
   color: #409eff;
+}
+
+.my_input_class {
+  width: 90%;
+  line-height: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  border: 1px solid #dcdfe6;
+  margin: 2px 0;
+  outline-style: none;
+}
+
+.my_input_class:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
 }
 </style>

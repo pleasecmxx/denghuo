@@ -66,7 +66,12 @@
             <i v-show="userCode.length > 0" class="el-icon-error" @click="clearPass()"></i>
           </div>
         </div>
-        <el-button type="danger" @click="login()" style="width:360px;height:52px">
+        <el-button
+          :loading="loading"
+          type="danger"
+          @click="login()"
+          style="width:360px;height:52px"
+        >
           <span style="font-size:20px">登录</span>
         </el-button>
       </div>
@@ -85,7 +90,8 @@ export default {
     return {
       userName: "15774063795",
       userCode: "",
-      time: 0
+      time: 0,
+      loading: false
     };
   },
 
@@ -103,7 +109,7 @@ export default {
         this.$message.error("请输入4位验证码");
         return;
       }
-
+      this.loading = true;
       phoneLogin({
         phone: this.userName,
         code: this.userCode,
@@ -120,6 +126,7 @@ export default {
             message: res.error.message
           });
         }
+        this.loading = false;
       });
     },
 
@@ -155,7 +162,7 @@ export default {
               this.$message({
                 message: "恭喜你，发送短信验证码成功",
                 type: "success"
-              });
+              }).catch(() => {});
             } else {
               this.$message.error("发送短信失败，请重试");
             }

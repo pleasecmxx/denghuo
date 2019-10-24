@@ -21,14 +21,12 @@
       :data="tableData"
       tooltip-effect="dark"
       style="width: 100%;margin-top:10px;"
-      @selection-change="handleSelectionChange"
       height="600"
       border
       stripe
       v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column align="center" type="selection" width="55"></el-table-column>
       <el-table-column prop="name" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{scope.row.name}}</span>
@@ -80,19 +78,6 @@
     </el-table>
     <div class="underTable">
       <div>
-        <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
-        <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-dropdown style="margin-left:10px;" @command="handleCommand">
-          <el-button style="width:105px;">
-            更多操作
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu>
-            <el-dropdown-item command="1">同意</el-dropdown-item>
-            <el-dropdown-item command="2">驳回</el-dropdown-item>
-            <el-dropdown-item command="3">删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
       </div>
       <div>
         <el-pagination
@@ -126,7 +111,6 @@ export default {
         keyWord: ""
       },
       tableData: [],
-      multipleSelection: [],
       params: {
         page: 1, // 1 页数
         limit: 10, // 个数
@@ -153,52 +137,10 @@ export default {
         this.loading = false;
       });
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    handleCommand(options) {
-      let selected = this.$refs.multipleTable.selection;
-      let orgin = this.tableData;
-      let last = [];
-
-      if (options == 1) {
-        orgin.forEach((item, index) => {
-          selected.forEach((selectedItem, selectedIndex) => {
-            selectedItem.result = 1;
-          });
-        });
-      } else if (options == 2) {
-        orgin.forEach((item, index) => {
-          selected.forEach((selectedItem, selectedIndex) => {
-            selectedItem.result = 2;
-          });
-        });
-      } else if (options == 3) {
-        orgin.forEach((item, index) => {
-          selected.forEach((selectedItem, selectedIndex) => {
-            if (item.id == selectedItem.id) {
-              orgin[index] = "";
-            }
-          });
-        });
-        orgin.forEach((item, index) => {
-          if (item != "") {
-            last[last.length] = item;
-          }
-        });
-        this.tableData = last;
-      }
-    },
     // 删除
     get_remove(uid) {
       this.$confirm("请确认,是否删除审核申请？", "提示", {
-        confirmButtonText: "确定",
+        confirmButtonText: "删除",
         cancelButtonText: "取消",
         type: "error"
       })
@@ -233,9 +175,6 @@ export default {
       this.search.keyWord = "";
       this.params.keyword = "";
       this._getReviewOrganizations();
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
     },
     // 分页条件改变
     handleSizeChange(pageSize) {

@@ -11,7 +11,7 @@
         </div>
         <div class="footer">
           <el-button @click="showcolne()">取消</el-button>
-          <el-button @click="truecolne()" type="primary">确认</el-button>
+          <el-button @click="truecolne()" type="primary">驳回</el-button>
         </div>
       </div>
     </div>
