@@ -83,9 +83,7 @@ export default {
   justify-content: center;
   align-items: flex-start;
 }
-.app-body {
-  overflow-y: auto;
-}
+
 .topBarContainer {
   width: 96%;
   display: flex;

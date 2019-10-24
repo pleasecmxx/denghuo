@@ -43,27 +43,18 @@ export default {
 </script>
 <style scoped>
 .top-menu {
-  position: fixed;
-  left: 230px;
-  top: 52px;
-  right: 0px;
   height: 50px;
   background-color: #fff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* padding-left: 20px; */
-  /* padding-right: px; */
   padding: 0 20px;
-  box-shadow: 0 0 4px 1px rgba(209, 209, 209, 0.9);
   box-sizing: border-box;
 }
 .top-right {
   width: 80px;
   height: 50px;
-  /* background-color: tomato; */
-  /* z-index: 999999; */
   justify-content: flex-end;
   align-items: center;
 }

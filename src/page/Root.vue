@@ -46,7 +46,6 @@
               <router-link to="/ModifyPassWord">
                 <el-dropdown-item command="2">修改密码</el-dropdown-item>
               </router-link>
-
               <el-dropdown-item @click="outlogin()" command="1">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -55,43 +54,50 @@
 
       <!-- <router-link tag="div" to="/login">登录</router-link> -->
     </div>
-    <div class="slider-mue">
-      <router-link class="slider-menu" tag="div" to="/home">
-        <i class="el-icon-menu"></i>
-        <p class="menu-text">快捷菜单</p>
-      </router-link>
-      <router-link class="slider-menu" tag="div" to="/operation-acount-management">
-        <i class="el-icon-edit-outline"></i>
-        <p class="menu-text">平台运营账号管理</p>
-      </router-link>
-      <router-link class="slider-menu" tag="div" to="/area-acount-management">
-        <i class="el-icon-edit-outline"></i>
-        <p class="menu-text">地区运营账号管理</p>
-      </router-link>
-      <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
-        <i class="el-icon-mobile-phone"></i>
-        <p class="menu-text">灯火端用户管理</p>
-      </router-link>
-      <router-link class="slider-menu" tag="div" to="/denghuo-organization-management">
-        <i class="el-icon-document"></i>
-        <p class="menu-text">灯火端组织管理</p>
-      </router-link>
-      <router-link class="slider-menu" tag="div" to="/denghuo-content-management">
-        <i class="el-icon-printer"></i>
-        <p class="menu-text">灯火端内容管理</p>
-      </router-link>
-      <!-- <router-link class="slider-menu" tag="div" to="/wenming-user-management">
+
+    <div class="app_main">
+      <div class="slider-mue">
+        <router-link class="slider-menu" tag="div" to="/home">
+          <i class="el-icon-menu"></i>
+          <p class="menu-text">快捷菜单</p>
+        </router-link>
+        <router-link class="slider-menu" tag="div" to="/operation-acount-management">
+          <i class="el-icon-edit-outline"></i>
+          <p class="menu-text">平台运营账号管理</p>
+        </router-link>
+        <router-link class="slider-menu" tag="div" to="/area-acount-management">
+          <i class="el-icon-edit-outline"></i>
+          <p class="menu-text">地区运营账号管理</p>
+        </router-link>
+        <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
+          <i class="el-icon-mobile-phone"></i>
+          <p class="menu-text">灯火端用户管理</p>
+        </router-link>
+        <router-link class="slider-menu" tag="div" to="/denghuo-organization-management">
+          <i class="el-icon-document"></i>
+          <p class="menu-text">灯火端组织管理</p>
+        </router-link>
+        <router-link class="slider-menu" tag="div" to="/denghuo-content-management">
+          <i class="el-icon-printer"></i>
+          <p class="menu-text">灯火端内容管理</p>
+        </router-link>
+        <!-- <router-link class="slider-menu" tag="div" to="/wenming-user-management">
         <i class="el-icon-edit"></i>
         <p class="menu-text">文明端用户管理</p>
-      </router-link>-->
-      <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
-        <i class="el-icon-edit"></i>
-        <p class="menu-text">文明端账户管理</p>
-      </router-link>
-      <router-link class="slider-menu" tag="div" to="/civilization-content-management">
-        <i class="el-icon-edit"></i>
-        <p class="menu-text">文明端内容管理</p>
-      </router-link>
+        </router-link>-->
+        <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
+          <i class="el-icon-edit"></i>
+          <p class="menu-text">文明端账户管理</p>
+        </router-link>
+        <router-link class="slider-menu" tag="div" to="/civilization-content-management">
+          <i class="el-icon-edit"></i>
+          <p class="menu-text">文明端内容管理</p>
+        </router-link>
+      </div>
+      <div class="page-content">
+        <!-- <p style="text-align: left">adhakdhkj</p> -->
+        <router-view></router-view>
+      </div>
     </div>
 
     <!-- <div class="second-menu">
@@ -120,10 +126,6 @@
         <span class="s-menu-text">文明端用户列表</span>
       </router-link>
     </div>-->
-    <div class="page-content">
-      <!-- <p style="text-align: left">adhakdhkj</p> -->
-      <router-view></router-view>
-    </div>
   </div>
 </template>
 
@@ -201,6 +203,7 @@ export default {
     },
     handleCommand(command) {},
     outlogin() {
+      alert("退出登录");
       store.commit("saveInfo", "");
       store.commit("saveToken", "");
       this.$router.push("/");
@@ -219,37 +222,32 @@ i {
 }
 
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
+  width: 100%;
   height: 52px;
   background-color: rgba(55, 61, 65);
-  overflow: hidden;
-  z-index: 99;
-  display: flex;
-  justify-content: space-between;
   min-width: 1080px !important;
 }
 
 .header-left {
   width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  height: 52px;
+  float: left;
 }
 
 .logo {
   margin-left: 20px;
+  float: left;
 }
 
 .main-logo {
-  height: 26px;
+  width: 260px;
+  height: 48px;
+  float: left;
 }
 
 .header-title {
-  margin-bottom: 5px;
+  line-height: 52px;
+  float: left;
 }
 
 .header-title-text {
@@ -262,13 +260,14 @@ i {
 
 .header-right {
   width: 623px;
+  line-height: 52px;
+  height: 52px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
 .header-search-content {
-  position: relative;
   width: 200px;
   height: 26px;
   display: flex;
@@ -353,29 +352,29 @@ i {
 }
 
 .page {
-  position: relative;
-  height: 100%;
   width: 100%;
-  padding-top: 52px;
-  padding-left: 80px;
+  height: 100%;
+  float: left;
 }
 
 .page-content {
+  display: flex;
+  width: 100%;
+  float: left;
+}
+
+.app_main {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  float: left;
+  display: flex;
 }
 
 .slider-mue {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
   width: 80px;
   background-color: rgba(51, 55, 68);
-  z-index: 98;
-  padding-top: 52px;
-  min-height: 800px;
+  height: 100%;
+  float: left;
 }
 
 .slider-menu {

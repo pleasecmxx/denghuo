@@ -146,9 +146,10 @@ export default {
       this.loading = true;
       getReviewCommitteeWorks(params).then(res => {
         console.log("+", res);
-        this.tableData = res.data;
-        this.search.total =
-          Math.abs(res.total) / this.search.pageSize / 100000000;
+        if (res) {
+          this.tableData = res.data;
+          this.search.total = Math.abs(res.total) / this.search.pageSize;
+        }
         this.loading = false;
       });
     },

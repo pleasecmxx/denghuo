@@ -39,10 +39,10 @@
           <span style="color:#0079fe;">{{scope.row.latitude}},{{scope.row.longitude}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="组织备案文件" width="120">
-        <!-- <template slot-scope="scope">
-          <u>{{scope.row.files[]}}</u>
-        </template>-->
+      <el-table-column label="组织备案文件">
+        <template slot-scope="scope">
+          <span style="color:#0079fe;" v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
+        </template>
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
         <template slot-scope="scope">
@@ -51,7 +51,11 @@
       </el-table-column>
       <el-table-column label="申请人证明文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <u>{{scope.row.certifiedDocuments}}</u>
+          <span
+            style="color:#0079fe;"
+            v-for="(item,index) in scope.row.certifiedDocuments"
+            :key="index"
+          >{{item}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
@@ -66,7 +70,7 @@
       -->
       <el-table-column prop="operating" label="操作" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">
+          <span @click="get_consent_lodaing(scope.row)" style="color:#0079fe;">
             <i class="el-icon-success" />同意
           </span>
           <span @click="set_dialog(scope.row.uid)" style="color:#0079fe;">
@@ -107,6 +111,13 @@
         ></el-pagination>
       </div>
     </div>
+    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="get_consent(form)">确 定</el-button>
+      </div>
+    </el-dialog>
 
     <Model ref="model" @truecolne="truecolne"></Model>
   </div>
@@ -118,6 +129,7 @@ import {
   deleteReviewOrganization
 } from "./../../../../utils/api";
 import Model from "../../../../components/common/model/Model";
+import axios from "axios";
 
 export default {
   name: "Auditrecord",
@@ -133,6 +145,7 @@ export default {
         keyWord: ""
       },
       tableData: [],
+      form: {},
       multipleSelection: [], // 全选多选数据
       params: {
         page: 1, // 1 页数
@@ -142,7 +155,8 @@ export default {
         state: 1, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
       },
-      loading: false // 请求loding
+      loading: false, // 请求loding
+      dialogFormVisible: false
     };
   },
   mounted: function() {
@@ -160,6 +174,16 @@ export default {
         this.loading = false;
       });
     },
+    toggleSelection() {
+      this.dialogFormVisible = true;
+    },
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
     // 显示 model
     set_dialog(uid) {
       this.$refs.model.shows(uid);
@@ -168,15 +192,15 @@ export default {
     truecolne(text, uid) {
       this.get_reject(text, uid);
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
+    // toggleSelection(rows) {
+    //   if (rows) {
+    //     rows.forEach(row => {
+    //       this.$refs.multipleTable.toggleRowSelection(row);
+    //     });
+    //   } else {
+    //     this.$refs.multipleTable.clearSelection();
+    //   }
+    // },
     handleCommand(options) {
       let selected = this.$refs.multipleTable.selection;
       let orgin = this.tableData;
@@ -211,31 +235,62 @@ export default {
       }
     },
     // 同意u
-    get_consent(uid) {
+    get_consent_lodaing(data) {
+      this.form = data;
+      this.dialogFormVisible = true;
+      return;
+    },
+    // 同意u
+    get_consent(data) {
       this.$confirm("请确认,是否同意审核申请?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "success"
       })
         .then(() => {
-          reviewOrganization({
-            uid,
-            result: 1 // 通过
-          }).then(res => {
-            console.log("通过", res);
-            if (res.success) {
-              this.$message({
-                type: "success",
-                message: "同意审核申请成功!"
+          const url = "https://restapi.amap.com/v3/geocode/regeo";
+          axios
+            .get("https://restapi.amap.com/v3/geocode/regeo", {
+              params: {
+                key: "93dfb6497d286e77a3b98e6aca2e7341",
+                location: data.longitude + "," + data.latitude
+              }
+            })
+            .then(res => {
+              console.log(res);
+              if (res.data.infocode != "10000") {
+                this.$message({
+                  type: "error",
+                  message: "同意审核申请失败!,请重试-1"
+                });
+                return;
+              }
+              reviewOrganization({
+                uid: data.uid,
+                result: 1, // 通过
+                reason: "", // 原因
+                name: data.name,
+                areaCode: res.data.regeocode.addressComponent.adcode,
+                initials: "w",
+                longitude: data.longitude,
+                latitude: data.latitude
+              }).then(res => {
+                console.log("通过", res);
+                if (res.success) {
+                  this.$message({
+                    type: "success",
+                    message: "同意审核申请成功!"
+                  });
+                  this._getReviewOrganizations();
+                } else {
+                  this.$message({
+                    type: "error",
+                    message: "同意审核申请失败!"
+                  });
+                }
               });
-              this._getReviewOrganizations();
-            } else {
-              this.$message({
-                type: "error",
-                message: "同意审核申请失败!"
-              });
-            }
-          });
+            })
+            .catch(err => {});
         })
         .catch(() => {});
     },
@@ -322,9 +377,7 @@ export default {
 };
 </script>
 <style scoped>
-.v-modal {
-  z-index: -1;
-}
+
 .searchBox {
   display: flex;
   justify-content: flex-start;

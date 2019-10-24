@@ -53,9 +53,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.app-body {
-  overflow-y: auto;
-}
+
 .topBarContainer {
   width: 96%;
   display: flex;
