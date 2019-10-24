@@ -30,25 +30,26 @@
             <i class="el-icon-view"></i>
             <p class="header-info-items-p">锁屏</p>
           </div>
-
-          <el-dropdown class="header_right" @command="handleCommand">
-            <div class="header-info-items el-dropdown-link header_right">
-              <i class="el-icon-view"></i>
-              <p class="header-info-items-p">admin</p>
-            </div>
-            <el-dropdown-menu slot="dropdown" style="header_right el-dropdown-menu">
-              <router-link to="/ModifyData">
-                <el-dropdown-item command="4">修改资料</el-dropdown-item>
-              </router-link>
-              <router-link to="/ModifyAvatar">
-                <el-dropdown-item command="3">修改头像</el-dropdown-item>
-              </router-link>
-              <router-link to="/ModifyPassWord">
-                <el-dropdown-item command="2">修改密码</el-dropdown-item>
-              </router-link>
-              <el-dropdown-item @click="outlogin()" command="1">退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <div class="header-info-items">
+            <el-dropdown class="heade_right_ad" @command="handleCommand">
+              <span class="el-dropdown-link">
+                <i class="el-icon-view"></i>
+                <p class="header-info-items-p">admin</p>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <router-link to="/ModifyData">
+                  <el-dropdown-item command="4">修改资料</el-dropdown-item>
+                </router-link>
+                <router-link to="/ModifyAvatar">
+                  <el-dropdown-item command="3">修改头像</el-dropdown-item>
+                </router-link>
+                <router-link to="/ModifyPassWord">
+                  <el-dropdown-item command="2">修改密码</el-dropdown-item>
+                </router-link>
+                <el-dropdown-item @click="outlogin()" command="1">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
         </div>
       </div>
 
@@ -61,7 +62,7 @@
           <i class="el-icon-menu"></i>
           <p class="menu-text">快捷菜单</p>
         </router-link>
-        <router-link class="slider-menu" tag="div" to="/operation-acount-management">
+        <!-- <router-link class="slider-menu" tag="div" to="/operation-acount-management">
           <i class="el-icon-edit-outline"></i>
           <p class="menu-text">平台运营账号管理</p>
         </router-link>
@@ -72,15 +73,15 @@
         <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
           <i class="el-icon-mobile-phone"></i>
           <p class="menu-text">灯火端用户管理</p>
-        </router-link>
+        </router-link>-->
         <router-link class="slider-menu" tag="div" to="/denghuo-organization-management">
           <i class="el-icon-document"></i>
           <p class="menu-text">灯火端组织管理</p>
         </router-link>
-        <router-link class="slider-menu" tag="div" to="/denghuo-content-management">
+        <!-- <router-link class="slider-menu" tag="div" to="/denghuo-content-management">
           <i class="el-icon-printer"></i>
           <p class="menu-text">灯火端内容管理</p>
-        </router-link>
+        </router-link>-->
         <!-- <router-link class="slider-menu" tag="div" to="/wenming-user-management">
         <i class="el-icon-edit"></i>
         <p class="menu-text">文明端用户管理</p>
@@ -89,10 +90,10 @@
           <i class="el-icon-edit"></i>
           <p class="menu-text">文明端账户管理</p>
         </router-link>
-        <router-link class="slider-menu" tag="div" to="/civilization-content-management">
+        <!-- <router-link class="slider-menu" tag="div" to="/civilization-content-management">
           <i class="el-icon-edit"></i>
           <p class="menu-text">文明端内容管理</p>
-        </router-link>
+        </router-link>-->
       </div>
       <div class="page-content">
         <!-- <p style="text-align: left">adhakdhkj</p> -->
@@ -259,21 +260,15 @@ i {
 }
 
 .header-right {
-  width: 623px;
+  float: right;
   line-height: 52px;
   height: 52px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 }
 
 .header-search-content {
-  width: 200px;
-  height: 26px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 80px;
+  height: 52px;
+  float: left;
+  margin: 0 150px 0 0;
 }
 
 .search-input {
@@ -289,6 +284,8 @@ i {
   transition: all ease 0.25s;
   font-size: 12px;
   line-height: 26px;
+  float: left;
+  margin: 13px 0 13px 0;
 }
 
 .search-input::-webkit-input-placeholder {
@@ -310,11 +307,8 @@ i {
 }
 
 .img-search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 10px;
+  float: left;
+  margin: 2px 0 0 -30px;
 }
 
 .img-search:hover > .el-icon-search {
@@ -322,27 +316,42 @@ i {
 }
 
 .header-info {
+  height: 52px;
   padding-left: 10px;
-  display: flex;
+  float: left;
 }
 
 .header-info-items {
-  width: 80px;
-  margin-right: px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 52px;
+  line-height: 52px;
+  margin-right: 30px;
+  float: left;
   cursor: pointer;
+}
+.header-info-items i {
+  float: left;
+  line-height: 52px;
+}
+
+.header-info-items p {
+  margin: 0;
+  padding-left: 5px;
 }
 
 .header_right {
   width: 120px;
 }
 
+.heade_right_ad {
+  height: 52px;
+  margin: 0 0 0 0;
+}
+
 .header-info-items-p {
   margin-left: 4px;
   color: #bbbbbb;
   transition: all ease 0.25s;
+  float: left;
 }
 
 .header-info-items:hover > i,

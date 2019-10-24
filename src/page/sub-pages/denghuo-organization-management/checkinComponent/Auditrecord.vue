@@ -22,7 +22,6 @@
       tooltip-effect="dark"
       style="width: 100%;margin-top:10px;"
       @selection-change="handleSelectionChange"
-      height="600"
       border
       stripe
       v-loading="loading"

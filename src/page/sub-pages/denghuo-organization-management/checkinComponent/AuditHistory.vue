@@ -70,7 +70,7 @@
           <span>{{scope.row.identity===1?"监管机构":"组织成员"}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="operating" label="操作" show-overflow-tooltip>
+      <el-table-column prop="operating" label="操作" show-overflow-tooltip>
         <template slot-scope="scope">
           <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除

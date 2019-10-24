@@ -41,10 +41,5 @@ export default {
 
 <style scoped>
 
-.app-container{
-  width: 100%;
-  float: left;
-}
-
 
 </style>
