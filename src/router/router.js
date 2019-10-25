@@ -111,11 +111,11 @@ const router = new VueRouter({
                             name: "灯火端用户列表",
                             component: DenghuoUserList
                         },
-                        {
-                            path: '/OrganizationEnter',
-                            name: 'kj组织入驻审核',
-                            component: OrganizationEnter
-                        },
+                        // {
+                        //     path: '/OrganizationEnter',
+                        //     name: 'kj组织入驻审核',
+                        //     component: OrganizationEnter
+                        // },
                         {
                             path: '/DenghuoContentList',
                             name: '灯火端内容列表',
@@ -160,7 +160,8 @@ const router = new VueRouter({
                             component: OptionLog,
                         },
                     ]
-                }, {
+                }, 
+                {
                     path: '/area-acount-management',
                     name: '地区运营账号管理',
                     component: AreaAcountManagement,
@@ -172,7 +173,8 @@ const router = new VueRouter({
                             component: AreaNormalUserList,
                         },
                     ]
-                }, {
+                }, 
+                {
                     path: '/denghuo-user-management',
                     name: '灯火端用户管理',
                     component: DenghuoUserManagement,
@@ -201,7 +203,7 @@ const router = new VueRouter({
                     children: [
                         {
                             path: '/OrganizationCheckin',
-                            name: 'dh组织入驻审核',
+                            name: '组织入驻审核',
                             component: OrganizationCheckin,
                         }, {
                             path: '/OrganizationList',
@@ -300,7 +302,7 @@ const router = new VueRouter({
                     ]
                 }, {
                     path: '/civilization-content-management',
-                    name: '文明端内容管理',
+                    name: '文明端事务管理',
                     component: CivilizationContentManagement,
                     redirect: '/TransactionManagement',
                     children: [

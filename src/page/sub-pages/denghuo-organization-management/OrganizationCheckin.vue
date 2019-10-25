@@ -1,8 +1,9 @@
-<!--业主申请审核-->
+<!--组织入驻审核-->
 <template>
   <div class="app-container">
     <Levelbar />
     <div class="app-body">
+      <div class="content">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
         <el-tab-pane label="待审核申请" name="Auditrecord" style="height:100%;">
           <Auditrecord />
@@ -11,6 +12,7 @@
           <AuditHistory/>
         </el-tab-pane>
       </el-tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -41,5 +43,13 @@ export default {
 
 <style scoped>
 
+.content{
+  width: 100%;
+  height: 100%;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 </style>

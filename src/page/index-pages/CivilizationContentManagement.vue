@@ -4,7 +4,7 @@
       <router-link class="s-menu-line" tag="div" to="/civilization-content-management">
         <div class="s-menu-line s-menu-top">
           <i class="el-icon-menu"></i>
-          <span class="m-t-text">文明端内容管理</span>
+          <span class="m-t-text">文明端事务管理</span>
         </div>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/TransactionManagement">

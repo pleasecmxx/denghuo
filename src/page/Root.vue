@@ -46,16 +46,14 @@
                 <router-link to="/ModifyPassWord">
                   <el-dropdown-item command="2">修改密码</el-dropdown-item>
                 </router-link>
-                <div @click="outlogin()" >
-                <el-dropdown-item command="1">退出登录</el-dropdown-item>
+                <div @click="outlogin()">
+                  <el-dropdown-item command="1">退出登录</el-dropdown-item>
                 </div>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
         </div>
       </div>
-
-      <!-- <router-link tag="div" to="/login">登录</router-link> -->
     </div>
 
     <div class="app_main">
@@ -71,7 +69,7 @@
         <!-- <router-link class="slider-menu" tag="div" to="/area-acount-management">
           <i class="el-icon-edit-outline"></i>
           <p class="menu-text">地区运营账号管理</p>
-        </router-link> -->
+        </router-link>-->
         <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
           <i class="el-icon-mobile-phone"></i>
           <p class="menu-text">灯火端用户管理</p>
@@ -85,17 +83,17 @@
           <p class="menu-text">灯火端内容管理</p>
         </router-link>
         <router-link class="slider-menu" tag="div" to="/wenming-user-management">
-        <i class="el-icon-edit"></i>
-        <p class="menu-text">文明端用户管理</p>
+          <i class="el-icon-edit"></i>
+          <p class="menu-text">文明端用户管理</p>
         </router-link>
-        <!-- <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
+        <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
           <i class="el-icon-edit"></i>
           <p class="menu-text">文明端账户管理</p>
         </router-link>
         <router-link class="slider-menu" tag="div" to="/civilization-content-management">
           <i class="el-icon-edit"></i>
-          <p class="menu-text">文明端内容管理</p>
-        </router-link> -->
+          <p class="menu-text">文明端事务管理</p>
+        </router-link>
       </div>
       <div class="page-content">
         <!-- <p style="text-align: left">adhakdhkj</p> -->
@@ -137,7 +135,7 @@ import { setInterval, setTimeout } from "timers";
 
 import store from "@/vuex/store";
 
-import router from '@/router/router';
+import router from "@/router/router";
 
 export default {
   data() {
@@ -420,45 +418,4 @@ i {
   background-color: rgb(65, 69, 82);
 }
 
-/* .second-menu {
-  position: fixed;
-  left: 80px;
-  top: 52px;
-  bottom: 0;
-  width: 150px;
-  background-color: #f2f2f2;
-  z-index: 99;
-}
-
-.s-menu-line {
-  width: 100%;
-  float: left;
-  line-height: 50px;
-  background: #f2f2f2;
-  text-align: left;
-  cursor: pointer;
-}
-
-.s-menu-line:hover .s-menu-text {
-  color: #0079fe;
-}
-
-.s-menu-top {
-  background: #f2f4f7;
-  text-align: center;
-}
-
-.s-menu-top i {
-  color: #000000;
-}
-
-.m-t-text {
-  padding: 0 0 0 10px;
-  color: #000000;
-}
-
-.s-menu-text {
-  font-size: 14px;
-  padding: 0 0 0 20px;
-} */
 </style>

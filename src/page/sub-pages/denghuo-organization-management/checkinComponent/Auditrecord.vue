@@ -120,7 +120,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="formclone()">取 消</el-button>
-        <el-button type="primary" @click="get_consent(form)">同 意</el-button>
+        <el-button type="primary" @click="get_consent()">同 意</el-button>
       </div>
     </el-dialog>
     <el-dialog title="驳回原因" :visible.sync="rejecteddialog">
@@ -142,9 +142,7 @@ import axios from "axios";
 
 export default {
   name: "Auditrecord",
-  components: {
-    Model
-  },
+
   data() {
     return {
       search: {
@@ -230,8 +228,7 @@ export default {
         .catch(err => {});
     },
     // 同意u
-    get_consent(data) {
-      console.log(this.form);
+    get_consent(data = this.form ) {
       if (data.initials == "") {
         this.$message.error("请输入组织名称首字母");
         return;
@@ -251,7 +248,7 @@ export default {
             result: 1, // 通过
             reason: "", // 原因
             name: data.name,
-            areaCode: data.adcode,
+            areaCode: data.areaCode,
             initials: data.initials,
             longitude: data.longitude,
             latitude: data.latitude

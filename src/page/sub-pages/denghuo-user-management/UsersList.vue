@@ -4,6 +4,9 @@
     <Levelbar />
     <div class="app-body">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
+        <el-tab-pane label="全部用户列表" name="allPendingApplication" style="height:100%;">
+          <Touristlist />
+        </el-tab-pane>
         <el-tab-pane label="游客列表" name="PendingApplication" style="height:100%;">
           <Touristlist />
         </el-tab-pane>
@@ -32,7 +35,6 @@ import RealNameOrganized from "./userComponents/RealNameOrganized";
 import Banned from "./userComponents/Banned";
 import blacklist from "./userComponents/blacklist";
 
-
 export default {
   name: "UsersList",
   components: {
@@ -45,7 +47,7 @@ export default {
   },
   data() {
     return {
-      activeName: "PendingApplication"
+      activeName: "allPendingApplication"
     };
   },
   methods: {

@@ -3,8 +3,8 @@ import store from "./../vuex/store";
 import router from './../router/router';
 
 let defaultConfig = {
-  baseUrl: 'http://120.77.178.7:3000/mock/47/api',
-  // baseUrl: '/api',
+  // baseUrl: 'http://120.77.178.7:3000/mock/47/api',
+  baseUrl: '/api',
   timeout: 50000,
   headers: {
     "Content-Type": "application/json",
