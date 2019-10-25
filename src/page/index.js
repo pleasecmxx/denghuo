@@ -33,6 +33,7 @@ const CreateUserAcount = () => import('./sub-pages/operation-acount-management/C
 const FrozenUserList = () => import('./sub-pages/operation-acount-management/FrozenUserList.vue')
 const InvalidationUserList = () => import('./sub-pages/operation-acount-management/InvalidationUserList.vue')
 const NormalUserList = () => import('./sub-pages/operation-acount-management/NormalUserList.vue')
+const AllAccount = () => import('./sub-pages/operation-acount-management/AllAccount.vue')
 const OptionLog = () => import('./sub-pages/operation-acount-management/OptionLog.vue')
 const BackCashCheck = () => import('./sub-pages/wenming-user-management/BackCashCheck.vue')
 const BorrowCheck = () => import('./sub-pages/wenming-user-management/BorrowCheck.vue')
@@ -102,4 +103,5 @@ export {
     ReimbursementCheck,
     VisitCheck,
     QrCode,
+    AllAccount,
 }

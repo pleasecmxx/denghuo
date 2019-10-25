@@ -57,6 +57,7 @@ import {
     ReimbursementCheck,
     VisitCheck,
     QrCode,
+    AllAccount,
 } from './../page'
 
 
@@ -130,11 +131,16 @@ const router = new VueRouter({
                     path: '/operation-acount-management',
                     name: '平台运营账号管理',
                     component: OperationAcountManagement,
-                    redirect: '/NormalUserList',
+                    redirect: '/AllAccount',
                     children: [
                         {
+                            path: '/AllAccount',
+                            name: '全部账户列表',
+                            component: AllAccount,
+                        }, 
+                        {
                             path: '/NormalUserList',
-                            name: 'pt账户列表',
+                            name: '在用账户列表',
                             component: NormalUserList,
                         }, {
                             path: '/FrozenUserList',

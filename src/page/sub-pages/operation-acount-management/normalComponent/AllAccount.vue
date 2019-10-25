@@ -1,10 +1,10 @@
-<!--在用账户-->
+<!--全部账户列表-->
 <template>
   <div class="tableStyle">
     <div class="searchBox">
       <span>
         <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:500px;"></el-input>
-        <el-select v-model="search.status" placeholder="用户状态" style="margin-left:10px;">
+        <el-select v-model="search.status" placeholder="全部" style="margin-left:10px;">
           <el-option
             v-for="(item,index) in options"
             :key="index"
@@ -143,7 +143,7 @@ import editDialog from "./../editDialog/editDialog";
 import Operationlog from "./../operationlog/Operationlog"; //操作日志
 
 export default {
-  name: "InUseAccount",
+  name: "AllAccount",
   components: {
     editDialog,
     Operationlog
@@ -184,36 +184,6 @@ export default {
           account: "0001",
           managmentArea: "长沙",
           accountStatus: 1,
-          phone: "13657448974",
-          lastEdit: "某负责人",
-          timeTo: "2019-10-10"
-        },
-        {
-          id: 2,
-          name: "某某",
-          account: "0001",
-          managmentArea: "长沙",
-          accountStatus: 2,
-          phone: "13657448974",
-          lastEdit: "某负责人",
-          timeTo: "2019-10-10"
-        },
-        {
-          id: 3,
-          name: "某某",
-          account: "0001",
-          managmentArea: "长沙",
-          accountStatus: 2,
-          phone: "13657448974",
-          lastEdit: "某负责人",
-          timeTo: "2019-10-10"
-        },
-        {
-          id: 4,
-          name: "某某",
-          account: "0001",
-          managmentArea: "长沙",
-          accountStatus: 3,
           phone: "13657448974",
           lastEdit: "某负责人",
           timeTo: "2019-10-10"

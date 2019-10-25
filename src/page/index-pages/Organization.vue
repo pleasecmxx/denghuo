@@ -13,9 +13,9 @@
       <router-link class="s-menu-line" tag="div" to="/OrganizationList">
         <span class="s-menu-text">组织列表</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/OrganizationDetails">
+      <!-- <router-link class="s-menu-line" tag="div" to="/OrganizationDetails">
         <span class="s-menu-text">组织详情</span>
-      </router-link>
+      </router-link> -->
     </div>
     <router-view></router-view>
   </div>

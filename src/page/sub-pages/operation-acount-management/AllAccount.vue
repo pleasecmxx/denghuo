@@ -1,11 +1,11 @@
-<!--在用账户列表-->
+<!--账户列表-->
 <template>
   <div class="app-container">
     <Levelbar />
     <div class="app-body">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
-        <el-tab-pane label="在用账户" name="InUseAccount" style="height:100%;">
-          <InUseAccount />
+        <el-tab-pane label="全部账户列表" name="AllAccount" style="height:100%;">
+          <AllAccount />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -14,17 +14,17 @@
 
 <script>
 import Levelbar from "./../../../components/common/layout/Levelbar";
-import InUseAccount from "./normalComponent/InUseAccount";
+import AllAccount from "./normalComponent/AllAccount";
 
 export default {
   name: "NormalUserList",
   components: {
     Levelbar,
-    InUseAccount,
+    AllAccount,
   },
   data() {
     return {
-      activeName: "InUseAccount"
+      activeName: "AllAccount"
     };
   },
   methods: {

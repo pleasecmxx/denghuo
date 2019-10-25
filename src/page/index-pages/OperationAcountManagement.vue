@@ -7,10 +7,13 @@
           <span class="m-t-text">平台运营账号管理</span>
         </div>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/NormalUserList">
-        <span class="s-menu-text">平台账户列表</span>
+      <router-link class="s-menu-line" tag="div" to="/AllAccount">
+        <span class="s-menu-text">全部账户列表</span>
       </router-link>
-      <!-- <router-link class="s-menu-line" tag="div" to="/FrozenUserList">
+      <router-link class="s-menu-line" tag="div" to="/NormalUserList">
+        <span class="s-menu-text">在用账户列表</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/FrozenUserList">
         <span class="s-menu-text">冻结账户列表</span>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/InvalidationUserList">
@@ -21,7 +24,7 @@
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/OptionLog">
         <span class="s-menu-text">操作日志</span>
-      </router-link> -->
+      </router-link>
     </div>
     <router-view></router-view>
   </div>
