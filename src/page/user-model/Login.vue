@@ -91,13 +91,17 @@ export default {
       userName: "15774063795",
       userCode: "",
       time: 0,
-      loading: false
+      loading: false,
+      oftime: false,
+      timer: null
     };
   },
 
   methods: {
     login() {
-      console.log("++");
+      if (this.loading) {
+        return;
+      }
 
       if (this.userName.length != 11) {
         this.$message.error("请输入正确的手机号");
@@ -131,6 +135,9 @@ export default {
     },
 
     getcode() {
+      if (this.time > 0 && this.time <= 60) {
+        return;
+      }
       if (this.userName.length != 11) {
         this.$message.error("请输入正确的手机号");
         return;
@@ -139,9 +146,10 @@ export default {
       if (this.time == 0) {
         return;
       }
-      setInterval(() => {
+      this.timer = setInterval(() => {
         if (this.time == 0) {
-          clearInterval();
+          clearInterval(this.timer);
+          this.timer = null;
           return;
         }
         --this.time;
@@ -162,7 +170,7 @@ export default {
               this.$message({
                 message: "恭喜你，发送短信验证码成功",
                 type: "success"
-              }).catch(() => {});
+              })
             } else {
               this.$message.error("发送短信失败，请重试");
             }
@@ -180,6 +188,10 @@ export default {
     clearPass() {
       this.userCode = "";
     }
+  },
+  beforeDestroy() {
+    console.log("清除定时器");
+    clearInterval(this.timer);
   }
 };
 </script>
