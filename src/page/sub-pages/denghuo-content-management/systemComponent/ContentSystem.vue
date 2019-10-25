@@ -99,21 +99,6 @@ export default {
           time: "2019-11-11",
           id: 1
         },
-        {
-          title: "hdkhsjdkhjahdkjhsajdhjkahdjksahjdh",
-          time: "2019-11-11",
-          id: 2
-        },
-        {
-          title: "hdkhsjdkhjahdkjhsajdhjkahdjksahjdh",
-          time: "2019-11-11",
-          id: 3
-        },
-        {
-          title: "hdkhsjdkhjahdkjhsajdhjkahdjksahjdh",
-          time: "2019-11-11",
-          id: 4
-        }
       ],
       multipleSelection: []
     };
@@ -207,7 +192,6 @@ export default {
   margin-top: 10px;
 }
 .tableStyle {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
