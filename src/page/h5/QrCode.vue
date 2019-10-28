@@ -6,7 +6,7 @@
         <el-tab-pane label="消息中心">
           <span class="tabtop" slot="label">附件管理</span>
           <div class="qrbox" v-if="!show">
-            <div v-if="timesum != 0" >
+            <div :style="{zIndex:(timesum == 0 ? -1 : 9 ),position: 'relative'}">
               <canvas style="codebox" id="QRCode"></canvas>
             </div>
             <p v-if="timesum != 0">请扫码登录</p>
@@ -66,8 +66,8 @@ export default {
       show: false,
       token: "",
       uid: "",
-      timesum: 10,
-      fileList: [],
+      timesum: 60,
+      fileList: "",
       oldfileList: []
     };
   },
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     init() {
-      this.timesum = 10;
+      this.timesum = 60;
       this.uid = UUID.generate();
       this.QRCodeMsg(this.uid);
       this.login();
@@ -101,8 +101,11 @@ export default {
       if (!this.token) {
         return this.$confirm(`请重新扫码登陆！`);
       }
+      if (this.fileList) {
+        return this.$confirm(`请选择上传文件！`);
+      }
 
-      var obj = this.fileList[0];
+      var obj = this.fileList;
       var file = obj["raw"];
       var size = obj["size"];
       if (size > 1024 * 1024 * 50) {
@@ -145,7 +148,7 @@ export default {
       });
     },
     handleChange(file, fileList) {
-      this.fileList = fileList.slice(-1);
+      this.fileList = file;
     },
     _uploadFile(name, url, size) {
       size = (size / (1024 * 1024)).toFixed(2) + "M";
@@ -160,7 +163,7 @@ export default {
           this.oldfileList.push({
             name
           });
-          this.fileList = [];
+          this.fileList = "";
           this.$confirm("恭喜您，上传文件成功！");
         } else {
           this.$confirm("抱歉,上传失败，请重试！");
