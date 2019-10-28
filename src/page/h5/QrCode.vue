@@ -28,7 +28,7 @@
                   size="small"
                   type="success"
                   @click="updatafile"
-                >上传到服务器</el-button>
+                >上传文件</el-button>
                 <div slot="tip" class="el-upload__tip">最大上传不超过50m的文件</div>
               </el-upload>
               <el-upload
@@ -66,9 +66,10 @@ export default {
       show: false,
       token: "",
       uid: "",
-      timesum: 60,
-      fileList: "",
-      oldfileList: []
+      timesum: 10,
+      fileList: [],
+      oldfileList: [],
+      domain: ""
     };
   },
   mounted: function() {
@@ -76,7 +77,7 @@ export default {
   },
   methods: {
     init() {
-      this.timesum = 60;
+      this.timesum = 10;
       this.uid = UUID.generate();
       this.QRCodeMsg(this.uid);
       this.login();
@@ -91,9 +92,10 @@ export default {
       getConfigs({
         key: checkKey
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.qiniu.token) {
           this.token = res.qiniu.token;
+          this.domain = res.qiniu.domain;
         }
       });
     },
@@ -101,11 +103,11 @@ export default {
       if (!this.token) {
         return this.$confirm(`请重新扫码登陆！`);
       }
-      if (this.fileList) {
+      if (this.fileList.length == 0) {
         return this.$confirm(`请选择上传文件！`);
       }
 
-      var obj = this.fileList;
+      var obj = this.fileList[0];
       var file = obj["raw"];
       var size = obj["size"];
       if (size > 1024 * 1024 * 50) {
@@ -138,9 +140,9 @@ export default {
         },
         complete: result => {
           // 接收成功后返回的信息
-          console.log("complete", result); // 形如：{hash: "Fp5_DtYW4gHiPEBiXIjVsZ1TtmPc", key: "%TStC006TEyVY5lLIBt7Eg.jpg"}
+          // console.log("complete", result); // 形如：{hash: "Fp5_DtYW4gHiPEBiXIjVsZ1TtmPc", key: "%TStC006TEyVY5lLIBt7Eg.jpg"}
           if (result) {
-            this._uploadFile(obj["name"], result.key, size);
+            this._uploadFile(obj["name"], this.domain + result.key, size);
           } else {
             this.$confirm("抱歉,上传失败，请重试！");
           }
@@ -148,7 +150,7 @@ export default {
       });
     },
     handleChange(file, fileList) {
-      this.fileList = file;
+      this.fileList = fileList.slice(-1);
     },
     _uploadFile(name, url, size) {
       size = (size / (1024 * 1024)).toFixed(2) + "M";
@@ -158,12 +160,12 @@ export default {
         size,
         use: 1
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.success) {
           this.oldfileList.push({
             name
           });
-          this.fileList = "";
+          this.fileList = [];
           this.$confirm("恭喜您，上传文件成功！");
         } else {
           this.$confirm("抱歉,上传失败，请重试！");
@@ -176,7 +178,7 @@ export default {
         appType: 4
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.success) {
             this.show = true;
             store.commit("saveh5Token", res.result);
@@ -206,7 +208,7 @@ export default {
       // let t = this.randomCoding(); // 随机字符
       // 将获取到的数据（val）画到msg（canvas）上
       QRCode.toCanvas(msg, uid, function(error) {
-        console.log(error);
+        // console.log(error);
       });
     },
     randomCoding() {
@@ -276,9 +278,6 @@ export default {
 }
 
 .qrbox {
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   width: 100%;
   float: left;
   text-align: center;

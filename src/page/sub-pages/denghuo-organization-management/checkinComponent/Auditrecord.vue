@@ -38,7 +38,10 @@
       </el-table-column>
       <el-table-column label="组织备案文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
+             <span
+            style="color:#0079fe;"
+            @click="getimg(scope.row.files)"
+          >{{ scope.row.files.lenght==0 ? "无" : "查看"}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
@@ -48,7 +51,10 @@
       </el-table-column>
       <el-table-column label="申请人证明文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span v-for="(item,index) in scope.row.certifiedDocuments" :key="index">{{item}}</span>
+          <span
+            style="color:#0079fe;"
+            @click="getimg(scope.row.identityFiles)"
+          >{{ scope.row.identityFiles.lenght==0 ? "无" : "查看"}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
@@ -99,7 +105,7 @@
         <el-form-item label="申请人证明文件">
           <span
             style="color:#0079fe;"
-            v-for="(item,index) in form.certifiedDocuments"
+            v-for="(item,index) in form.identityFiles"
             :key="index"
           >{{item}}</span>
         </el-form-item>
@@ -130,6 +136,7 @@
         <el-button type="primary" @click="get_reject()">驳 回</el-button>
       </div>
     </el-dialog>
+    <el-image-viewer v-if="showViewer"  :onSwitch="closeViewer()" :url-list="srcList" />
   </div>
 </template>
 <script>
@@ -139,10 +146,14 @@ import {
   deleteReviewOrganization
 } from "./../../../../utils/api";
 import axios from "axios";
+// 导入组件
+import ElImageViewer from "element-ui/packages/image/src/image-viewer";
 
 export default {
   name: "Auditrecord",
-
+  components: {
+    ElImageViewer
+  },
   data() {
     return {
       search: {
@@ -165,7 +176,9 @@ export default {
       dialogFormVisible: false, // 同意框
       rejecteddialog: false, // 驳回框
       rejecte_uid: "", // 驳回 uid
-      textarea: "" // 驳回原因
+      textarea: "", // 驳回原因
+      srcList: [],
+      showViewer: false
     };
   },
   mounted: function() {
@@ -182,6 +195,18 @@ export default {
         }
         this.loading = false;
       });
+    },
+    getimg(list) {
+      this.srcList = list;
+      this.showViewer = true;
+    },
+    closeViewer(e) {
+      console.log(e);
+      
+      console.log('eee');
+      
+      // this.showViewer = true;
+      // this.srcList = [];
     },
     // 显示 驳回对话 model
     set_dialog(uid) {
@@ -228,7 +253,7 @@ export default {
         .catch(err => {});
     },
     // 同意u
-    get_consent(data = this.form ) {
+    get_consent(data = this.form) {
       if (data.initials == "") {
         this.$message.error("请输入组织名称首字母");
         return;
