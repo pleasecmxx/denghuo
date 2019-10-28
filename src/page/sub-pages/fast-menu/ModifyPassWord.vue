@@ -1,16 +1,17 @@
 <!--修改密码-->
 <template>
-  <div class="inner-content flex">
+  <div class="app-container">
     <Levelbar />
-    <div class="content-top-box">
-      <div class="content-top-box-header">
-        <p class="content-top-box-header-title">修改密码</p>
-        <span>
-          <span class="span_red">*</span>此为必填项
-        </span>
-      </div>
-
-      <div class="content">
+    <div class="app-body">
+      <div class="main_box">
+        <div class="content-top-box-header">
+          <p class="content-top-box-header-title">
+            <i class="el-icon-edit"></i> 修改密码
+          </p>
+          <span>
+            <span class="span_red">*</span>此为必填项
+          </span>
+        </div>
         <div class="content_box">
           <el-form
             :model="ruleForm"
@@ -138,7 +139,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     setpass() {
-      console.log(this.ruleForm)
+      console.log(this.ruleForm);
     }
   }
 };
@@ -149,31 +150,20 @@ p {
   margin: 0;
 }
 
-.inner-content {
-  width: calc(100% - 230px);
-  height: calc(100% - 52px);
-  min-width: 600px;
-  flex-direction: column;
-  justify-content: fle-start;
-  align-items: center;
-  padding-top: 68px;
-}
-
-.content-top-box {
-  width: 80%;
+.main_box {
+  width: 96%;
+  height: 92%;
+  background: #ffffff;
   min-width: 800px;
-  height: calc(100% - 18px);
-  background-color: #fff;
-  box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
-  border-radius: 1px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
 }
 
 .content-top-box-header {
   width: 100%;
   height: 60px;
-  background-color: #f2f2f2;
-  border-bottom: 1px solid #e2e2e2;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f2f2f2;
   padding: 0 20px;
   line-height: 60px;
   span {
@@ -187,16 +177,17 @@ p {
 }
 
 .content-top-box-header-title {
-  font-weight: 700;
-  color: #666666;
+  font-weight: 900;
+  font-size: 16px;
+  color: #000;
   float: left;
 }
 
-.content {
+.content_box {
   display: flex;
+  height: calc(100% - 60px);
   align-items: center;
   justify-content: center;
-  height: 100%;
 }
 
 .input_view {

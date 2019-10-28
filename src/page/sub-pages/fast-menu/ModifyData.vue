@@ -8,7 +8,9 @@
           <span class="avatar">
             <i class="el-icon-user-solid" style="color:#fff;font-size:120px;"></i>
           </span>
-          <div style="color:#0079FE;margin-top:10px;" @click="editAvatar">更改头像</div>
+          <router-link class="slider-menu" tag="div" to="/ModifyAvatar">
+            <div style="color:#0079FE;margin-top:10px;">更改头像</div>
+          </router-link>
         </div>
         <ChangeAvatar ref="ChangeAvatar" />
         <div class="bottom">
@@ -28,13 +30,13 @@
                 <el-input v-model="ruleForm.name" placeholder="请输入姓名"></el-input>
               </el-form-item>
               <el-form-item label="登录账号" prop="account" size="small">
-                <el-input v-model="ruleForm.account" placeholder="请输入登录账号"></el-input>
+                <el-input v-model="ruleForm.account" placeholder="请输入登录账号" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="所属部门" prop="department" size="small">
-                <el-input v-model="ruleForm.department" placeholder="请输入所属部门"></el-input>
+                <el-input v-model="ruleForm.department" placeholder="请输入所属部门" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="当前职务" prop="job" size="small">
-                <el-input v-model="ruleForm.job" placeholder="请输入当前职务"></el-input>
+                <el-input v-model="ruleForm.job" placeholder="请输入当前职务" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="性别" prop="sex">
                 <el-radio-group v-model="ruleForm.sex">
@@ -47,8 +49,12 @@
                 <el-input v-model="ruleForm.phone" placeholder="请输入手机号码"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')" style="width:150px;">立即创建</el-button>
-                <el-button @click="resetForm('ruleForm')" style="width:150px;">重置</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')" style="width:150px;">
+                  <i class="el-icon-circle-check" style="color:#fff;"></i> 提交
+                </el-button>
+                <el-button @click="resetForm('ruleForm')" style="width:150px;">
+                  <i class="el-icon-refresh-right"></i> 重置
+                </el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -130,6 +136,7 @@ export default {
 
 <style>
 .parentBox {
+  width: 96%;
   background-color: #fff;
   padding: 15px 15px 0 15px;
   height: 92%;

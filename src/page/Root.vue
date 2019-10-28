@@ -11,12 +11,6 @@
       </div>
 
       <div class="header-right">
-        <div class="header-search-content">
-          <input class="search-input" type="text" placeholder="请输入关键词" />
-          <div class="img-search">
-            <i class="el-icon-search"></i>
-          </div>
-        </div>
         <div class="header-info">
           <div class="header-info-items" title="待办事项">
             <i class="el-icon-tickets"></i>
@@ -51,6 +45,12 @@
                 </div>
               </el-dropdown-menu>
             </el-dropdown>
+          </div>
+        </div>
+        <div class="header-search-content">
+          <input class="search-input" type="text" placeholder="请输入关键词" />
+          <div class="img-search">
+            <i class="el-icon-search"></i>
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@ i {
 }
 
 .header-left {
-  width: 50%;
+  width: 40%;
   height: 52px;
   float: left;
 }
@@ -237,11 +237,12 @@ i {
   float: right;
   line-height: 52px;
   height: 52px;
+  width: 60%;
 }
 
 .header-search-content {
   height: 52px;
-  float: left;
+  float: right;
   margin: 0 150px 0 0;
 }
 
@@ -292,7 +293,7 @@ i {
 .header-info {
   height: 52px;
   padding-left: 10px;
-  float: left;
+  float: right;
 }
 
 .header-info-items {

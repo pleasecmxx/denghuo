@@ -386,7 +386,6 @@ export default {
   /* padding-left: 20px; */
   /* padding-right: px; */
   padding: 0 20px;
-  box-shadow: 0 0 4px 1px rgba(209, 209, 209, 0.9);
   box-sizing: border-box;
 }
 
@@ -599,7 +598,7 @@ export default {
 }
 
 .btn {
-  width: 90px;
+  width: 120px;
   height: 30px;
   display: flex;
   justify-content: center;
