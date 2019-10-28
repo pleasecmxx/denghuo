@@ -112,7 +112,7 @@ export default {
       var token = this.token;
       var config = {
         useCdnDomain: true,
-        region: qiniu.region.z0
+        region: null
       };
       var putExtra = {
         fname: obj["name"],
