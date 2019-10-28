@@ -136,7 +136,7 @@
         <el-button type="primary" @click="get_reject()">驳 回</el-button>
       </div>
     </el-dialog>
-    <el-image-viewer v-if="showViewer"  :onSwitch="closeViewer()" :url-list="srcList" />
+    <el-image-viewer v-if="showViewer" :onClose="onClose()" :onSwitch="onSwitch()" :url-list="srcList" />
   </div>
 </template>
 <script>
@@ -197,14 +197,20 @@ export default {
       });
     },
     getimg(list) {
+      console.log("++=");
+      
       this.srcList = list;
       this.showViewer = true;
     },
-    closeViewer(e) {
+    onSwitch(list) {
+      console.log("++=");
+    },
+    onClose(e) {
       console.log(e);
       
       console.log('eee');
       
+      // this.showViewer = false;
       // this.showViewer = true;
       // this.srcList = [];
     },
