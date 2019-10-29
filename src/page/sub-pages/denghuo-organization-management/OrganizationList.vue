@@ -5,16 +5,16 @@
     <div class="app-body">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
         <el-tab-pane label="全部组织列表" name="AllOrganization" style="height:100%;">
-          <OwnersMeeting />
+          <AllOrganization :type="1" />
         </el-tab-pane>
         <el-tab-pane label="业主大会组织" name="OwnersMeeting" style="height:100%;">
-          <OwnersMeeting />
+          <AllOrganization :type="2" />
         </el-tab-pane>
         <el-tab-pane label="民非组织" name="CivilNon" style="height:100%;">
-          <CivilNon />
+          <AllOrganization :type="3" />
         </el-tab-pane>
         <el-tab-pane label="基层党支部" name="Grassroots" style="height:100%;">
-          <Grassroots />
+          <AllOrganization :type="4" />
         </el-tab-pane>
       </el-tabs>
     </div>

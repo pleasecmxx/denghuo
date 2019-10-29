@@ -58,6 +58,7 @@ import {
     VisitCheck,
     QrCode,
     AllAccount,
+    AddOrganization,
 } from './../page'
 
 
@@ -213,6 +214,10 @@ const router = new VueRouter({
                             path: '/OrganizationDetails',
                             name: '组织详情',
                             component: OrganizationDetails
+                        }, {
+                            path: '/AddOrganization',
+                            name: '新增组织',
+                            component: AddOrganization
                         }
                     ]
                 }, {

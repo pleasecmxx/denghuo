@@ -49,6 +49,10 @@ const IndustryCommittee = () => import('./sub-pages/civilization-acount-manageme
 const WorkbenchManagement = () => import('./sub-pages/civilization-acount-management/WorkbenchManagement.vue')
 const SocialOrganization = () => import('./sub-pages/civilization-acount-management/SocialOrganization.vue')
 const TransactionManagement = () => import('./sub-pages/civilization-content-management/TransactionManagement.vue')
+
+
+const AddOrganization = () => import('./sub-pages/denghuo-organization-management/AddOrganization.vue')
+// h5
 const QrCode = () => import('./h5/QrCode.vue')
 
 export {
@@ -104,4 +108,5 @@ export {
     VisitCheck,
     QrCode,
     AllAccount,
+    AddOrganization,
 }
