@@ -4,6 +4,9 @@
     <Levelbar />
     <div class="app-body">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
+        <el-tab-pane label="全部组织列表" name="AllOrganization" style="height:100%;">
+          <OwnersMeeting />
+        </el-tab-pane>
         <el-tab-pane label="业主大会组织" name="OwnersMeeting" style="height:100%;">
           <OwnersMeeting />
         </el-tab-pane>
@@ -23,17 +26,19 @@ import Levelbar from "./../../../components/common/layout/Levelbar";
 import OwnersMeeting from "./ListComponet/OwnersMeeting";
 import CivilNon from "./ListComponet/CivilNon";
 import Grassroots from "./ListComponet/Grassroots";
+import AllOrganization from "./ListComponet/AllOrganization";
 
 export default {
   components: {
     Levelbar,
     OwnersMeeting,
     CivilNon,
-    Grassroots
+    Grassroots,
+    AllOrganization
   },
   data() {
     return {
-      activeName: "OwnersMeeting"
+      activeName: "AllOrganization"
     };
   },
   name: "OrganizationList",

@@ -29,7 +29,7 @@
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
       <el-table-column align="center" type="selection" width="55"></el-table-column>
-      <el-table-column prop="applyUserUid" label="申请人" show-overflow-tooltip>
+      <el-table-column prop="applyUserName" label="申请人" show-overflow-tooltip>
         <!-- <template slot-scope="scope">
           <span >{{scope.row.applyUserUid}}</span>
         </template>-->
@@ -39,7 +39,7 @@
           <span>{{_identity(scope.row.identity)}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop label="申请人联系电话"></el-table-column>
+      <el-table-column prop="applyUserPhone" label="申请人联系电话" show-overflow-tooltip></el-table-column>
       <el-table-column label="所属组织" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{scope.row.type == 1 ? "会议筹备组" : "业主委员会"}}</span>
