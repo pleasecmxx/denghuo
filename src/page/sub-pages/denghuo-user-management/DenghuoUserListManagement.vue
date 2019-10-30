@@ -1,9 +1,12 @@
-<!--业主申请审核-->
+<!--用户详情-->
 <template>
   <div class="app-container">
     <Levelbar />
     <div class="app-body">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
+        <el-tab-pane label="基本信息" name="BasicInfo" style="height:100%;">
+          <BasicInfo />
+        </el-tab-pane>
         <el-tab-pane label="组织浏览记录" name="Browserecord" style="height:100%;">
           <Browserecord />
         </el-tab-pane>
@@ -24,6 +27,7 @@
 <script>
 import Levelbar from "./../../../components/common/layout/Levelbar";
 import Browserecord from "./components/Browserecord";
+import BasicInfo from "./components/BasicInfo";
 import Joinedorganization from "./components/Joinedorganization";
 import Participatingbusiness from "./components/Participatingbusiness";
 import ParticipatingActivities from "./components/ParticipatingActivities";
@@ -34,11 +38,12 @@ export default {
     Browserecord,
     Joinedorganization,
     Participatingbusiness,
-    ParticipatingActivities
+    ParticipatingActivities,
+    BasicInfo
   },
   data() {
     return {
-      activeName: "Browserecord"
+      activeName: "BasicInfo"
     };
   },
   name: "DenghuoUserListManagement",

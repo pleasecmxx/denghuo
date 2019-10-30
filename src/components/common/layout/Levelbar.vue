@@ -45,7 +45,6 @@ export default {
       this.$router.go(-1);
     },
     reload() {
-
     }
   },
   watch: {

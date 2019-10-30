@@ -29,6 +29,9 @@
         </div>
       </div>
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="width:100%;height:75%;">
+        <el-tab-pane label="基本信息" name="TableOrganizationDetails" style="height:100%;">
+          <TableOrganizationDetails />
+        </el-tab-pane>
         <el-tab-pane label="运营数据" name="OperationalData" style="height:100%;">
           <OperationalData />
         </el-tab-pane>
@@ -49,17 +52,19 @@ import Levelbar from "./../../../components/common/layout/Levelbar";
 import OperationalData from "./detailComponent/OperationalData";
 import InternalOrganization from "./detailComponent/InternalOrganization";
 import OuterOrganization from "./detailComponent/OuterOrganization";
+import TableOrganizationDetails from "./detailComponent/TableOrganizationDetails";
 
 export default {
   components: {
     Levelbar,
     OperationalData,
     InternalOrganization,
-    OuterOrganization
+    OuterOrganization,
+    TableOrganizationDetails
   },
   data() {
     return {
-      activeName: "OperationalData"
+      activeName: "TableOrganizationDetails"
     };
   },
   name: "OrganizationDetails",

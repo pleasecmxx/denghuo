@@ -67,7 +67,7 @@
       <el-table-column prop="operator" label="最后操作人员" show-overflow-tooltip></el-table-column>
       <el-table-column prop="operating" label="操作" show-overflow-tooltip width="350">
         <template slot-scope="scope">
-          <span style="color:#0079fe;">查看详情</span>
+          <span style="color:#0079fe;" @click="godetails()" >查看详情</span>
           <span style="margin-left:10px;color:#0079fe;">禁言/解除禁言</span>
           <span style="margin-left:10px;color:#0079fe;">加入黑名单</span>
           <span @click="remove(scope.$index, scope.row)" style="margin-left:10px;color:#0079fe;">
@@ -156,76 +156,15 @@ export default {
           Identity: "某某人员",
           lastInlineTime: "2016-05-03"
         },
-        {
-          name: "王小2",
-          date: "2016-05-03",
-          idCard: "43072411111111639",
-          phone: "13685472499",
-          orgnzation: "某某组织",
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小1",
-          id: 2,
-          Identity: "某某人员",
-          lastInlineTime: "2016-05-03"
-        },
-        {
-          name: "王小3",
-          date: "2016-05-03",
-          idCard: "43072411111111639",
-          phone: "13685472499",
-          orgnzation: "某某组织",
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小1",
-          id: 3,
-          Identity: "某某人员",
-          lastInlineTime: "2016-05-03"
-        },
-        {
-          name: "王小4",
-          date: "2016-05-03",
-          idCard: "43072411111111639",
-          phone: "13685472499",
-          orgnzation: "某某组织",
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小1",
-          id: 4,
-          Identity: "某某人员",
-          lastInlineTime: "2016-05-03"
-        },
-        {
-          name: "王小5",
-          date: "2016-05-03",
-          idCard: "43072411111111639",
-          phone: "13685472499",
-          orgnzation: "某某组织",
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小1",
-          id: 5,
-          Identity: "某某人员",
-          lastInlineTime: "2016-05-03"
-        }
       ],
       multipleSelection: []
     };
   },
   watch: {},
   methods: {
+    godetails(id = 0){
+      this.$router.push({ path: "/DenghuoUserListManagement" , query: { id } })
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {

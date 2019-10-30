@@ -1,4 +1,4 @@
-<!--用户详情-->
+<!--业主申请审核-->
 <template>
   <div class="app-container">
     <Levelbar />
