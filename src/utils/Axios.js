@@ -32,7 +32,6 @@ class Axios {
 
   async get(url, params = {}) {
     try {
-      // console.log(baseUrl + url)
       console.log(JSON.stringify(params));
       const response = await instance.get(baseUrl + url, { params });
       if (response.data.status) {
@@ -40,8 +39,6 @@ class Axios {
         return;
       }
       if (response.data) {
-        console.log(response.data);
-        
         return response.data
       } else {
         alert("网络错误，请重试")
@@ -54,7 +51,6 @@ class Axios {
 
   async post(url, params) {
     try {
-      console.log(baseUrl + url)
       console.log(JSON.stringify(params));
       const response = await instance.post(baseUrl + url, params);
       if (response.data.status) {
@@ -67,7 +63,6 @@ class Axios {
         alert("网络错误，请重试")
       }
     } catch (e) {
-
       console.log("post+err", e);
       return response.data
     }
