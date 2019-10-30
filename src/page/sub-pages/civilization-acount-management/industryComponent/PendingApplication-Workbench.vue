@@ -59,7 +59,7 @@
           <span
             style="color:#0079fe;"
             @click="getimg([scope.row.letterFile])"
-          >{{ scope.row.letterFile ?  "查看1张" : "无" }}</span>
+          >{{ scope.row.letterFile ? "查看1张" : "无" }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="ReviewMan" label="审核人员" show-overflow-tooltip></el-table-column>
@@ -112,17 +112,22 @@
         ></el-pagination>
       </div>
     </div>
+    <el-dialog title="驳回原因" :visible.sync="rejecteddialog">
+      <el-input type="textarea" :rows="2" placeholder="请输入驳回原因" v-model="textarea"></el-input>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="rejectedclone()">取 消</el-button>
+        <el-button type="primary" @click="get_reject()">驳 回</el-button>
+      </div>
+    </el-dialog>
     <image-viewer
       :z-index="999999"
       v-if="showViewer"
       :on-close="onClose"
       :url-list="previewSrcList"
     />
-    <Model ref="model" @truecolne="truecolne"></Model>
   </div>
 </template>
 <script>
-import Model from "../../../../components/common/model/Model";
 import {
   getReviewCommitteeWorks,
   reviewCommitteeWork,
@@ -135,7 +140,6 @@ import ImageViewer from "element-ui/packages/image/src/image-viewer";
 export default {
   name: "PendingApplicationWorkbench",
   components: {
-    Model,
     ImageViewer
   },
   data() {
@@ -158,7 +162,10 @@ export default {
       },
       loading: false, // 请求loding
       previewSrcList: [], // 图片查看数组
-      showViewer: false // 图片查看显示关闭
+      showViewer: false, // 图片查看显示关闭
+      rejecteddialog: false, // 驳回框
+      rejecte_uid: "", // 驳回 uid
+      textarea: "" // 驳回原因
     };
   },
   mounted: function() {
@@ -214,6 +221,12 @@ export default {
           break;
       }
     },
+    // 取消 驳回对话
+    rejectedclone() {
+      this.rejecte_uid = "";
+      this.textarea = "";
+      this.rejecteddialog = false;
+    },
     // 同意u
     get_consent(uid) {
       this.$confirm("请确认,是否同意审核申请?", "提示", {
@@ -244,11 +257,15 @@ export default {
         .catch(() => {});
     },
     // 驳回
-    get_reject(reason, uid) {
+    get_reject() {
+      if (this.textarea == "") {
+        this.$message.error("请输入驳回原因");
+        return;
+      }
       reviewCommitteeWork({
-        uid,
+        uid: this.rejecte_uid,
         result: 2, // 不通过
-        reason // 原因
+        reason: this.textarea // 原因
         // name: "",
         // longitude: "",
         // latitude: ""
@@ -284,8 +301,10 @@ export default {
                 type: "success",
                 message: "删除审核申请成功!"
               });
+              this.rejectedclone();
               this._getReviewCommitteeWorks();
             } else {
+              this.rejectedclone();
               this.$message({
                 type: "error",
                 message: "删除审核申请失败!"
@@ -293,7 +312,9 @@ export default {
             }
           });
         })
-        .catch(() => {});
+        .catch(() => {
+              this.rejectedclone()
+        });
     },
     // 搜索关键词
     searchWord() {

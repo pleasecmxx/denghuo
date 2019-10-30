@@ -38,7 +38,7 @@
       </el-table-column>
       <el-table-column label="组织备案文件" show-overflow-tooltip>
         <template slot-scope="scope">
-             <span
+          <span
             style="color:#0079fe;"
             @click="getimg(scope.row.files)"
           >{{ scope.row.files.length==0 ? "无" : "查看" + scope.row.files.length + "张" }}</span>
@@ -87,7 +87,7 @@
         ></el-pagination>
       </div>
     </div>
-    <el-dialog title="申请详情" :visible.sync="dialogFormVisible">
+    <el-dialog title="申请详情" :visible.sync="dialogFormVisible" :before-close="handleClose">
       <el-form ref="form" label-width="120px" size="mini">
         <el-form-item label="组织名称">
           <span>{{form.name}}</span>
@@ -97,7 +97,7 @@
           <input v-model="form.longitude" class="my_input_class" placeholder="纬度" type="text" />
         </el-form-item>
         <el-form-item label="组织备案文件">
-            <span
+          <span
             style="color:#0079fe;"
             @click="getimg(form.files)"
           >{{ form.files.length ==0 ? "无" : "查看" + form.files.length + "张" }}</span>
@@ -106,7 +106,7 @@
           <span>{{form.applyUserName}}</span>
         </el-form-item>
         <el-form-item label="申请人证明文件">
-           <span
+          <span
             style="color:#0079fe;"
             @click="getimg(form.identityFiles)"
           >{{ form.identityFiles.length ==0 ? "无" : "查看" + form.identityFiles.length + "张" }}</span>
@@ -138,7 +138,12 @@
         <el-button type="primary" @click="get_reject()">驳 回</el-button>
       </div>
     </el-dialog>
-     <image-viewer :z-index="999999" v-if="showViewer" :on-close="onClose" :url-list="previewSrcList"/>
+    <image-viewer
+      :z-index="999999"
+      v-if="showViewer"
+      :on-close="onClose"
+      :url-list="previewSrcList"
+    />
   </div>
 </template>
 <script>
@@ -166,8 +171,8 @@ export default {
       },
       tableData: [],
       form: {
-        files:[],
-        identityFiles:[],
+        files: [],
+        identityFiles: []
       },
       params: {
         page: 1, // 1 页数
@@ -183,7 +188,7 @@ export default {
       rejecte_uid: "", // 驳回 uid
       textarea: "", // 驳回原因
       previewSrcList: [], // 图片查看数组
-      showViewer: false// 图片查看显示关闭
+      showViewer: false // 图片查看显示关闭
     };
   },
   mounted: function() {
@@ -223,15 +228,20 @@ export default {
     // 取消同意对话框
     formclone() {
       this.dialogFormVisible = false;
-      this.form = {};
+      this.form = {
+        files: [],
+        identityFiles: []
+      };
     },
-    rejected_consent() {},
+    handleClose(done) {
+      done();
+      this.formclone();
+    },
     // 同意u
     get_consent_lodaing(data) {
       data.initials = "";
       data.areaCode = "";
       Object.assign(this.form, data);
-      console.log(this.form);
       this.dialogFormVisible = true;
       this.getaroder(data);
     },
@@ -286,8 +296,10 @@ export default {
                 type: "success",
                 message: "同意审核申请成功!"
               });
+              this.formclone();
               this._getReviewOrganizations();
             } else {
+              this.formclone();
               this.$message({
                 type: "error",
                 message: "同意审核申请失败!"
