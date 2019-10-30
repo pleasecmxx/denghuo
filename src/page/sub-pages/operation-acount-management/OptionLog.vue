@@ -18,7 +18,12 @@
                 size="small"
                 style="width:200px;"
               ></el-date-picker>
-              <el-button type="primary" style="margin-left:10px;" size="small">
+              <el-button
+                type="primary"
+                style="margin-left:10px;"
+                size="small"
+                @click="exportexcel()"
+              >
                 <i class="el-icon-upload2" style="color:#fff;"></i>
                 <span style="color:#fff;">导出</span>
               </el-button>
@@ -67,6 +72,8 @@
 <script>
 import Levelbar from "./../../../components/common/layout/Levelbar";
 
+import { ExportExcel } from "./../../../utils/excel";
+
 export default {
   name: "CreateUserAcount",
   components: {
@@ -92,10 +99,26 @@ export default {
           newWord: "新字段",
           other: "备注"
         }
-      ],
+      ]
     };
   },
   methods: {
+    exportexcel() {
+      ExportExcel(
+        this.tableData,
+        "平台运营账号操作记录表",
+        [
+          "操作时间",
+          "操作人员",
+          "操作类型",
+          "字段名",
+          "旧字段",
+          "新字段",
+          "备注"
+        ],
+        ["time", "peopele", "type", "wordName", "oldWord", "newWord", "other"]
+      );
+    },
     // 分页条件改变
     handleSizeChange(pageSize) {
       this.search.pageSize = pageSize;
