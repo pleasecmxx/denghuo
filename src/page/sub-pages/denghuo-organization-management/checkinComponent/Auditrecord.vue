@@ -198,10 +198,9 @@ export default {
     _getReviewOrganizations(params = this.params) {
       this.loading = true;
       getReviewOrganizations(params).then(res => {
-        console.log("+", res);
-        if (res) {
-          this.tableData = res.data;
-          this.search.total = Math.abs(res.total) / this.search.pageSize;
+        if (res.result) {
+          this.tableData = res.result.data;
+          this.search.total = Math.abs(res.result.total) / this.search.pageSize;
         }
         this.loading = false;
       });

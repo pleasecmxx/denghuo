@@ -73,7 +73,7 @@
           <span>{{scope.row.state==1?"申请中" :scope.row.state==2 ?"申请通过":"申请未通过"}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="operating" width="180" label="操作">
+      <el-table-column show-overflow-tooltip label="操作" fixed="right" min-width="120" >
         <template slot-scope="scope">
           <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除
@@ -166,10 +166,9 @@ export default {
     _getReviewCommitteeWorks(params = this.params) {
       this.loading = true;
       getReviewCommitteeWorks(params).then(res => {
-        console.log("+", res);
-        if (res) {
-          this.tableData = res.data;
-          this.search.total = Math.abs(res.total) / this.search.pageSize;
+        if (res.result) {
+          this.tableData = res.result.data;
+          this.search.total = Math.abs(res.result.total) / this.search.pageSize;
         }
         this.loading = false;
       });

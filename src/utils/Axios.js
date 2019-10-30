@@ -22,6 +22,7 @@ class Axios {
     instance = axios.create(defaultConfig);
     instance.defaults.withCredentials = true
 
+    // 请求拦截器
     instance.interceptors.request.use((config) => {
       const token = store.state.token;
       config.headers.token = token;
@@ -39,13 +40,15 @@ class Axios {
         return;
       }
       if (response.data) {
-        return response.data.result
+        console.log(response.data);
+        
+        return response.data
       } else {
         alert("网络错误，请重试")
       }
     } catch (e) {
       console.log("get+erro", e);
-      return null
+      return response.data
     }
   }
 
@@ -66,7 +69,7 @@ class Axios {
     } catch (e) {
 
       console.log("post+err", e);
-      return null
+      return response.data
     }
   }
 
