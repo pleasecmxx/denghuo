@@ -29,11 +29,10 @@
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
       <el-table-column align="center" type="selection" width="55"></el-table-column>
-      <el-table-column prop="applyUserName" label="申请人" show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column prop="uid" label="申请人身份" show-overflow-tooltip>
+      <el-table-column prop="applyUserName" label="申请人" show-overflow-tooltip></el-table-column>
+      <el-table-column label="申请人身份" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.uid}}</span>
+          <span style="color:#0079fe;">{{ _identity(scope.row.identity)}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="applyUserPhone" label="申请人联系电话" show-overflow-tooltip></el-table-column>
@@ -47,8 +46,22 @@
       <el-table-column prop="peopleCount" label="备案人数/筹备组人数" show-overflow-tooltip></el-table-column>
       <el-table-column prop="name" label="主任姓名/组长姓名" show-overflow-tooltip></el-table-column>
       <el-table-column prop="phone" label="联系电话" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="letterFile" label="备案公函" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="letterFile" label="账户授权公函" show-overflow-tooltip></el-table-column>
+      <el-table-column label="备案公函" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span
+            style="color:#0079fe;"
+            @click="getimg(scope.row.files)"
+          >{{ scope.row.files.length==0 ? "无" : "查看" + scope.row.files.length + "张" }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="账户授权公函" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span
+            style="color:#0079fe;"
+            @click="getimg([scope.row.letterFile])"
+          >{{ scope.row.letterFile ?  "查看1张" : "无" }}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="ReviewMan" label="审核人员" show-overflow-tooltip></el-table-column>
       <el-table-column prop="ReviewTime" label="审核时间" show-overflow-tooltip></el-table-column>
       <el-table-column prop="state" label="审核结果" show-overflow-tooltip>
@@ -99,6 +112,12 @@
         ></el-pagination>
       </div>
     </div>
+    <image-viewer
+      :z-index="999999"
+      v-if="showViewer"
+      :on-close="onClose"
+      :url-list="previewSrcList"
+    />
     <Model ref="model" @truecolne="truecolne"></Model>
   </div>
 </template>
@@ -109,10 +128,15 @@ import {
   reviewCommitteeWork,
   deleteReviewCommitteeWork
 } from "../../../../utils/api";
+
+// 导入组件
+import ImageViewer from "element-ui/packages/image/src/image-viewer";
+
 export default {
   name: "PendingApplicationWorkbench",
   components: {
-    Model
+    Model,
+    ImageViewer
   },
   data() {
     return {
@@ -132,7 +156,9 @@ export default {
         state: 1, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
       },
-      loading: false // 请求loding
+      loading: false, // 请求loding
+      previewSrcList: [], // 图片查看数组
+      showViewer: false // 图片查看显示关闭
     };
   },
   mounted: function() {
@@ -157,6 +183,36 @@ export default {
     // model 输入回调  驳回原因 uid
     truecolne(text, uid) {
       this.get_reject(text, uid);
+    },
+    getimg(list) {
+      this.previewSrcList = list;
+      this.showViewer = true;
+    },
+    onClose(e) {
+      this.showViewer = false;
+      this.previewSrcList = [];
+    },
+    _identity(type) {
+      switch (type) {
+        case 1:
+          return "筹备组业务代表";
+          break;
+        case 2:
+          return "业主委员会成员";
+          break;
+        case 3:
+          return "业委会授权工作人员";
+          break;
+        case 4:
+          return "社区居委会工作人员";
+          break;
+        case 5:
+          return "辖区政府工作人员";
+          break;
+        default:
+          return "其它";
+          break;
+      }
     },
     // 同意u
     get_consent(uid) {
