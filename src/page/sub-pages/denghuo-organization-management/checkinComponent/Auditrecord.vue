@@ -41,7 +41,7 @@
              <span
             style="color:#0079fe;"
             @click="getimg(scope.row.files)"
-          >{{ scope.row.files.lenght==0 ? "无" : "查看"}}</span>
+          >{{ scope.row.files.length==0 ? "无" : "查看" + scope.row.files.length + "张" }}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
@@ -54,7 +54,7 @@
           <span
             style="color:#0079fe;"
             @click="getimg(scope.row.identityFiles)"
-          >{{ scope.row.identityFiles.lenght==0 ? "无" : "查看"}}</span>
+          >{{ scope.row.identityFiles.length ==0 ? "无" : "查看" + scope.row.identityFiles.length + "张"}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
@@ -97,17 +97,19 @@
           <input v-model="form.longitude" class="my_input_class" placeholder="纬度" type="text" />
         </el-form-item>
         <el-form-item label="组织备案文件">
-          <span style="color:#0079fe;" v-for="(item,index) in form.files" :key="index">{{item}}</span>
+            <span
+            style="color:#0079fe;"
+            @click="getimg(form.files)"
+          >{{ form.files.length ==0 ? "无" : "查看" + form.files.length + "张" }}</span>
         </el-form-item>
         <el-form-item label="申请人">
           <span>{{form.applyUserName}}</span>
         </el-form-item>
         <el-form-item label="申请人证明文件">
-          <span
+           <span
             style="color:#0079fe;"
-            v-for="(item,index) in form.identityFiles"
-            :key="index"
-          >{{item}}</span>
+            @click="getimg(form.identityFiles)"
+          >{{ form.identityFiles.length ==0 ? "无" : "查看" + form.identityFiles.length + "张" }}</span>
         </el-form-item>
         <el-form-item label="申请时间">
           <span>{{form.createdAt}}</span>
@@ -136,7 +138,7 @@
         <el-button type="primary" @click="get_reject()">驳 回</el-button>
       </div>
     </el-dialog>
-    <el-image-viewer v-if="showViewer" :onClose="onClose()" :onSwitch="onSwitch()" :url-list="srcList" />
+     <image-viewer :z-index="999999" v-if="showViewer" :on-close="onClose" :url-list="previewSrcList"/>
   </div>
 </template>
 <script>
@@ -147,12 +149,12 @@ import {
 } from "./../../../../utils/api";
 import axios from "axios";
 // 导入组件
-import ElImageViewer from "element-ui/packages/image/src/image-viewer";
+import ImageViewer from "element-ui/packages/image/src/image-viewer";
 
 export default {
   name: "Auditrecord",
   components: {
-    ElImageViewer
+    ImageViewer
   },
   data() {
     return {
@@ -163,7 +165,10 @@ export default {
         keyWord: ""
       },
       tableData: [],
-      form: {},
+      form: {
+        files:[],
+        identityFiles:[],
+      },
       params: {
         page: 1, // 1 页数
         limit: 10, // 个数
@@ -177,8 +182,8 @@ export default {
       rejecteddialog: false, // 驳回框
       rejecte_uid: "", // 驳回 uid
       textarea: "", // 驳回原因
-      srcList: [],
-      showViewer: false
+      previewSrcList: [], // 图片查看数组
+      showViewer: false// 图片查看显示关闭
     };
   },
   mounted: function() {
@@ -197,22 +202,12 @@ export default {
       });
     },
     getimg(list) {
-      console.log("++=");
-      
-      this.srcList = list;
+      this.previewSrcList = list;
       this.showViewer = true;
     },
-    onSwitch(list) {
-      console.log("++=");
-    },
     onClose(e) {
-      console.log(e);
-      
-      console.log('eee');
-      
-      // this.showViewer = false;
-      // this.showViewer = true;
-      // this.srcList = [];
+      this.showViewer = false;
+      this.previewSrcList = [];
     },
     // 显示 驳回对话 model
     set_dialog(uid) {

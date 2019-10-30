@@ -39,7 +39,10 @@
       </el-table-column>
       <el-table-column label="组织备案文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;" v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
+          <span
+            style="color:#0079fe;"
+            @click="getimg(scope.row.files)"
+          >{{ scope.row.files.length==0 ? "无" : "查看" + scope.row.files.length + "张" }}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请人" show-overflow-tooltip>
@@ -49,11 +52,10 @@
       </el-table-column>
       <el-table-column label="申请人证明文件" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span
+        <span
             style="color:#0079fe;"
-            v-for="(item,index) in scope.row.identityFiles"
-            :key="index"
-          >{{item}}</span>
+            @click="getimg(scope.row.identityFiles)"
+          >{{ scope.row.identityFiles.length ==0 ? "无" : "查看" + scope.row.identityFiles.length + "张"}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="createdAt" label="申请时间" show-overflow-tooltip></el-table-column>
@@ -77,8 +79,7 @@
       </el-table-column>
     </el-table>
     <div class="underTable">
-      <div>
-      </div>
+      <div></div>
       <div>
         <el-pagination
           @size-change="handleSizeChange"
@@ -92,6 +93,12 @@
         ></el-pagination>
       </div>
     </div>
+    <image-viewer
+      :z-index="999999"
+      v-if="showViewer"
+      :on-close="onClose"
+      :url-list="previewSrcList"
+    />
   </div>
 </template>
 <script>
@@ -99,9 +106,14 @@ import {
   getReviewOrganizations,
   deleteReviewOrganization
 } from "./../../../../utils/api";
+// 导入组件
+import ImageViewer from "element-ui/packages/image/src/image-viewer";
 
 export default {
   name: "AuditHistory",
+  components: {
+    ImageViewer
+  },
   data() {
     return {
       search: {
@@ -119,7 +131,9 @@ export default {
         state: 2, // 0：无，1：待审核，2：已审核
         keyword: "" // 关键字
       },
-      loading: false
+      loading: false,
+      previewSrcList: [], // 图片查看数组
+      showViewer: false // 图片查看显示关闭
     };
   },
   mounted: function() {
@@ -136,6 +150,14 @@ export default {
         }
         this.loading = false;
       });
+    },
+    getimg(list) {
+      this.previewSrcList = list;
+      this.showViewer = true;
+    },
+    onClose(e) {
+      this.showViewer = false;
+      this.previewSrcList = [];
     },
     // 删除
     get_remove(uid) {
