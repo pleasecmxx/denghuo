@@ -3,6 +3,7 @@
   <div class="app-container">
     <Levelbar />
     <div class="app-body">
+      <div class="main_box">        
       <div class="topBar">
         <div class="topBarContainer">
           <div style="margin-left:50px;" class="topTitle">
@@ -27,7 +28,7 @@
           </div>
         </div>
       </div>
-      <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:75%;">
+      <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="width:100%;height:75%;">
         <el-tab-pane label="运营数据" name="OperationalData" style="height:100%;">
           <OperationalData />
         </el-tab-pane>
@@ -38,6 +39,7 @@
           <OuterOrganization />
         </el-tab-pane>
       </el-tabs>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +70,14 @@ export default {
 </script>
 
 <style>
+
+.main_box{
+  width: 96%;
+  height: 92%;
+  float: left;
+}
+
+
 .topBar {
   width: 100%;
   height: 150px;

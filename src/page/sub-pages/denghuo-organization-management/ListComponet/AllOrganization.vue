@@ -179,7 +179,9 @@ export default {
         }
       });
     },
-    look(index, row) {},
+    look(index, row) {
+      this.$router.push("OrganizationDetails")
+    },
     operation(index, row) {},
     extend(index, row) {},
     freeze(index, row) {},
