@@ -45,7 +45,7 @@ class Axios {
       }
     } catch (e) {
       console.log("get+erro", e);
-      return response.data
+      return null
     }
   }
 
@@ -64,7 +64,7 @@ class Axios {
       }
     } catch (e) {
       console.log("post+err", e);
-      return response.data
+      return null
     }
   }
 
