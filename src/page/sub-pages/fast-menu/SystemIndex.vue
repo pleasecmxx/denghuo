@@ -1,18 +1,5 @@
 <template>
-  <div class="inner-content flex">
-    <!-- <div class="top-menu">
-      <div class="top-left">
-        <p class="top-text">首页</p>
-        <i class="el-icon-arrow-right"></i>
-        <p class="top-text">快捷菜单</p>
-        <i class="el-icon-arrow-right"></i>
-        <p class="top-text">系统首页</p>
-      </div>
-      <div class="top-right flex">
-        <i class="el-icon-arrow-left"></i>
-        <i class="el-icon-refresh-left"></i>
-      </div>
-    </div>-->
+  <div class="inner-content">
     <Levelbar />
 
     <div class="content-area">
@@ -22,15 +9,15 @@
             <p class="content-top-box-header-title">快速新建</p>
           </div>
           <div class="content-top-box-body flex">
-            <div class="top-item flex">
+            <div class="top-item flex" @click="gopage('/CreateUserAcount')">
               <i class="el-icon-user top-item-img"></i>
               <p>新建运营账户</p>
             </div>
-            <div class="top-item flex">
+            <div class="top-item flex" @click="gopage('/ActivitiesManagement')">
               <i class="el-icon-monitor top-item-img"></i>
               <p>新建官方活动</p>
             </div>
-            <div class="top-item flex">
+            <div class="top-item flex" @click="msgBoxShow = true">
               <i class="el-icon-takeaway-box top-item-img"></i>
               <p>发布系统信息</p>
             </div>
@@ -41,15 +28,15 @@
             <p class="content-top-box-header-title">待审核</p>
           </div>
           <div class="content-top-box-body flex">
-            <div class="top-item flex">
+            <div class="top-item flex" @click="gopage('/OwnerApplication')">
               <i class="el-icon-mobile top-item-img"></i>
               <p>业主申请审核</p>
             </div>
-            <div class="top-item flex">
+            <div class="top-item flex" @click="gopage('/OrganizationCheckin')">
               <i class="el-icon-receiving top-item-img"></i>
               <p>组织入驻审核</p>
             </div>
-            <div class="top-item flex">
+            <div class="top-item flex" @click="gopage('/IndustryCommittee')">
               <i class="el-icon-notebook-2 top-item-img"></i>
               <p>工作台申请审核</p>
             </div>
@@ -66,7 +53,8 @@
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
-                :value="item.value" />
+                :value="item.value"
+              />
             </el-select>
           </div>
           <div class="content-bottom-box-body flex">
@@ -122,7 +110,7 @@
                 <p class="btn-text">发布新消息</p>
               </button>
 
-              <button class="btn">
+              <button class="btn" @click="gopage('/SystemMsgManagement')">
                 <p class="btn-text">查看更多</p>
                 <i class="el-icon-arrow-right i-btn"></i>
               </button>
@@ -314,9 +302,9 @@ export default {
       value: "",
       msgBoxShow: false,
       selectCategory: [
-        { value: "", label: "企业动态" },
-        { value: "", label: "内部分享" },
-        { value: "", label: "热点新闻" }
+        { value: "1", label: "企业动态" },
+        { value: "2", label: "内部分享" },
+        { value: "3", label: "热点新闻" }
       ],
       input: "",
       ops: {
@@ -334,21 +322,6 @@ export default {
           date: "2016-05-02",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
         }
       ]
     };
@@ -356,6 +329,9 @@ export default {
   methods: {
     handleClose(done) {
       done();
+    },
+    gopage(e) {
+      this.$router.push(e);
     }
   }
 };
@@ -363,30 +339,10 @@ export default {
 
 <style scoped>
 .inner-content {
-  width: calc(100% - 230px);
-  height: calc(100% - 52px);
-  min-width: 600px;
-  flex-direction: column;
-  justify-content: fle-start;
-  align-items: center;
-  padding-top: 68px;
-}
-
-.top-menu {
-  position: fixed;
-  left: 230px;
-  top: 52px;
-  right: 0px;
-  height: 50px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  /* padding-left: 20px; */
-  /* padding-right: px; */
-  padding: 0 20px;
-  box-sizing: border-box;
+  width: calc(100% - 150px);
+  height: calc(100% - 50px);
+  float: left;
+  min-width: 1200px;
 }
 
 .top-left {
@@ -400,8 +356,6 @@ export default {
 .top-right {
   width: 80px;
   height: 50px;
-  /* background-color: tomato; */
-  /* z-index: 999999; */
   justify-content: flex-end;
   align-items: center;
 }
@@ -425,16 +379,12 @@ export default {
 }
 
 .content-area {
-  width: 1300px;
-  height: 100%;
-
-  /* background-color: #fff; */
-  overflow-y: hidden;
-  /* overflow-x: hidden; */
+  width: 96%;
+  margin: 20px auto;
 }
 
 .content-top {
-  width: calc(100% - 5px);
+  width: 100%;
   height: 200px;
   justify-content: space-between;
   align-items: center;
@@ -491,7 +441,7 @@ export default {
 }
 
 .content-bottom {
-  width: calc(100% - 5px);
+  width: 100%;
   height: 400px;
   justify-content: space-between;
   align-items: center;
@@ -516,40 +466,29 @@ export default {
   padding: 24px 0;
 }
 
-/* .bottom-item-top {
-    
-} */
-
 .bottom-item {
   width: 110px;
   height: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: #0079fe */
 }
 
 .num {
-  /* line-height: 48px; */
   font-size: 28px;
   margin-top: 20px;
 }
 
 .bottom-table {
-  /* show-header: false; */
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
-  /* align-items: center; */
   align-self: flex-start;
   margin: 0;
-  /* padding: 0 13px; */
 }
 
 .table-tr {
-  /* height: 45px; */
   display: flex;
   justify-content: space-between;
   padding: 0 13px;
@@ -639,7 +578,6 @@ export default {
 
 .msgBox {
   height: 400px;
-  /* background-color: #0079fe; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
