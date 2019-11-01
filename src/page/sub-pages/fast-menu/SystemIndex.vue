@@ -497,7 +497,6 @@ export default {
 
 .news {
   height: 45px;
-  width: 428px;
   display: flex;
   justify-content: flex-start;
   align-items: center;

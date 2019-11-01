@@ -313,7 +313,9 @@ export default {
     };
   },
   methods: {
-    getBreadcrumb() {},
+    getBreadcrumb() {
+      this.rootlist = JSON.parse(localStorage.getItem("rootlist"));
+    },
     showdialog() {
       this.setmsg = true;
     },
@@ -352,6 +354,8 @@ export default {
     // 保存
     savesetting() {
       this.rootlist = this.selectList;
+      let rl = JSON.stringify(this.rootlist)
+      localStorage.setItem("rootlist",rl)
       this.boxClose();
     },
     _splice(ary,index){

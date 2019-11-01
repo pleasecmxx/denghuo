@@ -8,7 +8,7 @@
           <span class="avatar">
             <i class="el-icon-user-solid" style="color:#fff;font-size:120px;"></i>
           </span>
-          <router-link class="slider-menu" tag="div" to="/ModifyAvatar">
+          <router-link class="slider-menu" tag="div" to="/ModifyAvatarHome">
             <div style="color:#0079FE;margin-top:10px;">更改头像</div>
           </router-link>
         </div>
