@@ -17,7 +17,7 @@
       <div class="back" @click="back()">
         <i class="el-icon-arrow-left"></i>
       </div>
-      <div class="back" @click="reload()">
+      <div class="back" @click="clickReload()">
         <i class="el-icon-refresh-left"></i>
       </div>
     </div>
@@ -28,6 +28,7 @@ export default {
   created() {
     this.getBreadcrumb();
   },
+  inject:['reload'],
   data() {
     return {
       levelList: null
@@ -44,7 +45,8 @@ export default {
     back() {
       this.$router.go(-1);
     },
-    reload() {
+    clickReload() {
+      this.reload()
     }
   },
   watch: {
