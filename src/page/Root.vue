@@ -31,13 +31,13 @@
                 <p class="header-info-items-p">admin</p>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <router-link to="/ModifyData">
+                <router-link to="/ModifyDataHome">
                   <el-dropdown-item command="4">修改资料</el-dropdown-item>
                 </router-link>
-                <router-link to="/ModifyAvatar">
+                <router-link to="/ModifyAvatarHome">
                   <el-dropdown-item command="3">修改头像</el-dropdown-item>
                 </router-link>
-                <router-link to="/ModifyPassWord">
+                <router-link to="/ModifyPassWordHome">
                   <el-dropdown-item command="2">修改密码</el-dropdown-item>
                 </router-link>
                 <div @click="outlogin()">

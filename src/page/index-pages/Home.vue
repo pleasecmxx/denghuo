@@ -1,24 +1,21 @@
 <template>
   <div class="my-content flex">
     <div class="second-menu">
-      <router-link class="s-menu-line" tag="div" to="/SystemIndex">
+      <router-link class="s-menu-line" tag="div" to="/SystemIndexHome">
         <div class="s-menu-line s-menu-top">
           <i class="el-icon-menu"></i>
           <span class="m-t-text">快捷菜单</span>
           <i class="el-icon-s-tools" @click="showdialog()"></i>
         </div>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/SystemIndex">
-        <span class="s-menu-text">系统首页</span>
-      </router-link>
-      <router-link class="s-menu-line" tag="div" to="/ModifyData">
-        <span class="s-menu-text">修改资料</span>
-      </router-link>
-      <router-link class="s-menu-line" tag="div" to="/ModifyPassWord">
-        <span class="s-menu-text">修改密码</span>
-      </router-link>
-      <router-link class="s-menu-line" tag="div" to="/ModifyAvatar">
-        <span class="s-menu-text">修改头像</span>
+      <router-link
+        class="s-menu-line"
+        v-for="(item,index) in rootlist"
+        :key="index"
+        tag="div"
+        :to="item.path+'Home'"
+      >
+        <span class="s-menu-text">{{item.name}}</span>
       </router-link>
     </div>
     <el-dialog
@@ -30,13 +27,17 @@
     >
       <div class="mainmsgBox">
         <div class="box_title">
-          <span>已选菜单</span> 按住菜单标签可以对菜单进行排序，最多可以设置10个快捷菜单
+          <span>已选菜单</span> 最多可以设置10个快捷菜单
         </div>
         <div class="box_top">
           <div class="top_head" v-for="(item,index) in selectList" :key="index">
             <el-button size="small">
               {{item.name}}
-              <i @click="delecttitle(item)" class="el-icon-close"></i>
+              <i
+                v-if="index != 0"
+                @click="delecttitle(index,item)"
+                class="el-icon-close"
+              ></i>
             </el-button>
           </div>
         </div>
@@ -69,8 +70,15 @@ export default {
   },
   data() {
     return {
-      setmsg: true,
+      setmsg: false,
       selectList: [
+        {
+          path: "/SystemIndex",
+          name: "系统首页",
+          id: -1
+        }
+      ],
+      rootlist: [
         {
           path: "/SystemIndex",
           name: "系统首页",
@@ -301,14 +309,11 @@ export default {
           ]
         }
       ],
-      a_index: []
+      a_index: [-1]
     };
   },
   methods: {
-    getBreadcrumb() {
-      // let matched = this.$route.matched.filter(item => item.name);
-      // console.log(this.$route);
-    },
+    getBreadcrumb() {},
     showdialog() {
       this.setmsg = true;
     },
@@ -320,91 +325,61 @@ export default {
       this.setmsg = false;
     },
     handleCheckedCitiesChange(index, is, citem) {
-      //  选中 或者 取消
-      let check = citem.check;
-      let selcet = this.selectList;
-
       let ary = this.a_index;
       ary.push(citem.id);
-      console.log(ary);
-      ary =  new Set(...ary)
-      console.log(ary);
-      
-      this.a_index = ary;
+      ary = [...new Set(ary)];
 
-      // 选中
-      if (!check) {
-        
+      // 选中 el-checkbox 自动 改变
+      if (citem.check) {
+        console.log("选中");
+        this.selectList.push(citem);
+      } else {
+        console.log("取消");
+        for (let i = 0; i < ary.length; i++) {
+          if (ary[i] == citem.id) {
+            ary.splice(i, 1);
+            this.selectList.splice(i, 1);
+          }
+        }
       }
-
-      return;
-      // // 选中时
-      // if (!check) {
-      //   if (selcet.length > 5) {
-      //     // 选中并且 大于 5 则
-
-      //     //
-      //     selcet.forEach(vlaue => {
-      //       if (value.path == citem.path) {
-      //       }
-      //     });
-      //   } else {
-      //   }
-      // } else {
-      //   // 取消时
-      //   if (selcet.length > 5) {
-      //   } else {
-      //   }
-      // }
-      // return;
-      // let list = [];
-      // // 如果已经选择的5个
-      // if (this.selectList.length > 5) {
-      //   console.log("stop");
-      //   // 选择的
-      //   this.routerList[index].children[i].check = false;
-      //   // this.selectList.forEach(arr => {
-      //   //   if (arr.path != citem.path) {
-      //   //     list.push(arr);
-      //   //   }
-      //   // });
-      //   // this.selectList = list;
-      //   console.log(this.routerList);
-
-      //   return;
-      // }
-      // console.log("未满5个");
-
-      // this.routerList[index].children[i].check = !check;
-      // // 如果已经是 false  则 执行选中操作；
-      // if (!check) {
-      //   // 选中
-      //   this.selectList.push(citem);
-      // } else {
-      //   // 如果已经true 则为 false
-      //   this.selectList.forEach(arr => {
-      //     if (arr.path != citem.path) {
-      //       list.push(arr);
-      //     }
-      //   });
-      //   this.selectList = list;
-      // }
+      this.a_index = ary;
+      if (ary.length > 10) {
+        this.a_index.splice(0,10)
+        this.selectList.splice(0,10)
+        this.routerList[index].children[is].check = false;
+      }
     },
     // 保存
     savesetting() {
-      // this.setmsg = false;
-      // console.log(this.routerList);
-      // let list = [];
-      // this.routerList.forEach(res => {
-      //   console.log(res);
-      //   res.children.forEach(ref => {
-      //     if (ref.check) {
-      //       list.push(ref);
-      //     }
-      //   });
-      // });
+      this.rootlist = this.selectList;
+      this.boxClose();
     },
-    delecttitle(index) {}
+    _splice(ary,index){
+      let arr = []
+      for (let i = 0; i < array.length; i++) {
+        if (i>10) {
+          
+        }
+      }
+    },
+    // 删除当前标签
+    delecttitle(index, item) {
+      let ai = [];
+      let sl = [];
+      for (let i = 0; i < this.a_index.length; i++) {
+        if (index != i) {
+          ai.push(this.a_index[i]);
+          sl.push(this.selectList[i]);
+        }
+      }
+      this.a_index = ai;
+      this.selectList = sl;
+      this.routerList.map(res => {
+        res.children.map(ref =>
+          ref.id == item.id ? (ref.check = false) : (ref.check = ref.check)
+        );
+      });
+    }
   }
 };
 </script>
@@ -457,5 +432,4 @@ export default {
   float: left;
   margin: 0 0 20px 0;
 }
-
 </style>

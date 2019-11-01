@@ -74,59 +74,151 @@ const router = new VueRouter({
 				{
 					path: '/home',
 					name: '快捷菜单',
-					redirect: '/SystemIndex',
+					redirect: '/SystemIndexHome',
 					component: Home,
 					children: [
 						{
-							path: '/SystemIndex',
+							path: '/SystemIndexHome',
 							name: "系统首页",
 							component: SystemIndex
 						},
 						{
-							path: '/ModifyData',
+							path: '/ModifyDataHome',
 							name: '修改资料',
 							component: ModifyData,
 						},
 						{
-							path: '/ModifyPassWord',
+							path: '/ModifyPassWordHome',
 							name: '修改密码',
 							component: ModifyPassWord,
 						},
 						{
-							path: '/ModifyAvatar',
-							name: '修改头像',
+							path: '/ModifyAvatarHome',
+							name: '修改头像 ',
 							component: ModifyAvatar
 						},
 						{
-							path: '/OperationAcount',
-							name: "平台运营账户",
-							component: OperationAcount
+							path: '/AllAccountHome',
+							name: '全部账户列表 ',
+							component: AllAccount,
 						},
 						{
-							path: '/AreaAcount',
-							name: "地区运营账户",
-							component: AreaAcount
+							path: '/NormalUserListHome',
+							name: '在用账户列表 ',
+							component: NormalUserList,
+						}, {
+							path: '/FrozenUserListHome',
+							name: '冻结账户列表 ',
+							component: FrozenUserList,
+						}, {
+							path: '/InvalidationUserListHome',
+							name: '失效账户列表 ',
+							component: InvalidationUserList,
+						}, {
+							path: '/CreateUserAcountHome',
+							name: '新建管理账户 ',
+							component: CreateUserAcount,
+						}, {
+							path: '/OptionLogHome',
+							name: '操作日志 ',
+							component: OptionLog,
 						},
 						{
-							path: '/DenghuoUserList',
-							name: "灯火端用户列表",
-							component: DenghuoUserList
-						},
-						// {
-						//     path: '/OrganizationEnter',
-						//     name: 'kj组织入驻审核',
-						//     component: OrganizationEnter
-						// },
-						{
-							path: '/DenghuoContentList',
-							name: '灯火端内容列表',
-							component: DenghuoContentList
-						},
-						{
-							path: '/WenMingUserList',
-							name: '文明端用户列表',
-							component: WenMingUserList
+							path: '/OwnerApplicationHome',
+							name: '业主申请审核 ',
+							component: OwnerApplication,
 						}
+						, {
+							path: '/UsersListHome',
+							name: '用户列表 ',
+							component: UsersList,
+						}, {
+							path: '/DenghuoUserListManagementHome',
+							name: '用户详情 ',
+							component: DenghuoUserListManagement,
+						}, {
+							path: '/OrganizationCheckinHome',
+							name: '组织入驻审核 ',
+							component: OrganizationCheckin,
+						}, {
+							path: '/OrganizationListHome',
+							name: '组织列表 ',
+							component: OrganizationList,
+						}, {
+							path: '/OrganizationDetailsHome',
+							name: '组织详情 ',
+							component: OrganizationDetails
+						}, {
+							path: '/AddOrganizationHome',
+							name: '新增组织 ',
+							component: AddOrganization
+						}, {
+							path: '/AdvertisingManagementHome',
+							name: '广告位管理 ',
+							component: AdvertisingManagement,
+						}, {
+							path: '/SystemMsgManagementHome',
+							name: '系统信息管理 ',
+							component: SystemMsgManagement,
+						}, {
+							path: '/ActivitiesManagementHome',
+							name: '活动管理 ',
+							component: ActivitiesManagement,
+						}, {
+							path: '/OrderCheckHome',
+							name: '订单审批 ',
+							component: OrderCheck,
+						}, {
+							path: '/BackCashCheckHome',
+							name: '回款审批 ',
+							component: BackCashCheck,
+						}, {
+							path: '/RefundCheckHome',
+							name: '退款审批 ',
+							component: RefundCheck,
+						}, {
+							path: '/ReimbursementCheckHome',
+							name: '报销审批 ',
+							component: ReimbursementCheck,
+						}, {
+							path: '/LeaveCheckHome',
+							name: '请假审批 ',
+							component: LeaveCheck,
+						}, {
+							path: '/BusinesstripCheckHome',
+							name: '出差审批 ',
+							component: BusinesstripCheck,
+						}, {
+							path: '/BorrowCheckHome',
+							name: '借款审批 ',
+							component: BorrowCheck,
+						}, {
+							path: '/InstructionsCheckHome',
+							name: '请示审批 ',
+							component: InstructionsCheck,
+						}, {
+							path: '/VisitCheckHome',
+							name: '拜访审批 ',
+							component: VisitCheck,
+						}, {
+							path: '/IndustryCommitteeHome',
+							name: '业委会工作台审核 ',
+							component: IndustryCommittee,
+						},
+						{
+							path: '/SocialOrganizationHome',
+							name: '社会组织工作台审核 ',
+							component: SocialOrganization,
+						},
+						{
+							path: '/WorkbenchManagementHome',
+							name: '工作台管理 ',
+							component: WorkbenchManagement,
+						}, {
+							path: '/TransactionManagementHome',
+							name: '事务管理 ',
+							component: TransactionManagement,
+						},
 					]
 				}, {
 					path: '/operation-acount-management',
@@ -162,19 +254,19 @@ const router = new VueRouter({
 						},
 					]
 				},
-				{
-					path: '/area-acount-management',
-					name: '地区运营账号管理',
-					component: AreaAcountManagement,
-					redirect: '/AreaNormalUserList',
-					children: [
-						{
-							path: '/AreaNormalUserList',
-							name: 'dq账户列表',
-							component: AreaNormalUserList,
-						},
-					]
-				},
+				// {
+				// 	path: '/area-acount-management',
+				// 	name: '地区运营账号管理',
+				// 	component: AreaAcountManagement,
+				// 	redirect: '/AreaNormalUserList',
+				// 	children: [
+				// 		{
+				// 			path: '/AreaNormalUserList',
+				// 			name: 'dq账户列表',
+				// 			component: AreaNormalUserList,
+				// 		},
+				// 	]
+				// },
 				{
 					path: '/denghuo-user-management',
 					name: '灯火端用户管理',
