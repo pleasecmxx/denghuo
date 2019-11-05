@@ -54,7 +54,22 @@
           <span style="color:#0079fe;">{{scope.row.account}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="管理区域" show-overflow-tooltip>
+      <el-table-column label="身份证" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span style="color:#0079fe;">{{scope.row.managmentArea}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="联系方式" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span style="color:#0079fe;">{{scope.row.managmentArea}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="所属部门" show-overflow-tooltip>
+        <template slot-scope="scope">
+          <span style="color:#0079fe;">{{scope.row.managmentArea}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="权限" show-overflow-tooltip>
         <template slot-scope="scope">
           <span style="color:#0079fe;">{{scope.row.managmentArea}}</span>
         </template>
@@ -72,35 +87,25 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="联系方式" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.phone}}</span>
-        </template>
-      </el-table-column>
       <el-table-column prop="lastEdit" label="最后编辑人" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="timeTo" label="有效期至" show-overflow-tooltip></el-table-column>
       <el-table-column prop="operating" label="操作" show-overflow-tooltip width="500">
         <template slot-scope="scope">
           <span style="margin-left:10px;" @click="look(scope.$index, scope.row)">
             <i class="el-icon-chat-line-round" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">查看</span>
           </span>
-          <span style="margin-left:10px;" @click="openDary(scope.$index, scope.row)">
+          <!-- <span style="margin-left:10px;" @click="openDary(scope.$index, scope.row)">
             <i class="el-icon-chat-line-round" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">操作日志</span>
-          </span>
-          <span style="margin-left:10px;" @click="extend(scope.$index, scope.row)">
-            <i class="el-icon-edit" style="color:#0079fe;"></i>
-            <span style="color:#0079fe;">延长有效期</span>
-          </span>
+          </span> -->
           <span style="margin-left:10px;" @click="thaw(scope.$index, scope.row)">
             <i class="el-icon-edit" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">解冻账户</span>
           </span>
-          <span style="margin-left:10px;" @click="edit(scope.$index, scope.row)">
+          <!-- <span style="margin-left:10px;" @click="edit(scope.$index, scope.row)">
             <i class="el-icon-edit" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">编辑</span>
-          </span>
+          </span> -->
           <span style="margin-left:10px;" @click="remove(scope.$index, scope.row)">
             <i class="el-icon-delete" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">删除</span>
