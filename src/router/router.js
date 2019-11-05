@@ -246,19 +246,19 @@ const router = new VueRouter({
 						},
 					]
 				},
-				// {
-				// 	path: '/area-acount-management',
-				// 	name: '地区运营账号管理',
-				// 	component: AreaAcountManagement,
-				// 	redirect: '/AreaNormalUserList',
-				// 	children: [
-				// 		{
-				// 			path: '/AreaNormalUserList',
-				// 			name: 'dq账户列表',
-				// 			component: AreaNormalUserList,
-				// 		},
-				// 	]
-				// },
+				{
+					path: '/area-acount-management',
+					name: '地区运营账号管理',
+					component: AreaAcountManagement,
+					redirect: '/AreaNormalUserList',
+					children: [
+						{
+							path: '/AreaNormalUserList',
+							name: 'dq账户列表',
+							component: AreaNormalUserList,
+						},
+					]
+				},
 				{
 					path: '/denghuo-user-management',
 					name: '灯火端用户管理',

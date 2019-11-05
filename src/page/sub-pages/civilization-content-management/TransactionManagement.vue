@@ -28,6 +28,7 @@ export default {
 
 <style>
 .parentBox {
+  width: 96%;
   background-color: #fff;
   padding: 15px 15px 0 15px;
   height: 92%;

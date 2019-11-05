@@ -35,7 +35,7 @@
     <div>
       <el-button @click="add" type="primary" class="addBox">
         <i style="color:#fff;" class="el-icon-plus" />
-        <span style="color:#fff;">新建模板</span>
+        <span style="color:#fff;">发起官方活动</span>
       </el-button>
     </div>
     <el-table
