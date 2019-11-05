@@ -1,35 +1,39 @@
-<!--在用账户-->
-<!--游客列表-->
+<!--全部账户列表（地区）-->
 <template>
   <div class="tableStyle">
-    <div class="searchBox">
-      <span>
-        <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:500px;"></el-input>
-        <el-select v-model="search.status" placeholder="用户状态" style="margin-left:10px;">
-          <el-option
-            v-for="(item,index) in options"
-            :key="index"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </span>
-      <span style="margin-left:50px;">
-        <el-button type="primary" @click="searchWord">
-          <i style="color:#fff;" class="el-icon-search" />
-          <span style="color:#fff;">查询</span>
+    <div class="head_box">
+      <div class="searchBox">
+        <span>
+          <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:300px;"></el-input>
+          <el-select v-model="search.status" placeholder="用户状态" style="margin-left:10px;">
+            <el-option
+              v-for="(item,index) in options"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </span>
+        <span style="margin-left:50px;">
+          <el-button type="primary" @click="searchWord">
+            <i style="color:#fff;" class="el-icon-search" />
+            <span style="color:#fff;">查询</span>
+          </el-button>
+          <el-button @click="clear">
+            <i class="el-icon-refresh-right" />
+            <span>重置</span>
+          </el-button>
+        </span>
+      </div>
+      <div class="file">
+        <el-button type="primary">
+          <span style="color:#fff;">编辑权限</span>
         </el-button>
-        <el-button @click="clear">
-          <i class="el-icon-refresh-right" />
-          <span>重置</span>
+        <el-button type="primary" @click="add">
+          <i class="el-icon-plus" style="color:#fff;"></i>
+          <span style="color:#fff;">新增</span>
         </el-button>
-      </span>
-    </div>
-    <div class="file">
-      <el-button type="primary" @click="add">
-        <i class="el-icon-plus" style="color:#fff;"></i>
-        <span style="color:#fff;">新建</span>
-      </el-button>
+      </div>
     </div>
     <el-table
       ref="multipleTable"
@@ -189,36 +193,6 @@ export default {
           lastEdit: "某负责人",
           timeTo: "2019-10-10"
         },
-        {
-          id: 2,
-          name: "某某",
-          account: "0001",
-          managmentArea: "长沙",
-          accountStatus: 2,
-          phone: "13657448974",
-          lastEdit: "某负责人",
-          timeTo: "2019-10-10"
-        },
-        {
-          id: 3,
-          name: "某某",
-          account: "0001",
-          managmentArea: "长沙",
-          accountStatus: 2,
-          phone: "13657448974",
-          lastEdit: "某负责人",
-          timeTo: "2019-10-10"
-        },
-        {
-          id: 4,
-          name: "某某",
-          account: "0001",
-          managmentArea: "长沙",
-          accountStatus: 3,
-          phone: "13657448974",
-          lastEdit: "某负责人",
-          timeTo: "2019-10-10"
-        }
       ],
       multipleSelection: []
     };
@@ -321,20 +295,27 @@ export default {
   height: 6px;
   border-radius: 3px;
 }
-.searchBox {
-  display: flex;
-  justify-content: flex-start;
+
+.head_box {
+  width: 100%;
+  float: left;
 }
+
+.searchBox {
+  float: left;
+}
+
 .tableStyle {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 .file {
-  display: flex;
-  justify-content: flex-end;
+  float: right;
 }
+
 .underTable {
   display: flex;
   justify-content: space-between;

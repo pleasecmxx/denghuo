@@ -59,6 +59,8 @@ import {
 	QrCode,
 	AllAccount,
 	AddOrganization,
+	AreaCreateUserAcount,
+    AreaOptionLog,
 } from './../page'
 
 
@@ -254,8 +256,18 @@ const router = new VueRouter({
 					children: [
 						{
 							path: '/AreaNormalUserList',
-							name: 'dq账户列表',
+							name: '全部账户列表(地区)',
 							component: AreaNormalUserList,
+						},
+						{
+							path: '/AreaCreateUserAcount',
+							name: '新建管理账户(地区)',
+							component: AreaCreateUserAcount,
+						},
+						{
+							path: '/AreaOptionLog',
+							name: '操作日志(地区)',
+							component: AreaOptionLog,
 						},
 					]
 				},

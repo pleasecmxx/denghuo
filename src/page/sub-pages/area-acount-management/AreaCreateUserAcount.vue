@@ -7,7 +7,7 @@
         <div class="formBox">
           <div class="main_header">
             <i class="el-icon-s-order"></i>
-            <span>新建管理账户</span>
+            <span>新建管理账户(地区)</span>
             <div class="header_right">
               <span>*</span>为必填项
             </div>
@@ -81,7 +81,7 @@
 import Levelbar from "./../../../components/common/layout/Levelbar";
 
 export default {
-  name: "CreateUserAcount",
+  name: "AreaCreateUserAcount",
   components: {
     Levelbar
   },

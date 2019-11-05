@@ -8,7 +8,13 @@
         </div>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/AreaNormalUserList">
-        <span class="s-menu-text">地区账户列表</span>
+        <span class="s-menu-text">全部账户列表(地区)</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/AreaCreateUserAcount">
+        <span class="s-menu-text">新建管理账号(地区)</span>
+      </router-link>
+      <router-link class="s-menu-line" tag="div" to="/AreaOptionLog">
+        <span class="s-menu-text">操作日志(地区)</span>
       </router-link>
     </div>
      <router-view></router-view>

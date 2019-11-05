@@ -10,7 +10,7 @@
       <router-link class="s-menu-line" tag="div" to="/AllAccount">
         <span class="s-menu-text">全部账户列表</span>
       </router-link>
-      <router-link class="s-menu-line" tag="div" to="/NormalUserList">
+      <!-- <router-link class="s-menu-line" tag="div" to="/NormalUserList">
         <span class="s-menu-text">在用账户列表</span>
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/FrozenUserList">
@@ -18,7 +18,7 @@
       </router-link>
       <router-link class="s-menu-line" tag="div" to="/InvalidationUserList">
         <span class="s-menu-text">失效账户列表</span>
-      </router-link>
+      </router-link> -->
       <router-link class="s-menu-line" tag="div" to="/CreateUserAcount">
         <span class="s-menu-text">新建管理账户</span>
       </router-link>

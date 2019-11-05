@@ -4,8 +4,14 @@
     <Levelbar />
     <div class="app-body">
       <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card" style="height:92%;">
-        <el-tab-pane label="全部账户列表" name="AllAccount" style="height:100%;">
-          <AllAccount />
+        <el-tab-pane label="全部账户列表" name="AllAccount1" style="height:100%;">
+          <AllAccount :type="0"/>
+        </el-tab-pane>
+        <el-tab-pane label="在用账户列表" name="AllAccount2" style="height:100%;">
+          <AllAccount :type="1" />
+        </el-tab-pane>
+        <el-tab-pane label="冻结账户列表" name="AllAccount3" style="height:100%;">
+          <AllAccount :type="2" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -24,7 +30,7 @@ export default {
   },
   data() {
     return {
-      activeName: "AllAccount"
+      activeName: "AllAccount1"
     };
   },
   methods: {

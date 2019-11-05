@@ -1,34 +1,36 @@
 <!--全部账户列表-->
 <template>
   <div class="tableStyle">
-    <div class="searchBox">
-      <span>
-        <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:500px;"></el-input>
-        <el-select v-model="search.status" placeholder="全部" style="margin-left:10px;">
-          <el-option
-            v-for="(item,index) in options"
-            :key="index"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </span>
-      <span style="margin-left:50px;">
-        <el-button type="primary" @click="searchWord">
-          <i style="color:#fff;" class="el-icon-search" />
-          <span style="color:#fff;">查询</span>
+    <div class="head_box">
+      <div class="searchBox">
+        <span>
+          <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:500px;"></el-input>
+          <el-select v-model="search.status" placeholder="全部" style="margin-left:10px;">
+            <el-option
+              v-for="(item,index) in options"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </span>
+        <span style="margin-left:50px;">
+          <el-button type="primary" @click="searchWord">
+            <i style="color:#fff;" class="el-icon-search" />
+            <span style="color:#fff;">查询</span>
+          </el-button>
+          <el-button @click="clear">
+            <i class="el-icon-refresh-right" />
+            <span>重置</span>
+          </el-button>
+        </span>
+      </div>
+      <div class="file">
+        <el-button type="primary" @click="add">
+          <i class="el-icon-plus" style="color:#fff;"></i>
+          <span style="color:#fff;">新建</span>
         </el-button>
-        <el-button @click="clear">
-          <i class="el-icon-refresh-right" />
-          <span>重置</span>
-        </el-button>
-      </span>
-    </div>
-    <div class="file">
-      <el-button type="primary" @click="add">
-        <i class="el-icon-plus" style="color:#fff;"></i>
-        <span style="color:#fff;">新建</span>
-      </el-button>
+      </div>
     </div>
     <el-table
       ref="multipleTable"
@@ -290,9 +292,12 @@ export default {
   height: 6px;
   border-radius: 3px;
 }
+.head_box {
+  width: 100%;
+  float: left;
+}
 .searchBox {
-  display: flex;
-  justify-content: flex-start;
+  float: left;
 }
 .tableStyle {
   height: 100%;
@@ -301,8 +306,7 @@ export default {
   justify-content: space-between;
 }
 .file {
-  display: flex;
-  justify-content: flex-end;
+  float: right;
 }
 .underTable {
   display: flex;

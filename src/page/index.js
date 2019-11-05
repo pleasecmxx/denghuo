@@ -45,6 +45,10 @@ const RefundCheck = () => import('./sub-pages/wenming-user-management/RefundChec
 const ReimbursementCheck = () => import('./sub-pages/wenming-user-management/ReimbursementCheck.vue')
 const VisitCheck = () => import('./sub-pages/wenming-user-management/VisitCheck.vue')
 const AreaNormalUserList = () => import('./sub-pages/area-acount-management/AreaNormalUserList.vue')
+// 新增管理账号 （地区）
+const AreaCreateUserAcount = () => import('./sub-pages/area-acount-management/AreaCreateUserAcount.vue')
+// 操作日志  （地区）
+const AreaOptionLog = () => import('./sub-pages/area-acount-management/AreaOptionLog.vue')
 const IndustryCommittee = () => import('./sub-pages/civilization-acount-management/IndustryCommittee.vue')
 const WorkbenchManagement = () => import('./sub-pages/civilization-acount-management/WorkbenchManagement.vue')
 const SocialOrganization = () => import('./sub-pages/civilization-acount-management/SocialOrganization.vue')
@@ -109,4 +113,6 @@ export {
     QrCode,
     AllAccount,
     AddOrganization,
+    AreaCreateUserAcount,
+    AreaOptionLog,
 }
