@@ -75,14 +75,16 @@ export default {
         {
           path: "/SystemIndex",
           name: "系统首页",
-          id: -1
+          id: -1,
+          check: true
         }
       ],
       rootlist: [
         {
           path: "/SystemIndex",
           name: "系统首页",
-          id: -1
+          id: -1,
+          check: true
         }
       ],
       routerList: [
@@ -145,12 +147,6 @@ export default {
               name: "用户列表",
               check: false,
               id: 8
-            },
-            {
-              path: "/DenghuoUserListManagement",
-              name: "用户详情",
-              check: false,
-              id: 9
             }
           ]
         },
@@ -163,25 +159,19 @@ export default {
               path: "/OrganizationCheckin",
               name: "组织入驻审核",
               check: false,
-              id: 10
+              id: 9
             },
             {
               path: "/OrganizationList",
               name: "组织列表",
               check: false,
-              id: 11
-            },
-            {
-              path: "/OrganizationDetails",
-              name: "组织详情",
-              check: false,
-              id: 12
+              id: 10
             },
             {
               path: "/AddOrganization",
               name: "新增组织",
               check: false,
-              id: 13
+              id: 11
             }
           ]
         },
@@ -194,19 +184,19 @@ export default {
               path: "/AdvertisingManagement",
               name: "广告位管理",
               check: false,
-              id: 14
+              id: 12
             },
             {
               path: "/SystemMsgManagement",
               name: "系统信息管理",
               check: false,
-              id: 15
+              id: 13
             },
             {
               path: "/ActivitiesManagement",
               name: "活动管理",
               check: false,
-              id: 16
+              id: 14
             }
           ]
         },
@@ -218,55 +208,55 @@ export default {
               path: "/OrderCheck",
               name: "订单审批",
               check: false,
-              id: 17
+              id: 15
             },
             {
               path: "/BackCashCheck",
               name: "回款审批",
               check: false,
-              id: 18
+              id: 16
             },
             {
               path: "/RefundCheck",
               name: "退款审批",
               check: false,
-              id: 19
+              id: 17
             },
             {
               path: "/ReimbursementCheck",
               name: "报销审批",
               check: false,
-              id: 20
+              id: 18
             },
             {
               path: "/LeaveCheck",
               name: "请假审批",
               check: false,
-              id: 21
+              id: 19
             },
             {
               path: "/BusinesstripCheck",
               name: "出差审批",
               check: false,
-              id: 22
+              id: 20
             },
             {
               path: "/BorrowCheck",
               name: "借款审批",
               check: false,
-              id: 23
+              id: 21
             },
             {
               path: "/InstructionsCheck",
               name: "请示审批",
               check: false,
-              id: 24
+              id: 22
             },
             {
               path: "/VisitCheck",
               name: "拜访审批",
               check: false,
-              id: 25
+              id: 23
             }
           ]
         },
@@ -279,19 +269,19 @@ export default {
               path: "/IndustryCommittee",
               name: "业委会工作台审核",
               check: false,
-              id: 26
+              id: 24
             },
             {
               path: "/SocialOrganization",
               name: "社会组织工作台审核",
               check: false,
-              id: 27
+              id: 25
             },
             {
               path: "/WorkbenchManagement",
               name: "工作台管理",
               check: false,
-              id: 28
+              id: 26
             }
           ]
         },
@@ -304,7 +294,7 @@ export default {
               path: "/TransactionManagement",
               name: "事务管理",
               check: false,
-              id: 29
+              id: 27
             }
           ]
         }
@@ -314,7 +304,19 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      this.rootlist = JSON.parse(localStorage.getItem("rootlist"));
+      let list = JSON.parse(localStorage.getItem("rootlist"));
+      if (list) {
+        this.rootlist = list;
+        this.selectList = list;
+        for (let i = 1; i < list.length; i++) {
+          this.a_index.push(list[i].id);
+          this.routerList.map(res => {
+            res.children.map(ref =>
+              ref.id == list[i].id ? (ref.check = true) : ref
+            );
+          });
+        }
+      }
     },
     showdialog() {
       this.setmsg = true;
@@ -325,52 +327,67 @@ export default {
     },
     boxClose() {
       this.setmsg = false;
+      this.getBreadcrumb();
+    },
+    _json(e) {
+      return JSON.parse(JSON.stringify(e));
     },
     handleCheckedCitiesChange(index, is, citem) {
-      let ary = this.a_index;
+      let ary = this._json(this.a_index);
+      let ars = this._json(this.selectList);
       ary.push(citem.id);
-      ary = [...new Set(ary)];
-
+      ary = this.distinct(ary);
       // 选中 el-checkbox 自动 改变
       if (citem.check) {
-        console.log("选中");
-        this.selectList.push(citem);
+        ars.push(citem);
       } else {
-        console.log("取消");
         for (let i = 0; i < ary.length; i++) {
           if (ary[i] == citem.id) {
             ary.splice(i, 1);
-            this.selectList.splice(i, 1);
+            ars.splice(i, 1);
           }
         }
       }
       this.a_index = ary;
+      this.selectList = ars;
       if (ary.length > 10) {
-        this.a_index.splice(0,10)
-        this.selectList.splice(0,10)
+        this.a_index = this._splice(ary);
+        this.selectList = this._splice(ars);
         this.routerList[index].children[is].check = false;
       }
     },
     // 保存
     savesetting() {
       this.rootlist = this.selectList;
-      let rl = JSON.stringify(this.rootlist)
-      localStorage.setItem("rootlist",rl)
+      let rl = JSON.stringify(this.rootlist);
+      localStorage.setItem("rootlist", rl);
       this.boxClose();
     },
-    _splice(ary,index){
-      let arr = []
-      for (let i = 0; i < array.length; i++) {
-        if (i>10) {
-          
+    _splice(ary, index = 10) {
+      let arr = [];
+      for (let i = 0; i < index; i++) {
+        arr.push(ary[i]);
+      }
+      return arr;
+    },
+    // 去重
+    distinct(a, b = []) {
+      let arr = a.concat(b);
+      let result = [];
+      let obj = {};
+      for (let i of arr) {
+        if (!obj[i]) {
+          result.push(i);
+          obj[i] = 1;
         }
       }
+      return result;
     },
     // 删除当前标签
     delecttitle(index, item) {
       let ai = [];
       let sl = [];
-      for (let i = 0; i < this.a_index.length; i++) {
+      for (let i = 0; i < this.selectList.length; i++) {
         if (index != i) {
           ai.push(this.a_index[i]);
           sl.push(this.selectList[i]);
@@ -380,7 +397,7 @@ export default {
       this.selectList = sl;
       this.routerList.map(res => {
         res.children.map(ref =>
-          ref.id == item.id ? (ref.check = false) : (ref.check = ref.check)
+          ref.id == item.id ? (ref.check = false) : ref
         );
       });
     }

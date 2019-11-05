@@ -133,10 +133,6 @@ const router = new VueRouter({
 							name: '用户列表 ',
 							component: UsersList,
 						}, {
-							path: '/DenghuoUserListManagementHome',
-							name: '用户详情 ',
-							component: DenghuoUserListManagement,
-						}, {
 							path: '/OrganizationCheckinHome',
 							name: '组织入驻审核 ',
 							component: OrganizationCheckin,
@@ -144,11 +140,7 @@ const router = new VueRouter({
 							path: '/OrganizationListHome',
 							name: '组织列表 ',
 							component: OrganizationList,
-						}, {
-							path: '/OrganizationDetailsHome',
-							name: '组织详情 ',
-							component: OrganizationDetails
-						}, {
+						},{
 							path: '/AddOrganizationHome',
 							name: '新增组织 ',
 							component: AddOrganization
