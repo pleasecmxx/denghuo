@@ -8,7 +8,6 @@ Vue.use(VueRouter)
 import {
 	Home,
 	Login,
-	Register,
 	RootView,
 	OperationAcountManagement,
 	DenghuoContentManagement,
@@ -56,11 +55,10 @@ import {
 	RefundCheck,
 	ReimbursementCheck,
 	VisitCheck,
-	QrCode,
 	AllAccount,
 	AddOrganization,
 	AreaCreateUserAcount,
-    AreaOptionLog,
+	AreaOptionLog,
 } from './../page'
 
 
@@ -142,7 +140,7 @@ const router = new VueRouter({
 							path: '/OrganizationListHome',
 							name: '组织列表 ',
 							component: OrganizationList,
-						},{
+						}, {
 							path: '/AddOrganizationHome',
 							name: '新增组织 ',
 							component: AddOrganization
@@ -419,15 +417,7 @@ const router = new VueRouter({
 			path: '/',
 			name: '登录',
 			component: Login,
-		}, {
-			path: '/register',
-			name: '注册账号',
-			component: Register,
-		}, {
-			path: '/QrCode',
-			name: '二维码上传',
-			component: QrCode,
-		},
+		}
 	]
 })
 

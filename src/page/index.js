@@ -1,5 +1,4 @@
 const Login = () => import('./user-model/Login.vue')
-const Register = () => import('./user-model/Register.vue')
 const Home = () => import('./index-pages/Home.vue')
 const RootView = () => import('./Root.vue')
 const OperationAcountManagement = () => import('./index-pages/OperationAcountManagement.vue')
@@ -56,13 +55,11 @@ const TransactionManagement = () => import('./sub-pages/civilization-content-man
 
 
 const AddOrganization = () => import('./sub-pages/denghuo-organization-management/AddOrganization.vue')
-// h5
-const QrCode = () => import('./h5/QrCode.vue')
+
 
 export {
     Home,
     Login,
-    Register,
     RootView,
     OperationAcountManagement,
     DenghuoContentManagement,
@@ -110,7 +107,6 @@ export {
     RefundCheck,
     ReimbursementCheck,
     VisitCheck,
-    QrCode,
     AllAccount,
     AddOrganization,
     AreaCreateUserAcount,

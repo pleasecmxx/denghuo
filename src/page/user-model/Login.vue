@@ -22,9 +22,7 @@
     </div>
     <div class="login-content">
       <div class="content-top">
-        <div class="logo">
-          <img class="img-logo" src="./../../assets/login-logo.png" />
-        </div>
+        <img class="img-logo" src="./../../assets/login-logo.png" />
         <h4 class="text">文明社区后台管理系统</h4>
       </div>
       <div class="content-bottom">
@@ -39,9 +37,6 @@
             class="login-input"
             v-model="userName"
           />
-          <div class="delate-icon-container">
-            <i v-show="userName.length > 0" class="el-icon-error" @click="clearName()"></i>
-          </div>
         </div>
         <div class="login-input-content">
           <div class="login-icon-container">
@@ -52,25 +47,17 @@
             maxlength="4"
             placeholder="请输入短信验证码"
             class="login-input"
-            style="width:280px;margin:0 20px 0 0"
+            style="width:230px;"
             v-model="userCode"
             :clearable="false"
           />
           <el-button
-            style="height:50px;z-index: 999;"
+            class="code_botton"
             plain
             @click="getcode()"
           >{{ time == 0 ? "发送验证码" : this.time+"s" }}</el-button>
-          <div class="delate-icon-container" style>
-            <i v-show="userCode.length > 0" class="el-icon-error" @click="clearPass()"></i>
-          </div>
         </div>
-        <el-button
-          :loading="loading"
-          type="danger"
-          @click="login()"
-          style="width:360px;height:52px"
-        >
+        <el-button :loading="loading" type="danger" @click="login()" style="width:100%;height:52px">
           <span style="font-size:20px">登录</span>
         </el-button>
       </div>
@@ -169,7 +156,7 @@ export default {
               this.$message({
                 message: "恭喜你，发送短信验证码成功",
                 type: "success"
-              })
+              });
             } else {
               this.$message.error("发送短信失败，请重试");
             }
@@ -234,37 +221,24 @@ export default {
 
 .content-top {
   width: 100%;
-  /* height: 40%; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo {
-  width: 274px;
-  height: 53px;
+  text-align: center;
 }
 
 .img-logo {
   width: 274px;
-  height: auto;
 }
 
 .text {
   color: rgb(215, 26, 26);
   font-size: 36px;
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   font-weight: 700;
   margin-top: 20px;
 }
 
 .content-bottom {
-  margin-top: -60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 360px;
+  float: left;
+  margin: 0 auto;
 }
 
 .login-btn {
@@ -288,40 +262,44 @@ export default {
 }
 
 .login-input-content {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 360px;
+  width: 100%;
   height: 52px;
+  float: left;
   margin-bottom: 24px;
+  position: relative;
 }
 
 .login-input {
-  width: 358px;
-  height: 48px;
-  border: 1px solid #d1d1d1;
+  box-sizing: border-box;
+  width: 100%;
+  height: 52px;
+  border: 1px solid #dcdfe6;
   outline: none;
   border-radius: 4px;
   transition: all ease-in 0.25s;
   padding-left: 50px;
-  /* padding-right: 50px; */
-  font-size: 15px;
-  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  color: #606266;
 }
 
 .login-input:-moz-placeholder {
-  color: rgb(173, 173, 173);
+  color: #dcdfe6;
 }
 
 .login-input:hover {
-  border: 1px solid rgb(47, 179, 255);
+  border: 1px solid #409eff;
 }
 
 .login-input:active,
 .login-input:focus {
-  border: 1px solid rgb(47, 179, 255);
-  box-shadow: 0 0 7px rgba(255, 0, 0, 0.1);
+  border: 1px solid #409eff;
+}
+
+.code_botton {
+  float: right;
+  height: 52px;
+  min-width: 112px;
 }
 
 .login-icon-container {
@@ -333,25 +311,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #333 */
-}
-
-.delate-icon-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 52px;
-  width: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .login-icon {
-  width: 25px;
-}
-
-.delate-icon {
   width: 25px;
 }
 </style>
