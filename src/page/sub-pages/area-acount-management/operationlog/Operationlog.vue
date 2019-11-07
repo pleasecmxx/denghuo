@@ -3,9 +3,8 @@
   <el-dialog
     title="操作日志"
     :visible.sync="dialogVisible"
-    width="40%"
+    width="60%"
     :before-close="handleClose"
-    :modal="false"
   >
     <div class="mian">
       <div class="topBar">
@@ -143,11 +142,7 @@ export default {
       this.dialogVisible = true;
     },
     handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
+      done();
     },
     toggleSelection(rows) {
       if (rows) {

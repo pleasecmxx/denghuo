@@ -5,7 +5,12 @@
       <div class="searchBox">
         <span>
           <el-input v-model="search.keyWord" placeholder="搜索关键词" style="width:300px;"></el-input>
-          <el-select v-model="search.status" placeholder="用户状态" style="margin-left:10px;">
+          <el-select
+            v-if="type == 0"
+            v-model="search.status"
+            placeholder="用户状态"
+            style="margin-left:10px;"
+          >
             <el-option
               v-for="(item,index) in options"
               :key="index"
@@ -29,10 +34,12 @@
         <el-button type="primary">
           <span style="color:#fff;">编辑权限</span>
         </el-button>
-        <el-button type="primary" @click="add">
-          <i class="el-icon-plus" style="color:#fff;"></i>
-          <span style="color:#fff;">新增</span>
-        </el-button>
+        <router-link to="/AreaCreateUserAcount">
+          <el-button type="primary">
+            <i class="el-icon-plus" style="color:#fff;"></i>
+            <span style="color:#fff;">新增</span>
+          </el-button>
+        </router-link>
       </div>
     </div>
     <el-table
@@ -49,17 +56,17 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="账户名称">
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.name}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column label="账号" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.account}}</span>
+          <span>{{scope.row.account}}</span>
         </template>
       </el-table-column>
       <el-table-column label="管理区域" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.managmentArea}}</span>
+          <span>{{scope.row.managmentArea}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="accountStatus" label="账户状态" show-overflow-tooltip>
@@ -77,21 +84,21 @@
       </el-table-column>
       <el-table-column label="联系方式" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.phone}}</span>
+          <span>{{scope.row.phone}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="lastEdit" label="最后编辑人" show-overflow-tooltip></el-table-column>
       <el-table-column prop="timeTo" label="有效期至" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="operating" label="操作" show-overflow-tooltip width="500">
+      <el-table-column prop="operating" label="操作" show-overflow-tooltip min-width="230">
         <template slot-scope="scope">
           <span style="margin-left:10px;" @click="look(scope.$index, scope.row)">
             <i class="el-icon-chat-line-round" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">查看</span>
           </span>
-          <span style="margin-left:10px;" @click="openDary(scope.$index, scope.row)">
+          <!-- <span style="margin-left:10px;" @click="openDary(scope.$index, scope.row)">
             <i class="el-icon-chat-line-round" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">操作日志</span>
-          </span>
+          </span> -->
           <span style="margin-left:10px;" @click="extend(scope.$index, scope.row)">
             <i class="el-icon-edit" style="color:#0079fe;"></i>
             <span style="color:#0079fe;">延长有效期</span>
@@ -138,20 +145,25 @@
           :total="search.total"
         ></el-pagination>
       </div>
-      <editDialog ref="editDialog" />
+      <UserDetails ref="UserDetails" />
       <Operationlog ref="Operationlog" />
     </div>
   </div>
 </template>
 <script>
-import editDialog from "./../editDialog/editDialog";
+import UserDetails from "./../children/UserDetails";
 import Operationlog from "./../operationlog/Operationlog"; //操作日志
 
 export default {
   name: "InUseAccount",
   components: {
-    editDialog,
+    UserDetails,
     Operationlog
+  },
+  props: {
+    type: {
+      default: 0
+    }
   },
   data() {
     return {
@@ -192,13 +204,17 @@ export default {
           phone: "13657448974",
           lastEdit: "某负责人",
           timeTo: "2019-10-10"
-        },
+        }
       ],
       multipleSelection: []
     };
   },
   watch: {},
   methods: {
+    // 查看
+    look(){
+      this.$refs.UserDetails.open({});
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -248,10 +264,6 @@ export default {
       if (this.pagingState) {
         this.search.pageNo = 1;
       }
-    },
-    // 新建
-    add() {
-      this.$refs.editDialog.open();
     },
     // 删除当前项
     remove(index, row) {
