@@ -43,7 +43,6 @@
             <i v-show="userName.length > 0" class="el-icon-error" @click="clearName()"></i>
           </div>
         </div>
-        <!-- <span>{{userName}}</span> -->
         <div class="login-input-content">
           <div class="login-icon-container">
             <img class="login-icon" src="./../../assets/icons/password.png" />
@@ -88,7 +87,7 @@ export default {
   name: "Login",
   data() {
     return {
-      userName: "15774063795",
+      userName: "",
       userCode: "",
       time: 0,
       loading: false,
