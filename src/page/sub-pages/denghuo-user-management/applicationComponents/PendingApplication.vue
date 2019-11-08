@@ -15,18 +15,18 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column label="用户姓名" width="120">
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.name}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column label="用户身份证号" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.idCard}}</span>
+          <span>{{scope.row.idCard}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="phone" label="手机号" show-overflow-tooltip></el-table-column>
       <el-table-column prop="orgnzation" label="组织名称" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.phone}}</span>
+          <span>{{scope.row.phone}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="putTime" label="提交时间" show-overflow-tooltip></el-table-column>
@@ -41,8 +41,14 @@
       <el-table-column prop="dealTime" label="处理时间" show-overflow-tooltip></el-table-column>
       <el-table-column prop="result" label="处理结果" show-overflow-tooltip></el-table-column>
       <el-table-column prop="operator" label="操作人员" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="operating" label="操作" show-overflow-tooltip>
+      <el-table-column prop="operating" label="操作" show-overflow-tooltip min-width="120">
         <template slot-scope="scope">
+          <span @click="remove(scope.$index, scope.row)" style="color:#0079fe;">
+            <i class="el-icon-delete" />同意
+          </span>
+          <span @click="remove(scope.$index, scope.row)" style="color:#0079fe;">
+            <i class="el-icon-delete" />驳回
+          </span>
           <span @click="remove(scope.$index, scope.row)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除
           </span>
@@ -51,7 +57,7 @@
     </el-table>
     <div class="underTable">
       <div>
-        <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
+        <!-- <el-button @click="toggleSelection(tableData)">全选&反选</el-button>
         <el-button @click="toggleSelection()">取消选择</el-button>
         <el-dropdown style="margin-left:10px;" @command="handleCommand">
           <el-button style="width:105px;">
@@ -62,7 +68,7 @@
             <el-dropdown-item command="1">置顶记录</el-dropdown-item>
             <el-dropdown-item command="2">删除记录</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown> -->
       </div>
       <div>
         <el-pagination
@@ -121,118 +127,6 @@ export default {
           operator: "王小2",
           id: 2
         },
-        {
-          name: "王小3",
-          date: "2016-05-03",
-          idCard: "王小3",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小3",
-          id: 3
-        },
-        {
-          name: "王小4",
-          date: "2016-05-03",
-          idCard: "王小4",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小4",
-          id: 4
-        },
-        {
-          name: "王小5",
-          date: "2016-05-03",
-          idCard: "王小5",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小5",
-          id: 5
-        },
-        {
-          name: "王小6",
-          date: "2016-05-03",
-          idCard: "王小4",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小4",
-          id: 6
-        },
-        {
-          name: "王小7",
-          date: "2016-05-03",
-          idCard: "王小5",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小5",
-          id: 7
-        },
-        {
-          name: "王小8",
-          date: "2016-05-03",
-          idCard: "王小4",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小4",
-          id: 8
-        },
-        {
-          name: "王小9",
-          date: "2016-05-03",
-          idCard: "王小5",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小5",
-          id: 9
-        },
-        {
-          name: "王小10",
-          date: "2016-05-03",
-          idCard: "王小4",
-          phone: "13685472499",
-          orgnzation: 1,
-          putTime: "2019-08-27",
-          data: "22.jpg",
-          type: "无事务",
-          dealTime: "2019-08-27",
-          result: "成功",
-          operator: "王小4",
-          id: 10
-        }
       ],
       multipleSelection: []
     };

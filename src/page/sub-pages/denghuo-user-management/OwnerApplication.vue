@@ -7,7 +7,7 @@
         <el-tab-pane label="待审核申请" name="PendingApplication" style="height:100%;">
           <PendingApplication />
         </el-tab-pane>
-        <el-tab-pane label="审核历史记录" name="HistoryRecord">
+        <el-tab-pane label="审核历史记录" name="HistoryRecord" style="height:100%;">
           <HistoryRecord/>
         </el-tab-pane>
       </el-tabs>

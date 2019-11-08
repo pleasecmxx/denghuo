@@ -2,12 +2,8 @@
   <div class="page">
     <div class="header">
       <div class="header-left">
-        <div class="logo">
-          <img class="main-logo" src="./../assets/main-logo.png" />
-        </div>
-        <div class="header-title">
-          <p class="header-title-text">文明社区后台管理系统</p>
-        </div>
+        <img class="main-logo" src="./../assets/main-logo.png" />
+        <p class="header-title-text">文明社区后台管理系统</p>
       </div>
 
       <div class="header-right">
@@ -58,48 +54,20 @@
 
     <div class="app_main">
       <div class="slider-mue">
-        <router-link class="slider-menu" tag="div" to="/home">
-          <i class="el-icon-menu"></i>
-          <p class="menu-text">快捷菜单</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/operation-acount-management">
-          <i class="el-icon-edit-outline"></i>
-          <p class="menu-text">平台运营账号管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/area-acount-management">
-          <i class="el-icon-edit-outline"></i>
-          <p class="menu-text">地区运营账号管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/denghuo-user-management">
-          <i class="el-icon-mobile-phone"></i>
-          <p class="menu-text">灯火端用户管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/denghuo-organization-management">
-          <i class="el-icon-document"></i>
-          <p class="menu-text">灯火端组织管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/denghuo-content-management">
-          <i class="el-icon-printer"></i>
-          <p class="menu-text">灯火端内容管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/wenming-user-management">
-          <i class="el-icon-edit"></i>
-          <p class="menu-text">文明端用户管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/civilization-acount-management">
-          <i class="el-icon-edit"></i>
-          <p class="menu-text">文明端账户管理</p>
-        </router-link>
-        <router-link class="slider-menu" tag="div" to="/civilization-content-management">
-          <i class="el-icon-edit"></i>
-          <p class="menu-text">文明端事务管理</p>
-        </router-link>
+        <div
+          v-for="(item,index) in vmroot"
+          :key="index"
+          :class="[slidermenu ,item.active ? slideractive : '']"
+          @click="sideractive(item,index)"
+        >
+          <i :class="item.icon"></i>
+          <p class="menu-text">{{item.name}}</p>
+        </div>
       </div>
       <div class="page-content">
         <router-view></router-view>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -152,13 +120,77 @@ export default {
           label: "退出登录"
         }
       ],
-      value: ""
+      value: "",
+      vmroot: [
+        {
+          name: "快捷菜单",
+          icon: "el-icon-menu",
+          path: "home",
+          active: true
+        },
+        {
+          name: "平台运营账号管理",
+          icon: "el-icon-edit-outline",
+          path: "operation-acount-management",
+          active: false
+        },
+        {
+          name: "地区运营账号管理",
+          icon: "el-icon-edit-outline",
+          path: "area-acount-management",
+          active: false
+        },
+        {
+          name: "灯火端用户管理",
+          icon: "el-icon-mobile-phone",
+          path: "denghuo-user-management",
+          active: false
+        },
+        {
+          name: "灯火端组织管理",
+          icon: "el-icon-document",
+          path: "denghuo-organization-management",
+          active: false
+        },
+        {
+          name: "灯火端内容管理",
+          icon: "el-icon-printer",
+          path: "denghuo-content-management",
+          active: false
+        },
+        {
+          name: "文明端用户管理",
+          icon: "el-icon-edit",
+          path: "wenming-user-management",
+          active: false
+        },
+        {
+          name: "文明端账户管理",
+          icon: "el-icon-edit",
+          path: "civilization-acount-management",
+          active: false
+        },
+        {
+          name: "文明端事务管理",
+          icon: "el-icon-edit",
+          path: "civilization-content-management",
+          active: false
+        }
+      ],
+      slidermenu: "slider-menu",
+      slideractive: "slider-active"
     };
   },
   mounted() {
     // this.message();
   },
   methods: {
+    sideractive(item, index) {
+      this.$router.push("/" + item.path);
+      this.vmroot.map((item, i) =>
+        index == i ? (item.active = true) : (item.active = false)
+      );
+    },
     message() {
       let i = -1;
       if (this.timer) return;
@@ -193,51 +225,44 @@ a {
 }
 
 i {
-  color: #666666;
+  color: #cccccc;
 }
 
 .header {
   width: 100%;
   height: 52px;
   background-color: rgba(55, 61, 65);
-  min-width: 1080px !important;
+  min-width: 1180px !important;
 }
 
 .header-left {
-  width: 40%;
+  width: 430px;
+  line-height: 52px;
   height: 52px;
   float: left;
 }
 
-.logo {
-  margin-left: 20px;
-  float: left;
-}
-
 .main-logo {
-  width: 260px;
-  height: 48px;
-  float: left;
-}
-
-.header-title {
-  line-height: 52px;
+  width: 195px;
+  height: 36px;
+  margin: 8px 5px 0 20px;
   float: left;
 }
 
 .header-title-text {
-  width: 215px;
   font-size: 18px;
   font-weight: 600;
   color: #e4e4e4;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  margin: 0;
+  float: left;
 }
 
 .header-right {
   float: right;
   line-height: 52px;
   height: 52px;
-  width: 60%;
+  width: 735px;
 }
 
 .header-search-content {
@@ -264,7 +289,6 @@ i {
 }
 
 .search-input::-webkit-input-placeholder {
-  /* WebKit browsers */
   color: #fff;
   opacity: 0.7;
   font-size: 12px;
@@ -332,7 +356,6 @@ i {
 .header-info-items:hover > i,
 .header-info-items:hover > .header-info-items-p {
   color: #ffffff;
-  /* text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6); */
 }
 
 .page {
@@ -366,7 +389,6 @@ i {
   height: 70px;
   display: flex;
   flex-direction: column;
-  /* color: #ffffff; */
   justify-content: center;
   cursor: pointer;
   margin-bottom: 6px;
@@ -375,21 +397,23 @@ i {
 
 .menu-text {
   font-size: 14px;
-  color: #bbbbbb;
+  color: #cccccc;
 }
 
-.slider-menu:hover {
-  background-color: rgb(65, 69, 82);
+.slider-active {
+  background: #1a1c22;
+}
+
+.slider-active i,
+.slider-active p {
+  color: #fff;
+  text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
 }
 
 .slider-menu:hover > i,
 .slider-menu:hover > .menu-text {
   color: #ffffff;
   text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
-}
-
-.slider-menu.router-link-exact-active.router-link-active {
-  background-color: rgb(65, 69, 82);
 }
 
 </style>

@@ -10,16 +10,16 @@
         <el-tab-pane label="游客列表" name="PendingApplication" style="height:100%;">
           <Touristlist />
         </el-tab-pane>
-        <el-tab-pane label="实名无组织用户" name="second">
+        <el-tab-pane label="实名无组织用户" name="second"  style="height:100%;">
           <RealNameUnorganized />
         </el-tab-pane>
-        <el-tab-pane label="实名有组织用户" name="three">
+        <el-tab-pane label="实名有组织用户" name="three"  style="height:100%;">
           <RealNameOrganized />
         </el-tab-pane>
-        <el-tab-pane label="禁言列表" name="four">
+        <el-tab-pane label="禁言列表" name="four"  style="height:100%;">
           <Banned />
         </el-tab-pane>
-        <el-tab-pane label="黑名单" name="five">
+        <el-tab-pane label="黑名单" name="five"  style="height:100%;">
           <blacklist />
         </el-tab-pane>
       </el-tabs>

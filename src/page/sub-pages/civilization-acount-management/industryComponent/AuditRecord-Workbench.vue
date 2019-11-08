@@ -73,7 +73,7 @@
           <span>{{scope.row.state==1?"申请中" :scope.row.state==2 ?"申请通过":"申请未通过"}}</span>
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip label="操作" fixed="right" min-width="120" >
+      <el-table-column show-overflow-tooltip label="操作" min-width="120" >
         <template slot-scope="scope">
           <span @click="get_remove(scope.row.uid)" style="color:#0079fe;">
             <i class="el-icon-delete" />删除
@@ -91,8 +91,8 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu>
-            <el-dropdown-item command="1">同意</el-dropdown-item>
-            <el-dropdown-item command="2">驳回</el-dropdown-item>
+            <!-- <el-dropdown-item command="1">同意</el-dropdown-item>
+            <el-dropdown-item command="2">驳回</el-dropdown-item> -->
             <el-dropdown-item command="3">删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
