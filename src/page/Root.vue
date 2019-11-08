@@ -16,7 +16,7 @@
             <i class="el-icon-message"></i>
             <p class="header-info-items-p">消息</p>
           </div>
-          <div class="header-info-items" title="一键锁屏">
+          <div class="header-info-items" @click="lockscreen()" title="一键锁屏">
             <i class="el-icon-view"></i>
             <p class="header-info-items-p">锁屏</p>
           </div>
@@ -51,7 +51,6 @@
         </div>
       </div>
     </div>
-
     <div class="app_main">
       <div class="slider-mue">
         <div
@@ -178,13 +177,18 @@ export default {
         }
       ],
       slidermenu: "slider-menu",
-      slideractive: "slider-active"
+      slideractive: "slider-active",
     };
   },
   mounted() {
     // this.message();
   },
   methods: {
+    // 锁屏
+    lockscreen(){
+      this.$router.push("/LockScreen")
+    },
+    // 切换menu
     sideractive(item, index) {
       this.$router.push("/" + item.path);
       this.vmroot.map((item, i) =>
@@ -415,5 +419,4 @@ i {
   color: #ffffff;
   text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.6);
 }
-
 </style>

@@ -1,4 +1,5 @@
 const Login = () => import('./user-model/Login.vue')
+const LockScreen = () => import('./user-model/LockScreen.vue')
 const Home = () => import('./index-pages/Home.vue')
 const RootView = () => import('./Root.vue')
 const OperationAcountManagement = () => import('./index-pages/OperationAcountManagement.vue')
@@ -60,6 +61,7 @@ const AddOrganization = () => import('./sub-pages/denghuo-organization-managemen
 export {
     Home,
     Login,
+    LockScreen,
     RootView,
     OperationAcountManagement,
     DenghuoContentManagement,

@@ -8,6 +8,7 @@ Vue.use(VueRouter)
 import {
 	Home,
 	Login,
+	LockScreen,
 	RootView,
 	OperationAcountManagement,
 	DenghuoContentManagement,
@@ -417,7 +418,11 @@ const router = new VueRouter({
 			path: '/',
 			name: '登录',
 			component: Login,
-		}
+		}, {
+			path: '/LockScreen',
+			name: '锁屏',
+			component: LockScreen,
+		},
 	]
 })
 
