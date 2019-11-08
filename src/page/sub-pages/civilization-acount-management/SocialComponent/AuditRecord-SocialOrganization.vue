@@ -27,33 +27,21 @@
       v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column prop="applyUserUid" label="申请人" show-overflow-tooltip>
-        <!-- <template slot-scope="scope">
-          <span >{{scope.row.applyUserUid}}</span>
-        </template>-->
-      </el-table-column>
-      <el-table-column label="申请人身份" show-overflow-tooltip>
+      <el-table-column prop="applyUserUid" label="申请人" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="uid" label="申请人身份" show-overflow-tooltip>
         <template slot-scope="scope">
-          <span>{{_identity(scope.row.identity)}}</span>
+          <span style="color:#0079fe;">{{scope.row.uid}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop label="申请人联系电话" show-overflow-tooltip></el-table-column>
-      <el-table-column label="所属组织" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span>{{scope.row.type == 1 ? "会议筹备组" : "业主委员会"}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="stage" label="届数/筹备阶段" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="startDate" label="任期时间/筹备组成立时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="peopleCount" label="备案人数/筹备组人数" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="name" label="主任姓名/组长姓名" show-overflow-tooltip></el-table-column>
       <el-table-column prop="phone" label="联系电话" show-overflow-tooltip></el-table-column>
-      <el-table-column label="备案公函" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span style="color:#0079fe;" v-for="(item,index) in scope.row.files" :key="index">{{item}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column  prop="applicantPhone" label="服务范围/管理范围" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="stage" label="企业名称/单位名称" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="startDate" label="社会信用代码/组织机构代码" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="peopleCount" label="地理位置" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="name" label="营业执照/组织机构代码证" show-overflow-tooltip></el-table-column>
       <el-table-column prop="letterFile" label="账户授权公函" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="letterFile" label="备案公函" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="ReviewMan" label="团队面貌图" show-overflow-tooltip></el-table-column>
       <el-table-column prop label="审核人员" show-overflow-tooltip></el-table-column>
       <el-table-column prop="updatedAt" label="审核时间" show-overflow-tooltip></el-table-column>
       <el-table-column label="审核结果" show-overflow-tooltip>

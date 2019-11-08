@@ -52,7 +52,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="validityPeriod" label="账户有效期" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="position" label="权限编辑" show-overflow-tooltip>
+      <el-table-column prop="position" label="权限编辑" show-overflow-tooltip min-width="100" >
         <template slot-scope="scope">
           <span>权限等级</span>
           <span @click="edit(scope.$index, scope.row)" style="color:#0079fe;margin-left:10px;">
@@ -87,8 +87,8 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu>
-            <el-dropdown-item command="1">同意</el-dropdown-item>
-            <el-dropdown-item command="2">驳回</el-dropdown-item>
+            <!-- <el-dropdown-item command="1">同意</el-dropdown-item>
+            <el-dropdown-item command="2">驳回</el-dropdown-item> -->
             <el-dropdown-item command="3">删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>

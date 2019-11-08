@@ -60,6 +60,7 @@
           @click="sideractive(item,index)"
         >
           <i :class="item.icon"></i>
+
           <p class="menu-text">{{item.name}}</p>
         </div>
       </div>
@@ -82,51 +83,22 @@ export default {
     return {
       timer: null,
       messageList: [
-        {
-          message: "消息1"
-        },
-        {
-          message: "消息2"
-        },
-        {
-          message: "消息3"
-        },
-        {
-          message: "消息4"
-        },
-        {
-          message: "消息5"
-        },
-        {
-          message: "消息6"
-        }
+        { message: "消息1" },
+        { message: "消息2" },
+        { message: "消息3" },
+        { message: "消息4" },
+        { message: "消息5" },
+        { message: "消息6" }
       ],
       options: [
-        {
-          value: "选项1",
-          label: "修改资料"
-        },
-        {
-          value: "选项2",
-          label: "修改头像"
-        },
-        {
-          value: "选项3",
-          label: "修改密码"
-        },
-        {
-          value: "选项4",
-          label: "退出登录"
-        }
+        { value: "选项1", label: "修改资料" },
+        { value: "选项2", label: "修改头像" },
+        { value: "选项3", label: "修改密码" },
+        { value: "选项4", label: "退出登录" }
       ],
       value: "",
       vmroot: [
-        {
-          name: "快捷菜单",
-          icon: "el-icon-menu",
-          path: "home",
-          active: true
-        },
+        { name: "快捷菜单", icon: "el-icon-menu", path: "home", active: true },
         {
           name: "平台运营账号管理",
           icon: "el-icon-edit-outline",
@@ -177,7 +149,7 @@ export default {
         }
       ],
       slidermenu: "slider-menu",
-      slideractive: "slider-active",
+      slideractive: "slider-active"
     };
   },
   mounted() {
@@ -185,8 +157,8 @@ export default {
   },
   methods: {
     // 锁屏
-    lockscreen(){
-      this.$router.push("/LockScreen")
+    lockscreen() {
+      this.$router.push("/LockScreen");
     },
     // 切换menu
     sideractive(item, index) {

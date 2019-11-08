@@ -62,13 +62,13 @@
           >{{ scope.row.letterFile ? "查看1张" : "无" }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="ReviewMan" label="审核人员" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="ReviewTime" label="审核时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="state" label="审核结果" show-overflow-tooltip>
+      <!-- <el-table-column prop="ReviewMan" label="审核人员" show-overflow-tooltip></el-table-column> -->
+      <!-- <el-table-column prop="ReviewTime" label="审核时间" show-overflow-tooltip></el-table-column> -->
+      <!-- <el-table-column prop="state" label="审核结果" show-overflow-tooltip>
         <template slot-scope="scope">
           <span>{{scope.row.state==1?"申请中" :scope.row.state==2 ?"申请通过":"申请未通过"}}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="操作" show-overflow-tooltip  fixed="right" min-width="200" >
         <template slot-scope="scope">
           <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">

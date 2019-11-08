@@ -27,36 +27,21 @@
       v-loading="loading"
       :header-cell-style="{background:'rgb(245,245,245)'}"
     >
-      <el-table-column prop="applyUserUid" label="申请人" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.applyUserUid}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="applyUserUid" label="申请人" show-overflow-tooltip></el-table-column>
       <el-table-column prop="uid" label="申请人身份" show-overflow-tooltip>
         <template slot-scope="scope">
           <span style="color:#0079fe;">{{scope.row.uid}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="applicantPhone" label="申请人联系电话" show-overflow-tooltip></el-table-column>
-      <el-table-column label="所属组织" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span style="color:#0079fe;">{{scope.row.type == 1 ? "会议筹备组" : "业主委员会"}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="stage" label="届数/筹备阶段" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="startDate" label="任期时间/筹备组成立时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="peopleCount" label="备案人数/筹备组人数" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="name" label="主任姓名/组长姓名" show-overflow-tooltip></el-table-column>
       <el-table-column prop="phone" label="联系电话" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="letterFile" label="备案公函" show-overflow-tooltip></el-table-column>
+      <el-table-column  prop="applicantPhone" label="服务范围/管理范围" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="stage" label="企业名称/单位名称" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="startDate" label="社会信用代码/组织机构代码" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="peopleCount" label="地理位置" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="name" label="营业执照/组织机构代码证" show-overflow-tooltip></el-table-column>
       <el-table-column prop="letterFile" label="账户授权公函" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="ReviewMan" label="审核人员" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="ReviewTime" label="审核时间" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="state" label="审核结果" show-overflow-tooltip>
-        <template slot-scope="scope">
-          <span>{{scope.row.state==1?"申请中" :scope.row.state==2 ?"申请通过":"申请未通过"}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="letterFile" label="备案公函" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="ReviewMan" label="团队面貌图" show-overflow-tooltip></el-table-column>
       <el-table-column align="center" prop="operating" width="180" label="操作">
         <template slot-scope="scope">
           <span @click="get_consent(scope.row.uid)" style="color:#0079fe;">
