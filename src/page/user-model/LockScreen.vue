@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="page">
+  <div class="page">
     <div class="model">
       <div class="content">
         <img
@@ -27,14 +27,18 @@ export default {
     };
   },
   methods: {
-    open() {
-    
-    },
     gopage(p = "/") {
+      this.show = false;
       this.$router.push(p);
     },
-    login(){
-      this.$router.go(-1)
+    login() {
+      this.show = false;
+      this.$router.push("/main");
+    }
+  },
+  beforeDestroy() {
+    if (this.show) {
+      this.$router.go(1);
     }
   }
 };
