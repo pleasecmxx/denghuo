@@ -213,7 +213,8 @@ const router = new VueRouter({
 							component: TransactionManagement,
 						},
 					]
-				}, {
+				},
+				{
 					path: '/operation-acount-management',
 					name: '平台运营账号管理',
 					component: OperationAcountManagement,

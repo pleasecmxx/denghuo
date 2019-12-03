@@ -99,54 +99,54 @@ export default {
       value: "",
       vmroot: [
         { name: "快捷菜单", icon: "el-icon-menu", path: "home", active: true },
-        {
-          name: "平台运营账号管理",
-          icon: "el-icon-edit-outline",
-          path: "operation-acount-management",
-          active: false
-        },
-        {
-          name: "地区运营账号管理",
-          icon: "el-icon-edit-outline",
-          path: "area-acount-management",
-          active: false
-        },
-        {
-          name: "灯火端用户管理",
-          icon: "el-icon-mobile-phone",
-          path: "denghuo-user-management",
-          active: false
-        },
+        // {
+        //   name: "平台运营账号管理",
+        //   icon: "el-icon-edit-outline",
+        //   path: "operation-acount-management",
+        //   active: false
+        // },
+        // {
+        //   name: "地区运营账号管理",
+        //   icon: "el-icon-edit-outline",
+        //   path: "area-acount-management",
+        //   active: false
+        // },
+        // {
+        //   name: "灯火端用户管理",
+        //   icon: "el-icon-mobile-phone",
+        //   path: "denghuo-user-management",
+        //   active: false
+        // },
         {
           name: "灯火端组织管理",
           icon: "el-icon-document",
           path: "denghuo-organization-management",
           active: false
         },
-        {
-          name: "灯火端内容管理",
-          icon: "el-icon-printer",
-          path: "denghuo-content-management",
-          active: false
-        },
-        {
-          name: "文明端用户管理",
-          icon: "el-icon-edit",
-          path: "wenming-user-management",
-          active: false
-        },
+        // {
+        //   name: "灯火端内容管理",
+        //   icon: "el-icon-printer",
+        //   path: "denghuo-content-management",
+        //   active: false
+        // },
+        // {
+        //   name: "文明端用户管理",
+        //   icon: "el-icon-edit",
+        //   path: "wenming-user-management",
+        //   active: false
+        // },
         {
           name: "文明端账户管理",
           icon: "el-icon-edit",
           path: "civilization-acount-management",
           active: false
         },
-        {
-          name: "文明端事务管理",
-          icon: "el-icon-edit",
-          path: "civilization-content-management",
-          active: false
-        }
+        // {
+        //   name: "文明端事务管理",
+        //   icon: "el-icon-edit",
+        //   path: "civilization-content-management",
+        //   active: false
+        // }
       ],
       slidermenu: "slider-menu",
       slideractive: "slider-active"
