@@ -98,7 +98,7 @@ export default {
       ],
       value: "",
       vmroot: [
-        { name: "快捷菜单", icon: "el-icon-menu", path: "home", active: true },
+        // { name: "快捷菜单", icon: "el-icon-menu", path: "home", active: true },
         // {
         //   name: "平台运营账号管理",
         //   icon: "el-icon-edit-outline",

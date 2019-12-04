@@ -109,7 +109,7 @@ export default {
         if (res.success) {
           store.commit("saveInfo", res.result);
           store.commit("saveToken", res.result.token);
-          this.$router.push("/main");
+          this.$router.push("/OrganizationCheckin");
         } else {
           this.$notify.error({
             title: "登录失败",
