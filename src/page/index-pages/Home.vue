@@ -5,7 +5,7 @@
         <div class="s-menu-line s-menu-top">
           <i class="el-icon-menu"></i>
           <span class="m-t-text">快捷菜单</span>
-          <i class="el-icon-s-tools" @click="showdialog()"></i>
+          <!-- <i class="el-icon-s-tools" @click="showdialog()"></i> -->
         </div>
       </router-link>
       <router-link

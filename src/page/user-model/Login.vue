@@ -67,7 +67,7 @@
 
 <script>
 import { phoneLogin, sendPhoneCode } from "../../utils/api";
-
+import md5 from "blueimp-md5";
 import store from "../../vuex/store";
 
 export default {
@@ -140,21 +140,27 @@ export default {
         }
         --this.time;
       }, 1000);
+      var d = new Date();
+      let year = d.getFullYear();
+      let month = d.getMonth() + 1;
+      let day = d.getDate();
+      day = day > 9 ? day : "0" + day;
+      const checkKey = md5(`${year}${this.userName}${month}${day}`);
       sendPhoneCode({
         mobile: this.userName,
-        key: "0000"
+        key: checkKey
       }).then(res => {
         console.log(res);
-        if (res) {
+        if (res.success) {
           sendPhoneCode({
             mobile: this.userName,
-            key: res.error.message
+            key: checkKey
           }).then(ref => {
             console.log(ref);
-            if (ref.result) {
-              this.userCode = ref.result + "";
+            if (ref.success) {
+              this.userCode = ref.result;
               this.$message({
-                message: "恭喜你，发送短信验证码成功",
+                message:`恭喜你，发送短信验证码成功`,
                 type: "success"
               });
             } else {
