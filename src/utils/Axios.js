@@ -34,18 +34,18 @@ class Axios {
     try {
       console.log(JSON.stringify(params));
       const response = await instance.get(baseUrl + url, { params });
-      if (response.data.status) {
-        this.status(response.data.error)
-        return;
-      }
+      // if (response.data.status) {
+      //   this.status(response.data.error)
+      //   return;
+      // }
       if (response.data) {
         return response.data
       } else {
-        alert("网络错误，请重试")
+        return { success: false }
       }
     } catch (e) {
       console.log("get+erro", e);
-      return null
+      return { success: false }
     }
   }
 
@@ -53,18 +53,18 @@ class Axios {
     try {
       console.log(JSON.stringify(params));
       const response = await instance.post(baseUrl + url, params);
-      if (response.data.status) {
-        this.status(response.data.error)
-        return;
-      }
+      // if (response.data.status) {
+      //   this.status(response.data.error)
+      //   return;
+      // }
       if (response.data) {
         return response.data;
       } else {
-        alert("网络错误，请重试")
+        return { success: false }
       }
     } catch (e) {
       console.log("post+err", e);
-      return null
+      return { success: false }
     }
   }
 
